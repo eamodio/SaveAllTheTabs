@@ -1,0 +1,18 @@
+Thumbs.db
+
+# Visual Studio user-specific files
+*.suo
+*.user
+*.sln.docstates
+src/.vs*
+
+# Artifacts
+[Bb]in
+[Oo]bj
+
+# Resharper
+_ReSharper*/
+*.dotCover
+
+src/packages*
+Key.snk
