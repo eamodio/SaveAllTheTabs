@@ -12,12 +12,20 @@ using TabGroups.Interop;
 
 namespace TabGroups
 {
+    public class DocumentGroup
+    {
+        public string Name { get; set; }
+        public byte[] Positions { get; set; }
+    }
+
     public interface IDocumentManager
     {
-        void Save(int group);
-        void Restore(int group);
+        int GroupCount { get; }
+        DocumentGroup GetGroup(int index);
 
-        bool CanRestore(int group);
+        void SaveGroup(string name);
+        void ApplyGroup(int index);
+        void ClearGroups();
     }
 
     public class DocumentManager : IDocumentManager
@@ -25,81 +33,34 @@ namespace TabGroups
         private const string StorageCollectionPath = "TabGroups";
 
         private TabGroupsPackage Package { get; }
-        private System.IServiceProvider ServiceProvider => Package;
+        private IServiceProvider ServiceProvider => Package;
         private IVsUIShellDocumentWindowMgr DocumentWindowMgr { get; }
         private string SolutionName => Package.Environment.Solution?.FullName;
 
-        private readonly Dictionary<string, byte[]> _groups;
+        private readonly List<DocumentGroup> _groups;
 
         public DocumentManager(TabGroupsPackage package)
         {
             Package = package;
 
             // Load presets for the current solution
-            _groups = LoadTabGroupsForSolution();
+            _groups = LoadGroupsForSolution();
 
             DocumentWindowMgr = ServiceProvider.GetService(typeof(IVsUIShellDocumentWindowMgr)) as IVsUIShellDocumentWindowMgr;
         }
 
-        private Dictionary<string, byte[]> LoadTabGroupsForSolution()
+        public int GroupCount => _groups?.Count ?? 0;
+        public DocumentGroup GetGroup(int index) => _groups.GetOrDefault(index);
+
+        public void SaveGroup(string name)
         {
-            var solution = SolutionName;
-            if (!string.IsNullOrWhiteSpace(solution))
-            {
-                var settingsMgr = new ShellSettingsManager(ServiceProvider);
-                var store = settingsMgr.GetReadOnlySettingsStore(SettingsScope.UserSettings);
-                if (store.PropertyExists(StorageCollectionPath, solution))
-                {
-                    var tabs = store.GetString(StorageCollectionPath, solution);
-                    return JsonConvert.DeserializeObject<Dictionary<string, byte[]>>(tabs);
-                }
-            }
-
-            return new Dictionary<string, byte[]>();
-        }
-
-        private void SaveTabGroupsForSolution()
-        {
-            var solution = SolutionName;
-            if (string.IsNullOrWhiteSpace(solution))
-            {
-                return;
-            }
-
-            var groups = _groups.Where(_ => _.Value?.Length > 0)
-                                .ToDictionary(_ => _.Key, _ => _.Value);
-
-            var settingsMgr = new ShellSettingsManager(ServiceProvider);
-            var store = settingsMgr.GetWritableSettingsStore(SettingsScope.UserSettings);
-
-            if (!store.CollectionExists(StorageCollectionPath))
-            {
-                store.CreateCollection(StorageCollectionPath);
-            }
-
-            if (!groups.Any())
-            {
-                store.DeleteProperty(StorageCollectionPath, solution);
-                return;
-            }
-
-            var tabs = JsonConvert.SerializeObject(groups);
-            store.SetString(StorageCollectionPath, solution, tabs);
-        }
-
-        private const string GroupIdFormat = "Group{0}";
-        private static string GetGroupId(int group) => string.Format(GroupIdFormat, group);
-
-        public void Save(int group)
-        {
-            var groupId = GetGroupId(group);
-            _groups.Remove(groupId);
-
             if (DocumentWindowMgr == null)
             {
                 Debug.Assert(false, "IVsUIShellDocumentWindowMgr", String.Empty, 0);
                 return;
             }
+
+            var group = _groups.Find(g => g.Name == name);
 
             using (var stream = new VsOleStream())
             {
@@ -107,27 +68,43 @@ namespace TabGroups
                 if (hr != VSConstants.S_OK)
                 {
                     Debug.Assert(false, "SaveDocumentWindowPositions", String.Empty, hr);
+
+                    if (group != null)
+                    {
+                        _groups.Remove(group);
+                    }
                     return;
                 }
 
                 stream.Seek(0, SeekOrigin.Begin);
-                _groups[groupId] = stream.ToArray();
+                if (group == null)
+                {
+                    _groups.Add(new DocumentGroup
+                                {
+                                    Name = name,
+                                    Positions = stream.ToArray()
+                                });
+                }
+                else
+                {
+                    group.Positions = stream.ToArray();
+                }
             }
 
-            SaveTabGroupsForSolution();
+            SaveGroupsForSolution();
         }
 
-        public void Restore(int group)
+        public void ApplyGroup(int index)
         {
-            byte[] tabs;
-            if (!_groups.TryGetValue(GetGroupId(group), out tabs))
+            var group = _groups.GetOrDefault(index);
+            if (group == null)
             {
                 return;
             }
 
             using (var stream = new VsOleStream())
             {
-                stream.Write(tabs, 0, tabs.Length);
+                stream.Write(group.Positions, 0, group.Positions.Length);
                 stream.Seek(0, SeekOrigin.Begin);
 
                 var hr = DocumentWindowMgr.ReopenDocumentWindows(stream);
@@ -138,10 +115,69 @@ namespace TabGroups
             }
         }
 
-        public bool CanRestore(int group)
+        public void ClearGroups()
         {
-            byte[] tabs;
-            return _groups.TryGetValue(GetGroupId(group), out tabs) && tabs != null;
+            _groups.Clear();
+            SaveGroupsForSolution();
+        }
+
+        private List<DocumentGroup> LoadGroupsForSolution()
+        {
+            var solution = SolutionName;
+            if (!string.IsNullOrWhiteSpace(solution))
+            {
+                try
+                {
+                    var settingsMgr = new ShellSettingsManager(ServiceProvider);
+                    var store = settingsMgr.GetReadOnlySettingsStore(SettingsScope.UserSettings);
+                    if (store.PropertyExists(StorageCollectionPath, solution))
+                    {
+                        var tabs = store.GetString(StorageCollectionPath, solution);
+                        return JsonConvert.DeserializeObject<List<DocumentGroup>>(tabs);
+                    }
+                }
+                catch (Exception) { }
+            }
+            return new List<DocumentGroup>();
+        }
+
+        private void SaveGroupsForSolution()
+        {
+            var solution = SolutionName;
+            if (string.IsNullOrWhiteSpace(solution))
+            {
+                return;
+            }
+
+            var settingsMgr = new ShellSettingsManager(ServiceProvider);
+            var store = settingsMgr.GetWritableSettingsStore(SettingsScope.UserSettings);
+
+            if (!store.CollectionExists(StorageCollectionPath))
+            {
+                store.CreateCollection(StorageCollectionPath);
+            }
+
+            if (!_groups.Any())
+            {
+                store.DeleteProperty(StorageCollectionPath, solution);
+                return;
+            }
+
+            var tabs = JsonConvert.SerializeObject(_groups);
+            store.SetString(StorageCollectionPath, solution, tabs);
+        }
+    }
+
+    public static class Extensions
+    {
+        public static DocumentGroup GetOrDefault(this List<DocumentGroup> groups, int index)
+        {
+            if (index < 0 || index >= groups.Count)
+            {
+                return null;
+            }
+
+            return groups?[index];
         }
     }
 }

@@ -1,21 +1,11 @@
-﻿//------------------------------------------------------------------------------
-// <copyright file="TabGroupsPackageGuids.cs" company="Company">
-//         Copyright (c) Company.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
+﻿using System;
 
 namespace TabGroups
 {
-    using System;
-
-    /// <summary>
-    /// TabGroupsMenu GUID constants.
-    /// </summary>
     internal static class TabGroupsPackageGuids
     {
-        /// <summary>
-        /// TabGroupsMenu GUID string.
-        /// </summary>
         public const string PackageGuidString = "a0217e5b-1dfa-4fa1-98aa-7550d6a32076";
+        public const string CmdSetGuidString = "54ea2b58-3ea2-489f-b4eb-3b7e88a663c2";
+        public const string GroupsCmdSetGuidString = "288739ea-2a43-496d-84f9-329a51d47bdc";
     }
 }

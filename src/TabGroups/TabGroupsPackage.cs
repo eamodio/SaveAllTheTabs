@@ -1,10 +1,4 @@
-﻿//------------------------------------------------------------------------------
-// <copyright file="TortoiseCommandsPackage.cs" company="Company">
-//     Copyright (c) Company.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
@@ -64,7 +58,8 @@ namespace TabGroups
         /// </summary>
         protected async override void Initialize()
         {
-            TabGroupsMenu.Initialize(this);
+            DocumentManager = new DocumentManager(this);
+            TabGroupsCommands.Initialize(this);
 
             base.Initialize();
 
@@ -79,7 +74,10 @@ namespace TabGroups
 
         private void OnSolutionOpened()
         {
-            DocumentManager = new DocumentManager(this);
+            if (DocumentManager == null)
+            {
+                DocumentManager = new DocumentManager(this);
+            }
 
             UpdateCommandsUI(this);
         }
@@ -91,7 +89,12 @@ namespace TabGroups
             UpdateCommandsUI(this);
         }
 
-        private static void UpdateCommandsUI(IServiceProvider sp)
+        public void UpdateCommandsUI()
+        {
+            UpdateCommandsUI(this);
+        }
+
+        public static void UpdateCommandsUI(IServiceProvider sp)
         {
             var shell = (IVsUIShell)sp.GetService(typeof(IVsUIShell));
             if (shell == null)

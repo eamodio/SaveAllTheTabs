@@ -53,7 +53,7 @@
   <ItemGroup>
     <Compile Include="DocumentManager.cs" />
     <Compile Include="Interop.cs" />
-    <Compile Include="TabGroupsMenu.cs" />
+    <Compile Include="TabGroupsCommands.cs" />
     <Compile Include="TabGroupsPackage.cs" />
     <Compile Include="TabGroupsPackageGuids.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

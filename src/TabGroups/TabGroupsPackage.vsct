@@ -22,7 +22,7 @@
 
     <!--The Commands section is where we the commands, menus and menu groups are defined.
       This section uses a Guid to identify the package that provides the command defined inside it. -->
-    <Commands package="guidTabGroupsPackage">
+    <Commands package="guidPackage">
         <!-- Inside this section we have different sub-sections: one for the menus, another
     for the menu groups, one for the buttons (the actual commands), one for the combos
     and the last one for the bitmaps used. Each element is identified by a command id that
@@ -31,25 +31,32 @@
     group; your package should define its own command set in order to avoid collisions
     with command ids defined by other packages. -->
 
-        <Menus>
-            <Menu guid="guidPackageCmdSet" id="TabGroupsMenu" priority="0x700" type="Menu">
-                <Parent guid="guidSHLMainMenu" id="IDG_VS_WINDOW_NEW" />
-                <Strings>
-                    <ButtonText>Tab Groups</ButtonText>
-                    <CommandName>Tab Groups</CommandName>
-                </Strings>
-            </Menu>
-        </Menus>
-
         <!-- In this section you can define new menu groups. A menu group is a container for
          other menus or buttons (commands); from a visual point of view you can see the
          group as the part of a menu contained between two lines. The parent of a group
          must be a menu. -->
         <Groups>
-            <Group guid="guidTabGroupsCmdSet" id="TabGroups" priority="0x0600">
-                <Parent guid="guidPackageCmdSet" id="TabGroupsMenu" />
+            <Group guid="guidPackageCmdSet" id="MainGroup" priority="0x0600">
+                <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_WINDOW" />
+            </Group>
+
+            <Group guid="guidGroupListCmdSet" id="GroupListGroup" priority="0x0100">
+                <Parent guid="guidPackageCmdSet" id="GroupListMenu" />
             </Group>
         </Groups>
+
+        <Menus>
+            <Menu guid="guidPackageCmdSet" id="GroupListMenu" priority="0x0200" type="Menu">
+                <Parent guid="guidPackageCmdSet" id="MainGroup" />
+                <Strings>
+                    <CommandName>Apply Tab Group</CommandName>
+                    <ButtonText>Apply Tab Group</ButtonText>
+                    <MenuText>Apply Tab Group</MenuText>
+                    <CanonicalName>TabGroups.ApplyTabGroupMenu</CanonicalName>
+                    <LocCanonicalName>TabGroups.ApplyTabGroupMenu</LocCanonicalName>
+                </Strings>
+            </Menu>
+        </Menus>
 
         <!--Buttons section. -->
         <!--This section defines the elements the user can interact with, like a menu command or a button
@@ -62,48 +69,103 @@
               <CommandFlag>DefaultInvisible</CommandFlag>
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
-            <Button guid="guidTabGroupsCmdSet" id="SaveGroup1" priority="0x0100" type="Button">
-                <Parent guid="guidTabGroupsCmdSet" id="TabGroups" />
+            <Button guid="guidPackageCmdSet" id="SaveGroup" priority="0x0100" type="Button">
+                <Parent guid="guidPackageCmdSet" id="MainGroup" />
+                <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
-                    <ButtonText>Save to tab group 1</ButtonText>
+                    <CommandName>Save Tab Group</CommandName>
+                    <ButtonText>Save Tab Group</ButtonText>
+                    <MenuText>Save Tab Group</MenuText>
+                    <CanonicalName>TabGroups.SaveTabGroup</CanonicalName>
+                    <LocCanonicalName>TabGroups.SaveTabGroup</LocCanonicalName>
                 </Strings>
             </Button>
-            <Button guid="guidTabGroupsCmdSet" id="RestoreGroup1" priority="0x0100" type="Button">
-                <Parent guid="guidTabGroupsCmdSet" id="TabGroups" />
+
+            <Button guid="guidPackageCmdSet" id="ClearGroups" priority="0x0300" type="Button">
+                <Parent guid="guidPackageCmdSet" id="MainGroup" />
+                <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
-                    <ButtonText>Restore tab group 1</ButtonText>
+                    <CommandName>Clear Tab Groups</CommandName>
+                    <ButtonText>Clear Tab Groups</ButtonText>
+                    <MenuText>Clear Tab Groups</MenuText>
+                    <CanonicalName>TabGroups.ClearTabGroups</CanonicalName>
+                    <LocCanonicalName>TabGroups.ClearTabGroups</LocCanonicalName>
+                </Strings>
+            </Button>
+
+            <Button guid="guidGroupListCmdSet" id="GroupList" priority="0x0100" type="Button">
+                <Parent guid="guidGroupListCmdSet" id="GroupListGroup" />
+                <CommandFlag>DefaultInvisible</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>DynamicItemStart</CommandFlag>
+                <CommandFlag>TextChanges</CommandFlag>
+                <Strings>
+                    <CommandName>Apply Tab Group 1</CommandName>
+                    <ButtonText></ButtonText>
+                    <MenuText></MenuText>
+                    <CanonicalName>TabGroups.ApplyTabGroup1</CanonicalName>
+                    <LocCanonicalName>TabGroups.ApplyTabGroup1</LocCanonicalName>
+                </Strings>
+            </Button>
+
+            <Button guid="guidGroupListCmdSet" id="GroupListPlaceholder" priority="0x0100" type="Button">
+                <Parent guid="guidGroupListCmdSet" id="GroupListGroup" />
+                <CommandFlag>DefaultDisabled</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>NoCustomize</CommandFlag>
+                <Strings>
+                    <ButtonText>No Saved Tab Groups</ButtonText>
                 </Strings>
             </Button>
         </Buttons>
 
         <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
-        <Bitmaps>
-            <!--  The bitmap id is defined in a way that is a little bit different from the others:
+        <!--<Bitmaps>
+            --><!--  The bitmap id is defined in a way that is a little bit different from the others:
             the declaration starts with a guid for the bitmap strip, then there is the resource id of the
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
-            must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-        </Bitmaps>
+            must be the actual index (1-based) of the bitmap inside the bitmap strip. --><!--
+        </Bitmaps>-->
     </Commands>
 
     <KeyBindings>
-        <KeyBinding guid="guidTabGroupsCmdSet" id="SaveGroup1" editor="guidVSStd97" key1="1" mod1="Control Shift"></KeyBinding>
-        <KeyBinding guid="guidTabGroupsCmdSet" id="RestoreGroup1" editor="guidVSStd97" key1="1" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidPackageCmdSet" id="SaveGroup" editor="guidVSStd97" key1="W" mod1="Control" key2="G" mod2="Control"></KeyBinding>
+        <KeyBinding guid="guidGroupListCmdSet" id="GroupList" editor="guidVSStd97" key1="1" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup1" editor="guidVSStd97" key1="2" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup2" editor="guidVSStd97" key1="3" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup3" editor="guidVSStd97" key1="4" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup4" editor="guidVSStd97" key1="5" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup5" editor="guidVSStd97" key1="6" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup6" editor="guidVSStd97" key1="7" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup7" editor="guidVSStd97" key1="8" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup8" editor="guidVSStd97" key1="9" mod1="Control"></KeyBinding>
     </KeyBindings>
 
     <Symbols>
         <!-- This is the package guid. -->
-        <GuidSymbol name="guidTabGroupsPackage" value="{a0217e5b-1dfa-4fa1-98aa-7550d6a32076}" />
+        <GuidSymbol name="guidPackage" value="{a0217e5b-1dfa-4fa1-98aa-7550d6a32076}" />
 
         <!-- This is the guid used to group the menu commands together -->
         <GuidSymbol name="guidPackageCmdSet" value="{54ea2b58-3ea2-489f-b4eb-3b7e88a663c2}">
-            <IDSymbol name="TabGroupsMenu" value="0x1020" />
+            <IDSymbol name="MainGroup" value="0x1020" />
+            <IDSymbol name="SaveGroup" value="0x0100" />
+            <IDSymbol name="GroupListMenu" value="0x0200" />
+            <IDSymbol name="ClearGroups" value="0x0300" />
         </GuidSymbol>
 
-        <GuidSymbol name="guidTabGroupsCmdSet" value="{288739ea-2a43-496d-84f9-329a51d47bdc}">
-            <IDSymbol name="TabGroups" value="0x1020" />
-            <IDSymbol name="SaveGroup1" value="0x0100" />
-            <IDSymbol name="RestoreGroup1" value="0x0200" />
+        <GuidSymbol name="guidGroupListCmdSet" value="{288739ea-2a43-496d-84f9-329a51d47bdc}">
+            <IDSymbol name="GroupListGroup" value="0x1020" />
+            <IDSymbol name="GroupList" value="0x0100" />
+            <IDSymbol name="ApplyGroup1" value="0x0101" />
+            <IDSymbol name="ApplyGroup2" value="0x0102" />
+            <IDSymbol name="ApplyGroup3" value="0x0103" />
+            <IDSymbol name="ApplyGroup4" value="0x0104" />
+            <IDSymbol name="ApplyGroup5" value="0x0105" />
+            <IDSymbol name="ApplyGroup6" value="0x0106" />
+            <IDSymbol name="ApplyGroup7" value="0x0107" />
+            <IDSymbol name="ApplyGroup8" value="0x0108" />
+            <IDSymbol name="GroupListPlaceholder" value="0x0200" />
         </GuidSymbol>
     </Symbols>
 </CommandTable>
