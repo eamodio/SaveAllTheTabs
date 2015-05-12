@@ -1,0 +1,11 @@
+﻿<Window x:Class="TabGroups.SaveTabGroupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Save Tab Group" Height="140" Width="330" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" WindowStyle="ToolWindow">
+    <Grid>
+        <TextBlock Margin="16,13,16,0" Height="23" VerticalAlignment="Top">Group name:</TextBlock>
+        <TextBox x:Name="TextBox" Margin="16,34,16,0" Text="New Tab Group" TextChanged="OnTextBoxTextChanged" Height="18" VerticalAlignment="Top" />
+        <Button x:Name="OkButton" Content="OK" Margin="0,0,98,18" VerticalAlignment="Bottom" Width="75" Height="23" Click="OnSave" HorizontalAlignment="Right" IsDefault="True"/>
+        <Button Content="Cancel" Margin="0,0,16,18" VerticalAlignment="Bottom" Height="23" Click="OnCancel" HorizontalAlignment="Right" Width="75"/>
+    </Grid>
+</Window>

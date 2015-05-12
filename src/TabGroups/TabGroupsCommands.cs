@@ -111,15 +111,13 @@ namespace TabGroups
             commandService.AddCommand(command);
         }
 
-        private const string GroupNameFormat = "Group{0}";
-        private static string GetGroupName(int index) => string.Format(GroupNameFormat, index);
-        private static int GetApplyGroupCommandIndex(OleMenuCommand command) => command.CommandID.ID - (int)GroupListCommandIds.ApplyGroupStart;
-
         private void ExecuteSaveGroupCommand(object sender, EventArgs e)
         {
-            var name = GetGroupName((Package.DocumentManager?.GroupCount ?? 0) + 1);
-            Package.DocumentManager?.SaveGroup(name);
-            //Package.UpdateCommandsUI();
+            var window = new SaveTabGroupWindow(Package);
+            if (window.ShowDialog() == true)
+            {
+                //Package.UpdateCommandsUI();
+            }
         }
 
         private void ExecuteClearGroupsCommand(object sender, EventArgs e)
@@ -127,6 +125,8 @@ namespace TabGroups
             Package.DocumentManager?.ClearGroups();
             //Package.UpdateCommandsUI();
         }
+
+        private static int GetApplyGroupCommandIndex(OleMenuCommand command) => command.CommandID.ID - (int)GroupListCommandIds.ApplyGroupStart;
 
         private void ExecuteApplyGroupCommand(object sender, EventArgs e)
         {
