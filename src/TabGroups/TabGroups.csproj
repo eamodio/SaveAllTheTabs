@@ -51,11 +51,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ApplyGroupCommands.cs" />
     <Compile Include="DocumentManager.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Interop.cs" />
     <Compile Include="SaveTabGroupWindow.xaml.cs">
       <DependentUpon>SaveTabGroupWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StashCommands.cs" />
     <Compile Include="TabGroupsCommands.cs" />
     <Compile Include="TabGroupsPackage.cs" />
     <Compile Include="TabGroupsPackageGuids.cs" />

@@ -39,7 +39,7 @@ namespace TabGroups
         private static DTE2 _dte;
 
         public DTE2 Environment => Dte;
-        public IDocumentManager DocumentManager { get; private set; }
+        internal IDocumentManager DocumentManager { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TabGroupsPackage"/> class.

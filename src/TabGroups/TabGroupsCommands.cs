@@ -8,22 +8,14 @@ namespace TabGroups
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class TabGroupsCommands
+    internal class TabGroupsCommands
     {
         [Guid(TabGroupsPackageGuids.CmdSetGuidString)]
-        enum CommandIds
+        private enum CommandIds
         {
             SaveGroup = 0x0100,
-            GroupListMenu = 0x0200,
+            ApplyGroupListMenu = 0x0200,
             ClearGroups = 0x0300
-        }
-
-        [Guid(TabGroupsPackageGuids.GroupsCmdSetGuidString)]
-        private enum GroupListCommandIds
-        {
-            ApplyGroupStart = 0x0100,
-            ApplyGroupEnd = ApplyGroupStart + 8,
-            ApplyGroupPlaceholder = 0x0200
         }
 
         private TabGroupsPackage Package { get; }
@@ -73,7 +65,7 @@ namespace TabGroups
             command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
 
-            commandId = new CommandID(guid, (int)CommandIds.GroupListMenu);
+            commandId = new CommandID(guid, (int)CommandIds.ApplyGroupListMenu);
             command = new OleMenuCommand(null, commandId);
             commandService.AddCommand(command);
 
@@ -82,66 +74,8 @@ namespace TabGroups
             command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
 
-            SetupApplyGroupCommands(commandService);
-        }
-
-        private void SetupApplyGroupCommands(OleMenuCommandService commandService)
-        {
-            if (Package.DocumentManager == null)
-            {
-                return;
-            }
-
-            var guid = typeof(GroupListCommandIds).GUID;
-
-            CommandID commandId;
-            OleMenuCommand command;
-
-            for (var i = (int)GroupListCommandIds.ApplyGroupStart; i <= (int)GroupListCommandIds.ApplyGroupEnd; i++)
-            {
-                commandId = new CommandID(guid, i);
-                command = new OleMenuCommand(ExecuteApplyGroupCommand, commandId);
-                command.BeforeQueryStatus += ApplyGroupCommandOnBeforeQueryStatus;
-                commandService.AddCommand(command);
-            }
-
-            commandId = new CommandID(guid, (int)GroupListCommandIds.ApplyGroupPlaceholder);
-            command = new OleMenuCommand(null, commandId);
-            command.BeforeQueryStatus += ApplyGroupPlaceholderCommandOnBeforeQueryStatus;
-            commandService.AddCommand(command);
-        }
-
-        private void ExecuteSaveGroupCommand(object sender, EventArgs e)
-        {
-            var window = new SaveTabGroupWindow(Package);
-            if (window.ShowDialog() == true)
-            {
-                //Package.UpdateCommandsUI();
-            }
-        }
-
-        private void ExecuteClearGroupsCommand(object sender, EventArgs e)
-        {
-            Package.DocumentManager?.ClearGroups();
-            //Package.UpdateCommandsUI();
-        }
-
-        private static int GetApplyGroupCommandIndex(OleMenuCommand command) => command.CommandID.ID - (int)GroupListCommandIds.ApplyGroupStart;
-
-        private void ExecuteApplyGroupCommand(object sender, EventArgs e)
-        {
-            var command = sender as OleMenuCommand;
-            if (command == null)
-            {
-                return;
-            }
-
-            var index = GetApplyGroupCommandIndex(command);
-            if (index == -1)
-            {
-                return;
-            }
-            Package.DocumentManager?.ApplyGroup(index);
+            new ApplyGroupCommands(Package).SetupCommands(commandService);
+            new StashCommands(Package).SetupCommands(commandService);
         }
 
         private void CommandOnBeforeQueryStatus(object sender, EventArgs eventArgs)
@@ -155,38 +89,23 @@ namespace TabGroups
             command.Enabled = Package.DocumentManager != null;
         }
 
-        private void ApplyGroupCommandOnBeforeQueryStatus(object sender, EventArgs eventArgs)
+        private void ExecuteSaveGroupCommand(object sender, EventArgs e)
         {
-            var command = sender as OleMenuCommand;
-            if (command == null)
-            {
-                return;
-            }
+            var slot = Package.DocumentManager?.FindFreeSlot();
+            var name = $"New Tab Group {slot ?? Package.DocumentManager?.GroupCount ?? 0}";
 
-            var index = GetApplyGroupCommandIndex(command);
-            var group = Package.DocumentManager.GetGroup(index);
-            if (group != null)
+            var window = new SaveTabGroupWindow(name);
+            if (window.ShowDialog() == true)
             {
-                command.Text = $"{index + 1} {group.Name}";
-                command.Enabled = true;
-                command.Visible = true;
-            }
-            else
-            {
-                command.Visible = false;
+                Package.DocumentManager?.SaveGroup(window.GroupName, slot);
+                //Package.UpdateCommandsUI();
             }
         }
 
-        private void ApplyGroupPlaceholderCommandOnBeforeQueryStatus(object sender, EventArgs eventArgs)
+        private void ExecuteClearGroupsCommand(object sender, EventArgs e)
         {
-            var command = sender as OleMenuCommand;
-            if (command == null)
-            {
-                return;
-            }
-
-            command.Enabled = false;
-            command.Visible = Package.DocumentManager?.GroupCount == 0;
+            Package.DocumentManager?.ClearGroups();
+            //Package.UpdateCommandsUI();
         }
     }
 }

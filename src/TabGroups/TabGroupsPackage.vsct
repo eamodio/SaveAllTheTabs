@@ -40,13 +40,17 @@
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_WINDOW" />
             </Group>
 
-            <Group guid="guidGroupListCmdSet" id="GroupListGroup" priority="0x0100">
-                <Parent guid="guidPackageCmdSet" id="GroupListMenu" />
+            <Group guid="guidApplyGroupListCmdSet" id="ApplyGroupListGroup" priority="0x0100">
+                <Parent guid="guidPackageCmdSet" id="ApplyGroupListMenu" />
+            </Group>
+
+            <Group guid="guidStashCmdSet" id="StashGroup" priority="0x0700">
+                <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_WINDOW" />
             </Group>
         </Groups>
 
         <Menus>
-            <Menu guid="guidPackageCmdSet" id="GroupListMenu" priority="0x0200" type="Menu">
+            <Menu guid="guidPackageCmdSet" id="ApplyGroupListMenu" priority="0x0200" type="Menu">
                 <Parent guid="guidPackageCmdSet" id="MainGroup" />
                 <Strings>
                     <CommandName>Apply Tab Group</CommandName>
@@ -93,28 +97,162 @@
                 </Strings>
             </Button>
 
-            <Button guid="guidGroupListCmdSet" id="GroupList" priority="0x0100" type="Button">
-                <Parent guid="guidGroupListCmdSet" id="GroupListGroup" />
-                <CommandFlag>DefaultInvisible</CommandFlag>
-                <CommandFlag>DynamicVisibility</CommandFlag>
-                <CommandFlag>DynamicItemStart</CommandFlag>
-                <CommandFlag>TextChanges</CommandFlag>
-                <Strings>
-                    <CommandName>Apply Tab Group 1</CommandName>
-                    <ButtonText></ButtonText>
-                    <MenuText></MenuText>
-                    <CanonicalName>TabGroups.ApplyTabGroup1</CanonicalName>
-                    <LocCanonicalName>TabGroups.ApplyTabGroup1</LocCanonicalName>
-                </Strings>
-            </Button>
-
-            <Button guid="guidGroupListCmdSet" id="GroupListPlaceholder" priority="0x0100" type="Button">
-                <Parent guid="guidGroupListCmdSet" id="GroupListGroup" />
+            <Button guid="guidApplyGroupListCmdSet" id="ApplyGroupPlaceholder" priority="0x0100" type="Button">
+                <Parent guid="guidApplyGroupListCmdSet" id="ApplyGroupListGroup" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>NoCustomize</CommandFlag>
                 <Strings>
                     <ButtonText>No Saved Tab Groups</ButtonText>
+                </Strings>
+            </Button>
+
+            <Button guid="guidApplyGroupListCmdSet" id="ApplyGroup1" priority="0x0100" type="Button">
+                <Parent guid="guidApplyGroupListCmdSet" id="ApplyGroupListGroup" />
+                <CommandFlag>DefaultInvisible</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>TextChanges</CommandFlag>
+                <Strings>
+                    <CommandName>Apply Tab Group 1</CommandName>
+                    <ButtonText>1</ButtonText>
+                    <MenuText>1</MenuText>
+                    <CanonicalName>TabGroups.ApplyTabGroup1</CanonicalName>
+                    <LocCanonicalName>TabGroups.ApplyTabGroup1</LocCanonicalName>
+                </Strings>
+            </Button>
+
+            <Button guid="guidApplyGroupListCmdSet" id="ApplyGroup2" priority="0x0100" type="Button">
+                <Parent guid="guidApplyGroupListCmdSet" id="ApplyGroupListGroup" />
+                <CommandFlag>DefaultInvisible</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>TextChanges</CommandFlag>
+                <Strings>
+                    <CommandName>Apply Tab Group 2</CommandName>
+                    <ButtonText>2</ButtonText>
+                    <MenuText>2</MenuText>
+                    <CanonicalName>TabGroups.ApplyTabGroup2</CanonicalName>
+                    <LocCanonicalName>TabGroups.ApplyTabGroup2</LocCanonicalName>
+                </Strings>
+            </Button>
+
+            <Button guid="guidApplyGroupListCmdSet" id="ApplyGroup3" priority="0x0100" type="Button">
+                <Parent guid="guidApplyGroupListCmdSet" id="ApplyGroupListGroup" />
+                <CommandFlag>DefaultInvisible</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>TextChanges</CommandFlag>
+                <Strings>
+                    <CommandName>Apply Tab Group 3</CommandName>
+                    <ButtonText>3</ButtonText>
+                    <MenuText>3</MenuText>
+                    <CanonicalName>TabGroups.ApplyTabGroup3</CanonicalName>
+                    <LocCanonicalName>TabGroups.ApplyTabGroup3</LocCanonicalName>
+                </Strings>
+            </Button>
+
+            <Button guid="guidApplyGroupListCmdSet" id="ApplyGroup4" priority="0x0100" type="Button">
+                <Parent guid="guidApplyGroupListCmdSet" id="ApplyGroupListGroup" />
+                <CommandFlag>DefaultInvisible</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>TextChanges</CommandFlag>
+                <Strings>
+                    <CommandName>Apply Tab Group 4</CommandName>
+                    <ButtonText>4</ButtonText>
+                    <MenuText>4</MenuText>
+                    <CanonicalName>TabGroups.ApplyTabGroup4</CanonicalName>
+                    <LocCanonicalName>TabGroups.ApplyTabGroup4</LocCanonicalName>
+                </Strings>
+            </Button>
+
+            <Button guid="guidApplyGroupListCmdSet" id="ApplyGroup5" priority="0x0100" type="Button">
+                <Parent guid="guidApplyGroupListCmdSet" id="ApplyGroupListGroup" />
+                <CommandFlag>DefaultInvisible</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>TextChanges</CommandFlag>
+                <Strings>
+                    <CommandName>Apply Tab Group 5</CommandName>
+                    <ButtonText>5</ButtonText>
+                    <MenuText>5</MenuText>
+                    <CanonicalName>TabGroups.ApplyTabGroup5</CanonicalName>
+                    <LocCanonicalName>TabGroups.ApplyTabGroup5</LocCanonicalName>
+                </Strings>
+            </Button>
+
+            <Button guid="guidApplyGroupListCmdSet" id="ApplyGroup6" priority="0x0100" type="Button">
+                <Parent guid="guidApplyGroupListCmdSet" id="ApplyGroupListGroup" />
+                <CommandFlag>DefaultInvisible</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>TextChanges</CommandFlag>
+                <Strings>
+                    <CommandName>Apply Tab Group 6</CommandName>
+                    <ButtonText>6</ButtonText>
+                    <MenuText>6</MenuText>
+                    <CanonicalName>TabGroups.ApplyTabGroup6</CanonicalName>
+                    <LocCanonicalName>TabGroups.ApplyTabGroup6</LocCanonicalName>
+                </Strings>
+            </Button>
+
+            <Button guid="guidApplyGroupListCmdSet" id="ApplyGroup7" priority="0x0100" type="Button">
+                <Parent guid="guidApplyGroupListCmdSet" id="ApplyGroupListGroup" />
+                <CommandFlag>DefaultInvisible</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>TextChanges</CommandFlag>
+                <Strings>
+                    <CommandName>Apply Tab Group 7</CommandName>
+                    <ButtonText>7</ButtonText>
+                    <MenuText>7</MenuText>
+                    <CanonicalName>TabGroups.ApplyTabGroup7</CanonicalName>
+                    <LocCanonicalName>TabGroups.ApplyTabGroup7</LocCanonicalName>
+                </Strings>
+            </Button>
+
+            <Button guid="guidApplyGroupListCmdSet" id="ApplyGroup8" priority="0x0100" type="Button">
+                <Parent guid="guidApplyGroupListCmdSet" id="ApplyGroupListGroup" />
+                <CommandFlag>DefaultInvisible</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>TextChanges</CommandFlag>
+                <Strings>
+                    <CommandName>Apply Tab Group 8</CommandName>
+                    <ButtonText>8</ButtonText>
+                    <MenuText>8</MenuText>
+                    <CanonicalName>TabGroups.ApplyTabGroup8</CanonicalName>
+                    <LocCanonicalName>TabGroups.ApplyTabGroup8</LocCanonicalName>
+                </Strings>
+            </Button>
+
+            <Button guid="guidApplyGroupListCmdSet" id="ApplyGroup9" priority="0x0100" type="Button">
+                <Parent guid="guidApplyGroupListCmdSet" id="ApplyGroupListGroup" />
+                <CommandFlag>DefaultInvisible</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
+                <CommandFlag>TextChanges</CommandFlag>
+                <Strings>
+                    <CommandName>Apply Tab Group 9</CommandName>
+                    <ButtonText>9</ButtonText>
+                    <MenuText>9</MenuText>
+                    <CanonicalName>TabGroups.ApplyTabGroup9</CanonicalName>
+                    <LocCanonicalName>TabGroups.ApplyTabGroup9</LocCanonicalName>
+                </Strings>
+            </Button>
+
+            <Button guid="guidStashCmdSet" id="StashSaveGroup" priority="0x0100" type="Button">
+                <Parent guid="guidStashCmdSet" id="StashGroup" />
+                <Strings>
+                    <CommandName>Stash Tabs</CommandName>
+                    <ButtonText>Stash Tabs</ButtonText>
+                    <MenuText>Stash Tabs</MenuText>
+                    <CanonicalName>TabGroups.StashTabs</CanonicalName>
+                    <LocCanonicalName>TabGroups.StashTabs</LocCanonicalName>
+                </Strings>
+            </Button>
+
+            <Button guid="guidStashCmdSet" id="StashApplyGroup" priority="0x0100" type="Button">
+                <Parent guid="guidStashCmdSet" id="StashGroup" />
+                <CommandFlag>DefaultDisabled</CommandFlag>
+                <Strings>
+                    <CommandName>Apply Stashed Tabs</CommandName>
+                    <ButtonText>Apply Stashed Tabs</ButtonText>
+                    <MenuText>Apply Stashed Tabs</MenuText>
+                    <CanonicalName>TabGroups.ApplyStashedTabs</CanonicalName>
+                    <LocCanonicalName>TabGroups.ApplyStashedTabs</LocCanonicalName>
                 </Strings>
             </Button>
         </Buttons>
@@ -130,16 +268,39 @@
     </Commands>
 
     <KeyBindings>
-        <!--<KeyBinding guid="guidPackageCmdSet" id="SaveGroup" editor="guidVSStd97" key1="W" mod1="Control" key2="G" mod2="Control"></KeyBinding>-->
-        <KeyBinding guid="guidGroupListCmdSet" id="GroupList" editor="guidVSStd97" key1="1" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidGroupListCmdSet" id="GroupList+1" editor="guidVSStd97" key1="2" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup2" editor="guidVSStd97" key1="3" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup3" editor="guidVSStd97" key1="4" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup4" editor="guidVSStd97" key1="5" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup5" editor="guidVSStd97" key1="6" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup6" editor="guidVSStd97" key1="7" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup7" editor="guidVSStd97" key1="8" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup8" editor="guidVSStd97" key1="9" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidPackageCmdSet" id="SaveGroup" editor="guidVSStd97" key1="D" mod1="Control" key2="G" mod2="Control"></KeyBinding>
+        <KeyBinding guid="guidPackageCmdSet" id="SaveGroup" editor="guidVSStd97" key1="D" mod1="Control" key2="G"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup1" editor="guidVSStd97" key1="D" mod1="Control" key2="1" mod2="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup1" editor="guidVSStd97" key1="D" mod1="Control" key2="1"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup1" editor="guidVSStd97" key1="1" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup2" editor="guidVSStd97" key1="D" mod1="Control" key2="2" mod2="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup2" editor="guidVSStd97" key1="D" mod1="Control" key2="2"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup2" editor="guidVSStd97" key1="2" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup3" editor="guidVSStd97" key1="D" mod1="Control" key2="3" mod2="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup3" editor="guidVSStd97" key1="D" mod1="Control" key2="3"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup3" editor="guidVSStd97" key1="3" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup4" editor="guidVSStd97" key1="D" mod1="Control" key2="4" mod2="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup4" editor="guidVSStd97" key1="D" mod1="Control" key2="4"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup4" editor="guidVSStd97" key1="4" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup5" editor="guidVSStd97" key1="D" mod1="Control" key2="5" mod2="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup5" editor="guidVSStd97" key1="D" mod1="Control" key2="5"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup5" editor="guidVSStd97" key1="5" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup6" editor="guidVSStd97" key1="D" mod1="Control" key2="6" mod2="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup6" editor="guidVSStd97" key1="D" mod1="Control" key2="6"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup6" editor="guidVSStd97" key1="6" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup7" editor="guidVSStd97" key1="D" mod1="Control" key2="7" mod2="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup7" editor="guidVSStd97" key1="D" mod1="Control" key2="7"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup7" editor="guidVSStd97" key1="7" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup8" editor="guidVSStd97" key1="D" mod1="Control" key2="8" mod2="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup8" editor="guidVSStd97" key1="D" mod1="Control" key2="8"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup8" editor="guidVSStd97" key1="8" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup9" editor="guidVSStd97" key1="D" mod1="Control" key2="9" mod2="Control"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup9" editor="guidVSStd97" key1="D" mod1="Control" key2="9"></KeyBinding>
+        <KeyBinding guid="guidApplyGroupListCmdSet" id="ApplyGroup9" editor="guidVSStd97" key1="9" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidStashCmdSet" id="StashSaveGroup" editor="guidVSStd97" key1="D" mod1="Control" key2="S" mod2="Control Shift"></KeyBinding>
+        <KeyBinding guid="guidStashCmdSet" id="StashSaveGroup" editor="guidVSStd97" key1="D" mod1="Control" key2="S" mod2="Shift"></KeyBinding>
+        <KeyBinding guid="guidStashCmdSet" id="StashApplyGroup" editor="guidVSStd97" key1="D" mod1="Control" key2="S" mod2="Control"></KeyBinding>
+        <KeyBinding guid="guidStashCmdSet" id="StashApplyGroup" editor="guidVSStd97" key1="D" mod1="Control" key2="S"></KeyBinding>
     </KeyBindings>
 
     <Symbols>
@@ -150,13 +311,13 @@
         <GuidSymbol name="guidPackageCmdSet" value="{54ea2b58-3ea2-489f-b4eb-3b7e88a663c2}">
             <IDSymbol name="MainGroup" value="0x1020" />
             <IDSymbol name="SaveGroup" value="0x0100" />
-            <IDSymbol name="GroupListMenu" value="0x0200" />
+            <IDSymbol name="ApplyGroupListMenu" value="0x0200" />
             <IDSymbol name="ClearGroups" value="0x0300" />
         </GuidSymbol>
 
-        <GuidSymbol name="guidGroupListCmdSet" value="{288739ea-2a43-496d-84f9-329a51d47bdc}">
-            <IDSymbol name="GroupListGroup" value="0x1020" />
-            <IDSymbol name="GroupList" value="0x0100" />
+        <GuidSymbol name="guidApplyGroupListCmdSet" value="{288739ea-2a43-496d-84f9-329a51d47bdc}">
+            <IDSymbol name="ApplyGroupListGroup" value="0x1020" />
+            <IDSymbol name="ApplyGroupPlaceholder" value="0x0100" />
             <IDSymbol name="ApplyGroup1" value="0x0101" />
             <IDSymbol name="ApplyGroup2" value="0x0102" />
             <IDSymbol name="ApplyGroup3" value="0x0103" />
@@ -165,7 +326,13 @@
             <IDSymbol name="ApplyGroup6" value="0x0106" />
             <IDSymbol name="ApplyGroup7" value="0x0107" />
             <IDSymbol name="ApplyGroup8" value="0x0108" />
-            <IDSymbol name="GroupListPlaceholder" value="0x0200" />
+            <IDSymbol name="ApplyGroup9" value="0x0109" />
+        </GuidSymbol>
+
+        <GuidSymbol name="guidStashCmdSet" value="{62576aba-56eb-4691-a902-8e38456f8591}">
+            <IDSymbol name="StashGroup" value="0x1020" />
+            <IDSymbol name="StashSaveGroup" value="0x0100"/>
+            <IDSymbol name="StashApplyGroup" value="0x0200"/>
         </GuidSymbol>
     </Symbols>
 </CommandTable>

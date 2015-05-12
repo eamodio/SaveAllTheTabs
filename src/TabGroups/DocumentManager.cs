@@ -12,24 +12,38 @@ using TabGroups.Interop;
 
 namespace TabGroups
 {
-    public class DocumentGroup
+    internal class DocumentGroup
     {
         public string Name { get; set; }
         public byte[] Positions { get; set; }
+        public int? Slot { get; set; }
     }
 
-    public interface IDocumentManager
+    internal interface IDocumentManager
     {
         int GroupCount { get; }
-        DocumentGroup GetGroup(int index);
+        int SlottedGroupCount { get; }
 
-        void SaveGroup(string name);
+        DocumentGroup GetGroup(int index);
+        DocumentGroup GetGroup(string name);
+
+        void SaveGroup(string name, int? index = null);
         void ApplyGroup(int index);
+        void ApplyGroup(string name);
+        void RemoveGroup(int index);
+        void RemoveGroup(string name);
         void ClearGroups();
+
+        int? FindFreeSlot();
     }
 
-    public class DocumentManager : IDocumentManager
+    internal class DocumentManager : IDocumentManager
     {
+        public const string StashGroupName = "<stash>";
+
+        private const int SlotMin = 1;
+        private const int SlotMax = 9;
+
         private const string StorageCollectionPath = "TabGroups";
 
         private TabGroupsPackage Package { get; }
@@ -50,9 +64,12 @@ namespace TabGroups
         }
 
         public int GroupCount => _groups?.Count ?? 0;
-        public DocumentGroup GetGroup(int index) => _groups.GetOrDefault(index);
+        public int SlottedGroupCount => _groups?.Count(g => g.Slot.HasValue) ?? 0;
 
-        public void SaveGroup(string name)
+        public DocumentGroup GetGroup(int index) => _groups.FindBySlot(index);
+        public DocumentGroup GetGroup(string name) => _groups.FindByName(name);
+
+        public void SaveGroup(string name, int? index = null)
         {
             if (DocumentWindowMgr == null)
             {
@@ -60,7 +77,7 @@ namespace TabGroups
                 return;
             }
 
-            var group = _groups.Find(g => g.Name == name);
+            var group = _groups.FindByName(name);
 
             using (var stream = new VsOleStream())
             {
@@ -75,19 +92,38 @@ namespace TabGroups
                     }
                     return;
                 }
-
                 stream.Seek(0, SeekOrigin.Begin);
+
                 if (group == null)
                 {
-                    _groups.Add(new DocumentGroup
-                                {
-                                    Name = name,
-                                    Positions = stream.ToArray()
-                                });
+                    group = new DocumentGroup
+                            {
+                                Name = name,
+                                Positions = stream.ToArray()
+                            };
+                    _groups.Add(group);
                 }
                 else
                 {
                     group.Positions = stream.ToArray();
+                }
+
+                if (index.HasValue && index <= SlotMax && group.Slot != index)
+                {
+                    // Find out if there is an existing item in the desired slot
+                    var resident = _groups.FindBySlot((int)index);
+                    if (resident != null)
+                    {
+                        resident.Slot = null;
+                    }
+
+                    group.Slot = index;
+
+                    //// Reorder the slots, but preserve the order of the rest
+                    //_groups = _groups.Where(g => g.Slot.HasValue)
+                    //                 .OrderBy(g => g.Slot)
+                    //                 .Union(_groups.Where(g => !g.Slot.HasValue))
+                    //                 .ToList();
                 }
             }
 
@@ -96,7 +132,16 @@ namespace TabGroups
 
         public void ApplyGroup(int index)
         {
-            var group = _groups.GetOrDefault(index);
+            ApplyGroupCore(_groups.FindBySlot(index));
+        }
+
+        public void ApplyGroup(string name)
+        {
+            ApplyGroupCore(_groups.FindByName(name));
+        }
+
+        private void ApplyGroupCore(DocumentGroup group)
+        {
             if (group == null)
             {
                 return;
@@ -115,10 +160,53 @@ namespace TabGroups
             }
         }
 
+        public void RemoveGroup(int index)
+        {
+            RemoveGroupCore(_groups.FindBySlot(index));
+        }
+
+        public void RemoveGroup(string name)
+        {
+            RemoveGroupCore(_groups.FindByName(name));
+        }
+
+        private void RemoveGroupCore(DocumentGroup group)
+        {
+            if (group == null)
+            {
+                return;
+            }
+
+            _groups.Remove(group);
+            SaveGroupsForSolution();
+        }
+
         public void ClearGroups()
         {
             _groups.Clear();
             SaveGroupsForSolution();
+        }
+
+        public int? FindFreeSlot()
+        {
+            var slotted = _groups.Where(g => g.Slot.HasValue)
+                                 .OrderBy(g => g.Slot)
+                                 .ToList();
+
+            if (!slotted.Any())
+            {
+                return SlotMin;
+            }
+
+            for (var i = SlotMin; i <= SlotMax; i++)
+            {
+                if (slotted.Any(g => g.Slot != i))
+                {
+                    return i;
+                }
+            }
+
+            return null;
         }
 
         private List<DocumentGroup> LoadGroupsForSolution()
@@ -165,19 +253,6 @@ namespace TabGroups
 
             var tabs = JsonConvert.SerializeObject(_groups);
             store.SetString(StorageCollectionPath, solution, tabs);
-        }
-    }
-
-    public static class Extensions
-    {
-        public static DocumentGroup GetOrDefault(this List<DocumentGroup> groups, int index)
-        {
-            if (index < 0 || index >= groups.Count)
-            {
-                return null;
-            }
-
-            return groups?[index];
         }
     }
 }

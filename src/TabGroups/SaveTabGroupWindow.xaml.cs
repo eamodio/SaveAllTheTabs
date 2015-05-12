@@ -9,15 +9,13 @@ namespace TabGroups
     /// </summary>
     public partial class SaveTabGroupWindow : Window
     {
-        private TabGroupsPackage Package { get; }
+        public string GroupName { get; private set; }
 
-        public SaveTabGroupWindow(TabGroupsPackage package)
+        public SaveTabGroupWindow(string defaultName = null)
         {
-            Package = package;
             InitializeComponent();
 
-            TextBox.Text = "";
-            TextBox.SelectedText = $"New Tab Group {(Package.DocumentManager?.GroupCount ?? 0) + 1}";
+            TextBox.SelectedText = defaultName;
             TextBox.Focus();
         }
 
@@ -26,7 +24,7 @@ namespace TabGroups
             var group = TextBox.Text;
             if (!string.IsNullOrWhiteSpace(group))
             {
-                Package.DocumentManager.SaveGroup(group);
+                GroupName = group;
                 DialogResult = true;
             }
             Close();
