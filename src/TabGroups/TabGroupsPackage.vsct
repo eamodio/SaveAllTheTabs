@@ -74,8 +74,8 @@
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
                     <CommandName>Save Tab Group</CommandName>
-                    <ButtonText>Save Tab Group</ButtonText>
-                    <MenuText>Save Tab Group</MenuText>
+                    <ButtonText>Save Tab Group...</ButtonText>
+                    <MenuText>Save Tab Group...</MenuText>
                     <CanonicalName>TabGroups.SaveTabGroup</CanonicalName>
                     <LocCanonicalName>TabGroups.SaveTabGroup</LocCanonicalName>
                 </Strings>
@@ -130,9 +130,9 @@
     </Commands>
 
     <KeyBindings>
-        <KeyBinding guid="guidPackageCmdSet" id="SaveGroup" editor="guidVSStd97" key1="W" mod1="Control" key2="G" mod2="Control"></KeyBinding>
+        <!--<KeyBinding guid="guidPackageCmdSet" id="SaveGroup" editor="guidVSStd97" key1="W" mod1="Control" key2="G" mod2="Control"></KeyBinding>-->
         <KeyBinding guid="guidGroupListCmdSet" id="GroupList" editor="guidVSStd97" key1="1" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup1" editor="guidVSStd97" key1="2" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidGroupListCmdSet" id="GroupList+1" editor="guidVSStd97" key1="2" mod1="Control"></KeyBinding>
         <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup2" editor="guidVSStd97" key1="3" mod1="Control"></KeyBinding>
         <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup3" editor="guidVSStd97" key1="4" mod1="Control"></KeyBinding>
         <KeyBinding guid="guidGroupListCmdSet" id="ApplyGroup4" editor="guidVSStd97" key1="5" mod1="Control"></KeyBinding>
