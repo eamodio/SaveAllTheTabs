@@ -59,17 +59,17 @@ namespace TabGroups
                 return;
             }
 
-            command.Enabled = Package.DocumentManager?.GetGroup(DocumentManager.StashGroupName) != null;
+            command.Enabled = Package.DocumentManager?.HasStashGroup == true;
         }
 
         private void ExecuteStashApplyGroupCommand(object sender, EventArgs e)
         {
-            Package.DocumentManager?.ApplyGroup(DocumentManager.StashGroupName);
+            Package.DocumentManager?.ApplyStashGroup();
         }
 
         private void ExecuteStashSaveGroupCommand(object sender, EventArgs e)
         {
-            Package.DocumentManager?.SaveGroup(DocumentManager.StashGroupName);
+            Package.DocumentManager?.SaveStashGroup();
         }
     }
 }

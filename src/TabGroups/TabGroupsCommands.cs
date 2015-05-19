@@ -69,12 +69,13 @@ namespace TabGroups
             command = new OleMenuCommand(null, commandId);
             commandService.AddCommand(command);
 
-            commandId = new CommandID(guid, (int)CommandIds.ClearGroups);
-            command = new OleMenuCommand(ExecuteClearGroupsCommand, commandId);
-            command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
-            commandService.AddCommand(command);
+            //commandId = new CommandID(guid, (int)CommandIds.ClearGroups);
+            //command = new OleMenuCommand(ExecuteClearGroupsCommand, commandId);
+            //command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
+            //commandService.AddCommand(command);
 
             new ApplyGroupCommands(Package).SetupCommands(commandService);
+            new GroupsWindowCommands(Package).SetupCommands(commandService);
             new StashCommands(Package).SetupCommands(commandService);
         }
 
@@ -92,7 +93,7 @@ namespace TabGroups
         private void ExecuteSaveGroupCommand(object sender, EventArgs e)
         {
             var slot = Package.DocumentManager?.FindFreeSlot();
-            var name = $"New Tab Group {slot ?? Package.DocumentManager?.GroupCount ?? 0}";
+            var name = $"New Tab Group {slot ?? ((Package.DocumentManager?.GroupCount ?? 0) + 1)}";
 
             var window = new SaveTabGroupWindow(name);
             if (window.ShowDialog() == true)

@@ -52,9 +52,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ApplyGroupCommands.cs" />
+    <Compile Include="DocumentGroup.cs" />
     <Compile Include="DocumentManager.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="GroupsToolWindow.cs" />
+    <Compile Include="GroupsToolWindowControl.xaml.cs">
+      <DependentUpon>GroupsToolWindowControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GroupsWindowCommands.cs" />
+    <Compile Include="GroupsWindowToolbarCommands.cs" />
     <Compile Include="Interop.cs" />
+    <Compile Include="PackageProviderService.cs" />
     <Compile Include="SaveTabGroupWindow.xaml.cs">
       <DependentUpon>SaveTabGroupWindow.xaml</DependentUpon>
     </Compile>
@@ -63,6 +71,7 @@
     <Compile Include="TabGroupsPackage.cs" />
     <Compile Include="TabGroupsPackageGuids.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrulyObservableCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="License.txt">
@@ -86,6 +95,10 @@
     </Reference>
     <Reference Include="EnvDTE90, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ListViewDragDropManager, Version=1.0.5604.23828, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ListViewDragDropManager.1.0.5604.23828\lib\net45\ListViewDragDropManager.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.CommandBars, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -172,6 +185,7 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
@@ -179,6 +193,27 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq" />
+    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Windows.Threading, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Xaml.2.2.5\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
@@ -198,9 +233,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\GroupsToolWindowCommand.png" />
     <Content Include="Resources\TabGroupsPackage.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="GroupsToolWindowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SaveTabGroupWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

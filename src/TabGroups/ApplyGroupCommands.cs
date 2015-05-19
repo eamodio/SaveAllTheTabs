@@ -91,7 +91,7 @@ namespace TabGroups
             }
 
             command.Enabled = false;
-            command.Visible = Package.DocumentManager?.SlottedGroupCount == 0;
+            command.Visible = Package.DocumentManager?.HasSlotGroups != true;
         }
     }
 }

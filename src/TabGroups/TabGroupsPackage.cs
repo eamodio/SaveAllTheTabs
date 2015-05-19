@@ -33,13 +33,20 @@ namespace TabGroups
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(TabGroupsPackageGuids.PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
+    [ProvideToolWindow(typeof(GroupsToolWindow), Style = VsDockStyle.Tabbed, Window = TabGroupsPackageGuids.SolutionExploreWindowGuidString)]
+    [ProvideService(typeof(PackageProviderService))]
     public sealed class TabGroupsPackage : Package
     {
+        public event EventHandler SolutionChanged;
+
         internal static DTE2 Dte => _dte ?? (_dte = ServiceProvider.GlobalProvider.GetService(typeof(DTE)) as DTE2);
         private static DTE2 _dte;
 
         public DTE2 Environment => Dte;
         internal IDocumentManager DocumentManager { get; private set; }
+
+        private PackageProviderService _packageProvider;
+        private SolutionEvents _solutionEvents;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TabGroupsPackage"/> class.
@@ -58,7 +65,9 @@ namespace TabGroups
         /// </summary>
         protected async override void Initialize()
         {
+            _packageProvider = new PackageProviderService(this);
             DocumentManager = new DocumentManager(this);
+
             TabGroupsCommands.Initialize(this);
 
             base.Initialize();
@@ -66,26 +75,23 @@ namespace TabGroups
             // Hook up event handlers
             await Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
             {
-                Environment.Events.SolutionEvents.Opened += OnSolutionOpened;
-                Environment.Events.SolutionEvents.AfterClosing += OnSolutionClosed;
+                // Must save the solution events, otherwise it seems to get GC'd
+                _solutionEvents = Environment.Events.SolutionEvents;
+                _solutionEvents.Opened += OnSolutionOpened;
+                _solutionEvents.AfterClosing += OnSolutionClosed;
 
             }), DispatcherPriority.ApplicationIdle, null);
         }
 
         private void OnSolutionOpened()
         {
-            if (DocumentManager == null)
-            {
-                DocumentManager = new DocumentManager(this);
-            }
-
+            SolutionChanged?.Invoke(this, EventArgs.Empty);
             UpdateCommandsUI(this);
         }
 
         private void OnSolutionClosed()
         {
-            DocumentManager = null;
-
+            SolutionChanged?.Invoke(this, EventArgs.Empty);
             UpdateCommandsUI(this);
         }
 
