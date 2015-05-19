@@ -51,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ApplyGroupCommands.cs" />
+    <Compile Include="RestoreGroupCommands.cs" />
     <Compile Include="DocumentGroup.cs" />
     <Compile Include="DocumentManager.cs" />
     <Compile Include="Extensions.cs" />

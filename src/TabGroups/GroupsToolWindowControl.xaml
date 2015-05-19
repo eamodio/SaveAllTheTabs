@@ -236,7 +236,7 @@
             <ListView.View>
                 <GridView AllowsColumnReorder="false">
                     <GridViewColumn CellTemplate="{StaticResource NameColumnTemplate}" Header="Tab Group" Width="Auto" />
-                    <GridViewColumn CellTemplate="{StaticResource SlotColumnTemplate}" Header="Slot #" Width="Auto" />
+                    <GridViewColumn CellTemplate="{StaticResource SlotColumnTemplate}" Header="Fav #" Width="Auto" />
                     <GridViewColumn CellTemplate="{StaticResource DescriptionColumnTemplate}" Header="Documents" Width="Auto" />
                 </GridView>
             </ListView.View>

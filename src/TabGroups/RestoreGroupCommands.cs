@@ -5,19 +5,19 @@ using Microsoft.VisualStudio.Shell;
 
 namespace TabGroups
 {
-    internal class ApplyGroupCommands
+    internal class RestoreGroupCommands
     {
-        [Guid(TabGroupsPackageGuids.ApplyGroupsCmdSetGuidString)]
-        private enum ApplyGroupListCommandIds
+        [Guid(TabGroupsPackageGuids.RestoreGroupsCmdSetGuidString)]
+        private enum RestoreGroupListCommandIds
         {
-            ApplyGroupPlaceholder = 0x0100,
-            ApplyGroupStart = 0x0101,
-            ApplyGroupEnd = ApplyGroupStart + 8,
+            RestoreGroupPlaceholder = 0x0100,
+            RestoreGroupStart = 0x0101,
+            RestoreGroupEnd = RestoreGroupStart + 8,
         }
 
         private TabGroupsPackage Package { get; }
 
-        public ApplyGroupCommands(TabGroupsPackage package)
+        public RestoreGroupCommands(TabGroupsPackage package)
         {
             Package = package;
         }
@@ -29,26 +29,26 @@ namespace TabGroups
                 return;
             }
 
-            var guid = typeof(ApplyGroupListCommandIds).GUID;
+            var guid = typeof(RestoreGroupListCommandIds).GUID;
 
-            var commandId = new CommandID(guid, (int)ApplyGroupListCommandIds.ApplyGroupPlaceholder);
+            var commandId = new CommandID(guid, (int)RestoreGroupListCommandIds.RestoreGroupPlaceholder);
             var command = new OleMenuCommand(null, commandId);
-            command.BeforeQueryStatus += ApplyGroupPlaceholderCommandOnBeforeQueryStatus;
+            command.BeforeQueryStatus += RestoreGroupPlaceholderCommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
 
-            for (var i = (int)ApplyGroupListCommandIds.ApplyGroupStart; i <= (int)ApplyGroupListCommandIds.ApplyGroupEnd; i++)
+            for (var i = (int)RestoreGroupListCommandIds.RestoreGroupStart; i <= (int)RestoreGroupListCommandIds.RestoreGroupEnd; i++)
             {
                 commandId = new CommandID(guid, i);
-                command = new OleMenuCommand(ExecuteApplyGroupCommand, commandId);
-                command.BeforeQueryStatus += ApplyGroupCommandOnBeforeQueryStatus;
+                command = new OleMenuCommand(ExecuteRestoreGroupCommand, commandId);
+                command.BeforeQueryStatus += RestoreGroupCommandOnBeforeQueryStatus;
                 commandService.AddCommand(command);
             }
         }
 
         private static int GetGroupIndex(OleMenuCommand command) =>
-            (command.CommandID.ID - (int)ApplyGroupListCommandIds.ApplyGroupStart) + 1;
+            (command.CommandID.ID - (int)RestoreGroupListCommandIds.RestoreGroupStart) + 1;
 
-        private void ExecuteApplyGroupCommand(object sender, EventArgs e)
+        private void ExecuteRestoreGroupCommand(object sender, EventArgs e)
         {
             var command = sender as OleMenuCommand;
             if (command == null)
@@ -57,10 +57,10 @@ namespace TabGroups
             }
 
             var index = GetGroupIndex(command);
-            Package.DocumentManager?.ApplyGroup(index);
+            Package.DocumentManager?.RestoreGroup(index);
         }
 
-        private void ApplyGroupCommandOnBeforeQueryStatus(object sender, EventArgs eventArgs)
+        private void RestoreGroupCommandOnBeforeQueryStatus(object sender, EventArgs eventArgs)
         {
             var command = sender as OleMenuCommand;
             if (command == null)
@@ -82,7 +82,7 @@ namespace TabGroups
             }
         }
 
-        private void ApplyGroupPlaceholderCommandOnBeforeQueryStatus(object sender, EventArgs eventArgs)
+        private void RestoreGroupPlaceholderCommandOnBeforeQueryStatus(object sender, EventArgs eventArgs)
         {
             var command = sender as OleMenuCommand;
             if (command == null)

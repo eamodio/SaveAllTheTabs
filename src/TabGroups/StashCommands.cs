@@ -15,7 +15,7 @@ namespace TabGroups
         private enum StashCommandIds
         {
             StashSaveGroup = 0x0100,
-            StashApplyGroup = 0x0200
+            StashRestoreGroup = 0x0200
         }
 
         private TabGroupsPackage Package { get; }
@@ -34,9 +34,9 @@ namespace TabGroups
             command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
 
-            commandId = new CommandID(guid, (int)StashCommandIds.StashApplyGroup);
-            command = new OleMenuCommand(ExecuteStashApplyGroupCommand, commandId);
-            command.BeforeQueryStatus += StashApplyGroupCommandOnBeforeQueryStatus;
+            commandId = new CommandID(guid, (int)StashCommandIds.StashRestoreGroup);
+            command = new OleMenuCommand(ExecuteStashRestoreGroupCommand, commandId);
+            command.BeforeQueryStatus += StashRestoreGroupCommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
         }
 
@@ -51,7 +51,7 @@ namespace TabGroups
             command.Enabled = Package.DocumentManager != null;
         }
 
-        private void StashApplyGroupCommandOnBeforeQueryStatus(object sender, EventArgs e)
+        private void StashRestoreGroupCommandOnBeforeQueryStatus(object sender, EventArgs e)
         {
             var command = sender as OleMenuCommand;
             if (command == null)
@@ -62,9 +62,9 @@ namespace TabGroups
             command.Enabled = Package.DocumentManager?.HasStashGroup == true;
         }
 
-        private void ExecuteStashApplyGroupCommand(object sender, EventArgs e)
+        private void ExecuteStashRestoreGroupCommand(object sender, EventArgs e)
         {
-            Package.DocumentManager?.ApplyStashGroup();
+            Package.DocumentManager?.RestoreStashGroup();
         }
 
         private void ExecuteStashSaveGroupCommand(object sender, EventArgs e)

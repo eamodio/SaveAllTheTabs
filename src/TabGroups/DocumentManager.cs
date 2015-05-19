@@ -32,8 +32,8 @@ namespace TabGroups
 
         void SaveGroup(string name, int? slot = null);
 
-        void ApplyGroup(int slot);
-        void ApplyGroup(DocumentGroup group);
+        void RestoreGroup(int slot);
+        void RestoreGroup(DocumentGroup group);
 
         void MoveGroup(DocumentGroup group, int delta);
 
@@ -45,7 +45,7 @@ namespace TabGroups
 
         void SaveStashGroup();
 
-        void ApplyStashGroup();
+        void RestoreStashGroup();
 
         bool HasStashGroup { get; }
 
@@ -190,12 +190,12 @@ namespace TabGroups
             group.Slot = slot;
         }
 
-        public void ApplyGroup(int slot)
+        public void RestoreGroup(int slot)
         {
-            ApplyGroup(Groups.FindBySlot(slot));
+            RestoreGroup(Groups.FindBySlot(slot));
         }
 
-        public void ApplyGroup(DocumentGroup group)
+        public void RestoreGroup(DocumentGroup group)
         {
             if (group == null)
             {
@@ -269,9 +269,9 @@ namespace TabGroups
             SaveGroup(StashGroupName);
         }
 
-        public void ApplyStashGroup()
+        public void RestoreStashGroup()
         {
-            ApplyGroup(Groups.FindByName(StashGroupName));
+            RestoreGroup(Groups.FindByName(StashGroupName));
         }
 
         public bool HasStashGroup => Groups.FindByName(StashGroupName) != null;

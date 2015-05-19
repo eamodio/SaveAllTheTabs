@@ -11,7 +11,7 @@ namespace TabGroups
         private enum GroupsWindowToolbarCommandIds
         {
             GroupsWindowToolbar = 0x0100,
-            GroupsWindowToolbarApplyGroup = 0x0200,
+            GroupsWindowToolbarRestoreGroup = 0x0200,
             GroupsWindowToolbarResetToGroup = 0x0300,
             GroupsWindowToolbarRemoveGroup = 0x0400
         }
@@ -35,8 +35,8 @@ namespace TabGroups
         {
             var guid = typeof(GroupsWindowToolbarCommandIds).GUID;
 
-            var commandId = new CommandID(guid, (int)GroupsWindowToolbarCommandIds.GroupsWindowToolbarApplyGroup);
-            var command = new OleMenuCommand(ExecuteApplyCommand, commandId);
+            var commandId = new CommandID(guid, (int)GroupsWindowToolbarCommandIds.GroupsWindowToolbarRestoreGroup);
+            var command = new OleMenuCommand(ExecuteRestoreCommand, commandId);
             command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
 
@@ -62,7 +62,7 @@ namespace TabGroups
             command.Enabled = Package.DocumentManager?.GetSelectedGroup() != null;
         }
 
-        private void ExecuteApplyCommand(object sender, EventArgs e)
+        private void ExecuteRestoreCommand(object sender, EventArgs e)
         {
             var selected = Package.DocumentManager?.GetSelectedGroup();
             if (selected == null)
@@ -70,7 +70,7 @@ namespace TabGroups
                 return;
             }
 
-            Package.DocumentManager?.ApplyGroup(selected);
+            Package.DocumentManager?.RestoreGroup(selected);
         }
 
         private void ExecuteResetToCommand(object sender, EventArgs e)
@@ -82,7 +82,7 @@ namespace TabGroups
             }
 
             Package.Environment.GetDocumentWindows().CloseAll();
-            Package.DocumentManager?.ApplyGroup(selected);
+            Package.DocumentManager?.RestoreGroup(selected);
         }
 
         private void ExecuteRemoveCommand(object sender, EventArgs e)

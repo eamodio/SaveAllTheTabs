@@ -14,7 +14,7 @@ namespace TabGroups
         private enum CommandIds
         {
             SaveGroup = 0x0100,
-            ApplyGroupListMenu = 0x0200,
+            RestoreGroupListMenu = 0x0200,
             ClearGroups = 0x0300
         }
 
@@ -65,7 +65,7 @@ namespace TabGroups
             command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
 
-            commandId = new CommandID(guid, (int)CommandIds.ApplyGroupListMenu);
+            commandId = new CommandID(guid, (int)CommandIds.RestoreGroupListMenu);
             command = new OleMenuCommand(null, commandId);
             commandService.AddCommand(command);
 
@@ -74,7 +74,7 @@ namespace TabGroups
             //command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             //commandService.AddCommand(command);
 
-            new ApplyGroupCommands(Package).SetupCommands(commandService);
+            new RestoreGroupCommands(Package).SetupCommands(commandService);
             new GroupsWindowCommands(Package).SetupCommands(commandService);
             new StashCommands(Package).SetupCommands(commandService);
         }

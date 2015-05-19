@@ -50,7 +50,7 @@ namespace TabGroups
             var cvs = FindResource("Groups") as CollectionViewSource;
             if (cvs != null)
             {
-                if (reset)
+                if (reset || cvs.Source == null)
                 {
                     cvs.Source = Groups;
                 }
@@ -66,7 +66,7 @@ namespace TabGroups
                 return;
             }
 
-            Package.DocumentManager.ApplyGroup(group);
+            Package.DocumentManager.RestoreGroup(group);
         }
 
         private void OnTabGroupsListItemPreviewKeyDown(object sender, KeyEventArgs e)
@@ -81,7 +81,7 @@ namespace TabGroups
             {
                 case Key.Enter:
                 {
-                    Package.DocumentManager.ApplyGroup(group);
+                    Package.DocumentManager.RestoreGroup(group);
                     break;
                 }
                 case Key.Delete:
