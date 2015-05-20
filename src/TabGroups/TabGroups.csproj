@@ -51,20 +51,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="RestoreGroupCommands.cs" />
+    <Compile Include="RestoreTabsListCommands.cs" />
     <Compile Include="DocumentGroup.cs" />
     <Compile Include="DocumentManager.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="GroupsToolWindow.cs" />
-    <Compile Include="GroupsToolWindowControl.xaml.cs">
-      <DependentUpon>GroupsToolWindowControl.xaml</DependentUpon>
+    <Compile Include="SavedTabsToolWindow.cs" />
+    <Compile Include="SavedTabsToolWindowControl.xaml.cs">
+      <DependentUpon>SavedTabsToolWindowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GroupsWindowCommands.cs" />
-    <Compile Include="GroupsWindowToolbarCommands.cs" />
+    <Compile Include="SavedTabsWindowCommands.cs" />
+    <Compile Include="SavedTabsWindowToolbarCommands.cs" />
     <Compile Include="Interop.cs" />
     <Compile Include="PackageProviderService.cs" />
-    <Compile Include="SaveTabGroupWindow.xaml.cs">
-      <DependentUpon>SaveTabGroupWindow.xaml</DependentUpon>
+    <Compile Include="SaveTabsWindow.xaml.cs">
+      <DependentUpon>SaveTabsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="StashCommands.cs" />
     <Compile Include="TabGroupsCommands.cs" />
@@ -237,11 +237,11 @@
     <Content Include="Resources\TabGroupsPackage.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="GroupsToolWindowControl.xaml">
+    <Page Include="SavedTabsToolWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SaveTabGroupWindow.xaml">
+    <Page Include="SaveTabsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

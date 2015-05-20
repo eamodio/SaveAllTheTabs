@@ -18,14 +18,14 @@ namespace TabGroups
     /// </para>
     /// </remarks>
     [Guid("55627d91-9a2e-410e-8472-ac651ae62d7b")]
-    public class GroupsToolWindow : ToolWindowPane
+    public class SavedTabsToolWindow : ToolWindowPane
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GroupsToolWindow"/> class.
+        /// Initializes a new instance of the <see cref="SavedTabsToolWindow"/> class.
         /// </summary>
-        public GroupsToolWindow() : base(null)
+        public SavedTabsToolWindow() : base(null)
         {
-            Caption = "Tab Groups";
+            Caption = "Saved Tabs";
 
             // Set the image that will appear on the tab of the window frame
             // when docked with an other window
@@ -41,13 +41,13 @@ namespace TabGroups
             var commandService = ((IServiceProvider)package)?.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
-                ToolBar = new GroupsWindowToolbarCommands(package).SetupToolbar(commandService);
+                ToolBar = new SavedTabsWindowToolbarCommands(package).SetupToolbar(commandService);
             }
 
             // This is the user control hosted by the tool window; Note that, even if this class implements IDisposable,
             // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on
             // the object returned by the Content property.
-            Content = new GroupsToolWindowControl(package);
+            Content = new SavedTabsToolWindowControl(package);
         }
 
         protected override bool PreProcessMessage(ref Message m)

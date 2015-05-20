@@ -33,7 +33,7 @@ namespace TabGroups
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(TabGroupsPackageGuids.PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
-    [ProvideToolWindow(typeof(GroupsToolWindow), Style = VsDockStyle.Tabbed, Window = TabGroupsPackageGuids.SolutionExploreWindowGuidString)]
+    [ProvideToolWindow(typeof(SavedTabsToolWindow), Style = VsDockStyle.Tabbed, Window = TabGroupsPackageGuids.SolutionExploreWindowGuidString)]
     [ProvideService(typeof(PackageProviderService))]
     public sealed class TabGroupsPackage : Package
     {

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Tab Groups")]
+[assembly: AssemblyTitle("Save All the Tabs")]
 [assembly: AssemblyDescription("Quickly save and reload sets of document tabs.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Eric Amodio")]
-[assembly: AssemblyProduct("TabGroups")]
+[assembly: AssemblyProduct("SaveAllTheTabs")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.2.0.0")]
-[assembly: AssemblyFileVersion("0.2.0.0")]
+[assembly: AssemblyVersion("0.9.0.0")]
+[assembly: AssemblyFileVersion("0.9.0.0")]

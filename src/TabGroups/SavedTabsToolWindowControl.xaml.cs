@@ -16,7 +16,7 @@ namespace TabGroups
     /// <summary>
     /// Interaction logic for GroupsToolWindowControl.
     /// </summary>
-    public partial class GroupsToolWindowControl : UserControl
+    public partial class SavedTabsToolWindowControl : UserControl
     {
         private TabGroupsPackage Package { get; }
         public ObservableCollection<DocumentGroup> Groups { get; private set; }
@@ -24,9 +24,9 @@ namespace TabGroups
         //private ListViewDragDropManager<DocumentGroup> _listViewDragDropManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GroupsToolWindowControl"/> class.
+        /// Initializes a new instance of the <see cref="SavedTabsToolWindowControl"/> class.
         /// </summary>
-        public GroupsToolWindowControl(TabGroupsPackage package)
+        public SavedTabsToolWindowControl(TabGroupsPackage package)
         {
             Package = package;
 

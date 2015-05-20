@@ -40,52 +40,52 @@
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_WINDOW" />
             </Group>
 
-            <Group guid="guidRestoreGroupListCmdSet" id="RestoreGroupListCmdGroup" priority="0x0100">
-                <Parent guid="guidPackageCmdSet" id="RestoreGroupListMenu" />
+            <Group guid="guidRestoreTabsListCmdSet" id="RestoreTabsListCmdGroup" priority="0x0100">
+                <Parent guid="guidPackageCmdSet" id="RestoreTabsListMenu" />
             </Group>
 
-            <Group guid="guidGroupsWindowCmdSet" id="GroupsWindowCmdGroup" priority="0x0700">
+            <Group guid="guidSavedTabsWindowCmdSet" id="SavedTabsWindowCmdGroup" priority="0x0800">
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_WINDOW" />
             </Group>
 
-            <Group guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarCmdGroup" priority="0x0000">
-                <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbar" />
+            <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCmdGroup" priority="0x0000">
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbar" />
             </Group>
 
-            <Group guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarRestoreCmdGroup" priority="0x0200">
-                <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbar" />
+            <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRestoreCmdGroup" priority="0x0200">
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbar" />
             </Group>
 
-            <Group guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarRemoveCmdGroup" priority="0x0300">
-                <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbar" />
+            <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRemoveCmdGroup" priority="0x0300">
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbar" />
             </Group>
 
-            <Group guid="guidStashCmdSet" id="StashCmdGroup" priority="0x0800">
+            <Group guid="guidStashCmdSet" id="StashCmdGroup" priority="0x0700">
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_WINDOW" />
             </Group>
         </Groups>
 
         <Menus>
-            <Menu guid="guidPackageCmdSet" id="RestoreGroupListMenu" priority="0x0200" type="Menu">
+            <Menu guid="guidPackageCmdSet" id="RestoreTabsListMenu" priority="0x0200" type="Menu">
                 <Parent guid="guidPackageCmdSet" id="MainCmdGroup" />
                 <Strings>
-                    <CommandName>Restore Tab Group</CommandName>
-                    <ButtonText>Restore Tab Group</ButtonText>
-                    <MenuText>Restore Tab Group</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabGroupMenu</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabGroupMenu</LocCanonicalName>
+                    <CommandName>Restore Tabs</CommandName>
+                    <ButtonText>Restore Tabs</ButtonText>
+                    <MenuText>Restore Tabs</MenuText>
+                    <CanonicalName>TabGroups.RestoreTabsMenu</CanonicalName>
+                    <LocCanonicalName>TabGroups.RestoreTabsMenu</LocCanonicalName>
                 </Strings>
             </Menu>
 
-            <Menu guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbar" type="ToolWindowToolbar">
+            <Menu guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbar" type="ToolWindowToolbar">
                 <CommandFlag>DefaultDocked</CommandFlag>
                 <CommandFlag>NoToolbarClose</CommandFlag>
                 <Strings>
                     <CommandName>Toolbar</CommandName>
                     <ButtonText>Toolbar</ButtonText>
                     <MenuText>Toolbar</MenuText>
-                    <CanonicalName>TabGroups.GroupsWindowToolbar</CanonicalName>
-                    <LocCanonicalName>TabGroups.GroupsWindowToolbar</LocCanonicalName>
+                    <CanonicalName>TabGroups.SavedTabsWindowToolbar</CanonicalName>
+                    <LocCanonicalName>TabGroups.SavedTabsWindowToolbar</LocCanonicalName>
                 </Strings>
             </Menu>
         </Menus>
@@ -101,181 +101,158 @@
               <CommandFlag>DefaultInvisible</CommandFlag>
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
-            <Button guid="guidPackageCmdSet" id="SaveGroup" priority="0x0100" type="Button">
+            <Button guid="guidPackageCmdSet" id="SaveTabs" priority="0x0100" type="Button">
                 <Parent guid="guidPackageCmdSet" id="MainCmdGroup" />
-                <Icon guid="guidImages" id="bmpPicSaveGroup" />
+                <Icon guid="guidImages" id="bmpPicSaveTabs" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
-                    <CommandName>Save Tab Group</CommandName>
+                    <CommandName>Save Tabs</CommandName>
                     <ButtonText>Save Tabs...</ButtonText>
-                    <MenuText>Save Tab Group...</MenuText>
-                    <CanonicalName>TabGroups.SaveTabGroup</CanonicalName>
-                    <LocCanonicalName>TabGroups.SaveTabGroup</LocCanonicalName>
+                    <MenuText>Save Tabs...</MenuText>
+                    <CanonicalName>TabGroups.SaveTabs</CanonicalName>
+                    <LocCanonicalName>TabGroups.SaveTabs</LocCanonicalName>
                 </Strings>
             </Button>
 
-            <!--<Button guid="guidPackageCmdSet" id="ClearGroups" priority="0x0300" type="Button">
-                <Parent guid="guidPackageCmdSet" id="MainCmdGroup" />
-                <CommandFlag>DefaultDisabled</CommandFlag>
-                <Strings>
-                    <CommandName>Clear Tab Groups</CommandName>
-                    <ButtonText>Clear Tab Groups</ButtonText>
-                    <MenuText>Clear Tab Groups</MenuText>
-                    <CanonicalName>TabGroups.ClearTabGroups</CanonicalName>
-                    <LocCanonicalName>TabGroups.ClearTabGroups</LocCanonicalName>
-                </Strings>
-            </Button>-->
-
-            <Button guid="guidRestoreGroupListCmdSet" id="RestoreGroupPlaceholder" priority="0x0100" type="Button">
-                <Parent guid="guidRestoreGroupListCmdSet" id="RestoreGroupListCmdGroup" />
+            <Button guid="guidRestoreTabsListCmdSet" id="RestoreTabsPlaceholder" priority="0x0100" type="Button">
+                <Parent guid="guidRestoreTabsListCmdSet" id="RestoreTabsListCmdGroup" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>NoCustomize</CommandFlag>
                 <Strings>
-                    <ButtonText>No Saved Tab Groups</ButtonText>
+                    <ButtonText>No Saved Tabs</ButtonText>
                 </Strings>
             </Button>
 
-            <Button guid="guidRestoreGroupListCmdSet" id="RestoreGroup1" priority="0x0100" type="Button">
-                <Parent guid="guidRestoreGroupListCmdSet" id="RestoreGroupListCmdGroup" />
+            <Button guid="guidRestoreTabsListCmdSet" id="RestoreTabs1" priority="0x0100" type="Button">
+                <Parent guid="guidRestoreTabsListCmdSet" id="RestoreTabsListCmdGroup" />
                 <CommandFlag>DefaultInvisible</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>TextChanges</CommandFlag>
                 <Strings>
-                    <CommandName>Restore Tab Group 1</CommandName>
+                    <CommandName>Restore Tabs 1</CommandName>
                     <ButtonText>1</ButtonText>
                     <MenuText>1</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabGroup1</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabGroup1</LocCanonicalName>
+                    <CanonicalName>TabGroups.RestoreTabs1</CanonicalName>
+                    <LocCanonicalName>TabGroups.RestoreTabs1</LocCanonicalName>
                 </Strings>
             </Button>
 
-            <Button guid="guidRestoreGroupListCmdSet" id="RestoreGroup2" priority="0x0100" type="Button">
-                <Parent guid="guidRestoreGroupListCmdSet" id="RestoreGroupListCmdGroup" />
+            <Button guid="guidRestoreTabsListCmdSet" id="RestoreTabs2" priority="0x0100" type="Button">
+                <Parent guid="guidRestoreTabsListCmdSet" id="RestoreTabsListCmdGroup" />
                 <CommandFlag>DefaultInvisible</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>TextChanges</CommandFlag>
                 <Strings>
-                    <CommandName>Restore Tab Group 2</CommandName>
+                    <CommandName>Restore Tabs 2</CommandName>
                     <ButtonText>2</ButtonText>
                     <MenuText>2</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabGroup2</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabGroup2</LocCanonicalName>
+                    <CanonicalName>TabGroups.RestoreTabs2</CanonicalName>
+                    <LocCanonicalName>TabGroups.RestoreTabs2</LocCanonicalName>
                 </Strings>
             </Button>
 
-            <Button guid="guidRestoreGroupListCmdSet" id="RestoreGroup3" priority="0x0100" type="Button">
-                <Parent guid="guidRestoreGroupListCmdSet" id="RestoreGroupListCmdGroup" />
+            <Button guid="guidRestoreTabsListCmdSet" id="RestoreTabs3" priority="0x0100" type="Button">
+                <Parent guid="guidRestoreTabsListCmdSet" id="RestoreTabsListCmdGroup" />
                 <CommandFlag>DefaultInvisible</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>TextChanges</CommandFlag>
                 <Strings>
-                    <CommandName>Restore Tab Group 3</CommandName>
+                    <CommandName>Restore Tabs 3</CommandName>
                     <ButtonText>3</ButtonText>
                     <MenuText>3</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabGroup3</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabGroup3</LocCanonicalName>
+                    <CanonicalName>TabGroups.RestoreTabs3</CanonicalName>
+                    <LocCanonicalName>TabGroups.RestoreTabs3</LocCanonicalName>
                 </Strings>
             </Button>
 
-            <Button guid="guidRestoreGroupListCmdSet" id="RestoreGroup4" priority="0x0100" type="Button">
-                <Parent guid="guidRestoreGroupListCmdSet" id="RestoreGroupListCmdGroup" />
+            <Button guid="guidRestoreTabsListCmdSet" id="RestoreTabs4" priority="0x0100" type="Button">
+                <Parent guid="guidRestoreTabsListCmdSet" id="RestoreTabsListCmdGroup" />
                 <CommandFlag>DefaultInvisible</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>TextChanges</CommandFlag>
                 <Strings>
-                    <CommandName>Restore Tab Group 4</CommandName>
+                    <CommandName>Restore Tabs 4</CommandName>
                     <ButtonText>4</ButtonText>
                     <MenuText>4</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabGroup4</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabGroup4</LocCanonicalName>
+                    <CanonicalName>TabGroups.RestoreTabs4</CanonicalName>
+                    <LocCanonicalName>TabGroups.RestoreTabs4</LocCanonicalName>
                 </Strings>
             </Button>
 
-            <Button guid="guidRestoreGroupListCmdSet" id="RestoreGroup5" priority="0x0100" type="Button">
-                <Parent guid="guidRestoreGroupListCmdSet" id="RestoreGroupListCmdGroup" />
+            <Button guid="guidRestoreTabsListCmdSet" id="RestoreTabs5" priority="0x0100" type="Button">
+                <Parent guid="guidRestoreTabsListCmdSet" id="RestoreTabsListCmdGroup" />
                 <CommandFlag>DefaultInvisible</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>TextChanges</CommandFlag>
                 <Strings>
-                    <CommandName>Restore Tab Group 5</CommandName>
+                    <CommandName>Restore Tabs 5</CommandName>
                     <ButtonText>5</ButtonText>
                     <MenuText>5</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabGroup5</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabGroup5</LocCanonicalName>
+                    <CanonicalName>TabGroups.RestoreTabs5</CanonicalName>
+                    <LocCanonicalName>TabGroups.RestoreTabs5</LocCanonicalName>
                 </Strings>
             </Button>
 
-            <Button guid="guidRestoreGroupListCmdSet" id="RestoreGroup6" priority="0x0100" type="Button">
-                <Parent guid="guidRestoreGroupListCmdSet" id="RestoreGroupListCmdGroup" />
+            <Button guid="guidRestoreTabsListCmdSet" id="RestoreTabs6" priority="0x0100" type="Button">
+                <Parent guid="guidRestoreTabsListCmdSet" id="RestoreTabsListCmdGroup" />
                 <CommandFlag>DefaultInvisible</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>TextChanges</CommandFlag>
                 <Strings>
-                    <CommandName>Restore Tab Group 6</CommandName>
+                    <CommandName>Restore Tabs 6</CommandName>
                     <ButtonText>6</ButtonText>
                     <MenuText>6</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabGroup6</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabGroup6</LocCanonicalName>
+                    <CanonicalName>TabGroups.RestoreTabs6</CanonicalName>
+                    <LocCanonicalName>TabGroups.RestoreTabs6</LocCanonicalName>
                 </Strings>
             </Button>
 
-            <Button guid="guidRestoreGroupListCmdSet" id="RestoreGroup7" priority="0x0100" type="Button">
-                <Parent guid="guidRestoreGroupListCmdSet" id="RestoreGroupListCmdGroup" />
+            <Button guid="guidRestoreTabsListCmdSet" id="RestoreTabs7" priority="0x0100" type="Button">
+                <Parent guid="guidRestoreTabsListCmdSet" id="RestoreTabsListCmdGroup" />
                 <CommandFlag>DefaultInvisible</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>TextChanges</CommandFlag>
                 <Strings>
-                    <CommandName>Restore Tab Group 7</CommandName>
+                    <CommandName>Restore Tabs 7</CommandName>
                     <ButtonText>7</ButtonText>
                     <MenuText>7</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabGroup7</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabGroup7</LocCanonicalName>
+                    <CanonicalName>TabGroups.RestoreTabs7</CanonicalName>
+                    <LocCanonicalName>TabGroups.RestoreTabs7</LocCanonicalName>
                 </Strings>
             </Button>
 
-            <Button guid="guidRestoreGroupListCmdSet" id="RestoreGroup8" priority="0x0100" type="Button">
-                <Parent guid="guidRestoreGroupListCmdSet" id="RestoreGroupListCmdGroup" />
+            <Button guid="guidRestoreTabsListCmdSet" id="RestoreTabs8" priority="0x0100" type="Button">
+                <Parent guid="guidRestoreTabsListCmdSet" id="RestoreTabsListCmdGroup" />
                 <CommandFlag>DefaultInvisible</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>TextChanges</CommandFlag>
                 <Strings>
-                    <CommandName>Restore Tab Group 8</CommandName>
+                    <CommandName>Restore Tabs 8</CommandName>
                     <ButtonText>8</ButtonText>
                     <MenuText>8</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabGroup8</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabGroup8</LocCanonicalName>
+                    <CanonicalName>TabGroups.RestoreTabs8</CanonicalName>
+                    <LocCanonicalName>TabGroups.RestoreTabs8</LocCanonicalName>
                 </Strings>
             </Button>
 
-            <Button guid="guidRestoreGroupListCmdSet" id="RestoreGroup9" priority="0x0100" type="Button">
-                <Parent guid="guidRestoreGroupListCmdSet" id="RestoreGroupListCmdGroup" />
+            <Button guid="guidRestoreTabsListCmdSet" id="RestoreTabs9" priority="0x0100" type="Button">
+                <Parent guid="guidRestoreTabsListCmdSet" id="RestoreTabsListCmdGroup" />
                 <CommandFlag>DefaultInvisible</CommandFlag>
                 <CommandFlag>DynamicVisibility</CommandFlag>
                 <CommandFlag>TextChanges</CommandFlag>
                 <Strings>
-                    <CommandName>Restore Tab Group 9</CommandName>
+                    <CommandName>Restore Tabs 9</CommandName>
                     <ButtonText>9</ButtonText>
                     <MenuText>9</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabGroup9</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabGroup9</LocCanonicalName>
+                    <CanonicalName>TabGroups.RestoreTabs9</CanonicalName>
+                    <LocCanonicalName>TabGroups.RestoreTabs9</LocCanonicalName>
                 </Strings>
             </Button>
 
-            <Button guid="guidGroupsWindowCmdSet" id="GroupsWindow" priority="0x0100" type="Button">
-                <Parent guid="guidGroupsWindowCmdSet" id="GroupsWindowCmdGroup" />
-                <Strings>
-                    <CommandName>Tab Groups Window</CommandName>
-                    <ButtonText>Tab Groups Window</ButtonText>
-                    <MenuText>Tab Groups Window</MenuText>
-                    <CanonicalName>TabGroups.TabGroupsWindow</CanonicalName>
-                    <LocCanonicalName>TabGroups.TabGroupsWindow</LocCanonicalName>
-                </Strings>
-            </Button>
-
-            <Button guid="guidStashCmdSet" id="StashSaveGroup" priority="0x0100" type="Button">
+            <Button guid="guidStashCmdSet" id="StashSaveTabs" priority="0x0100" type="Button">
                 <Parent guid="guidStashCmdSet" id="StashCmdGroup" />
-                <Icon guid="guidImages" id="bmpPicStashGroup" />
+                <Icon guid="guidImages" id="bmpPicStashTabs" />
                 <Strings>
                     <CommandName>Stash Tabs</CommandName>
                     <ButtonText>Stash Tabs</ButtonText>
@@ -285,7 +262,7 @@
                 </Strings>
             </Button>
 
-            <Button guid="guidStashCmdSet" id="StashRestoreGroup" priority="0x0100" type="Button">
+            <Button guid="guidStashCmdSet" id="StashRestoreTabs" priority="0x0100" type="Button">
                 <Parent guid="guidStashCmdSet" id="StashCmdGroup" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
@@ -297,42 +274,53 @@
                 </Strings>
             </Button>
 
-            <Button guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarRestoreGroup" priority="0x0200" type="Button">
-                <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarRestoreCmdGroup" />
-                <Icon guid="guidImages" id="bmpPicRestoreGroup" />
+            <Button guid="guidSavedTabsWindowCmdSet" id="SavedTabsWindow" priority="0x0100" type="Button">
+                <Parent guid="guidSavedTabsWindowCmdSet" id="SavedTabsWindowCmdGroup" />
+                <Strings>
+                    <CommandName>Saved Tabs Window</CommandName>
+                    <ButtonText>Saved Tabs Window</ButtonText>
+                    <MenuText>Saved Tabs Window</MenuText>
+                    <CanonicalName>TabGroups.SavedTabsWindow</CanonicalName>
+                    <LocCanonicalName>TabGroups.SavedTabsWindow</LocCanonicalName>
+                </Strings>
+            </Button>
+
+            <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRestoreTabs" priority="0x0200" type="Button">
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRestoreCmdGroup" />
+                <Icon guid="guidImages" id="bmpPicRestoreTabs" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
-                    <CommandName>Restore Tab Group</CommandName>
+                    <CommandName>Restore Tabs</CommandName>
                     <ButtonText>Restore Tabs</ButtonText>
-                    <MenuText>Restore Tab Group</MenuText>
-                    <CanonicalName>TabGroups.ToolbarRestoreTabGroup</CanonicalName>
-                    <LocCanonicalName>TabGroups.ToolbarRestoreTabGroup</LocCanonicalName>
+                    <MenuText>Restore Tabs</MenuText>
+                    <CanonicalName>TabGroups.ToolbarRestoreTabs</CanonicalName>
+                    <LocCanonicalName>TabGroups.ToolbarRestoreTabs</LocCanonicalName>
                 </Strings>
             </Button>
 
-            <Button guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarResetToGroup" priority="0x0300" type="Button">
-                <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarRestoreCmdGroup" />
-                <Icon guid="guidImages" id="bmpPicResetToGroup" />
+            <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarResetTabs" priority="0x0300" type="Button">
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRestoreCmdGroup" />
+                <Icon guid="guidImages" id="bmpPicResetTabs" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
-                    <CommandName>Reset to Tab Group</CommandName>
-                    <ButtonText>Reset to Tabs</ButtonText>
-                    <MenuText>Reset to Tab Group</MenuText>
-                    <CanonicalName>TabGroups.ToolbarResetToTabGroup</CanonicalName>
-                    <LocCanonicalName>TabGroups.ToolbarResetToTabGroup</LocCanonicalName>
+                    <CommandName>Reset Tabs</CommandName>
+                    <ButtonText>Reset Tabs</ButtonText>
+                    <MenuText>Reset Tabs</MenuText>
+                    <CanonicalName>TabGroups.ToolbarResetTabs</CanonicalName>
+                    <LocCanonicalName>TabGroups.ToolbarResetTabs</LocCanonicalName>
                 </Strings>
             </Button>
 
-            <Button guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarRemoveGroup" priority="0x0400" type="Button">
-                <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarRemoveCmdGroup" />
-                <Icon guid="guidImages" id="bmpPicRemoveGroup" />
+            <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRemoveTabs" priority="0x0400" type="Button">
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRemoveCmdGroup" />
+                <Icon guid="guidImages" id="bmpPicRemoveTabs" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
-                    <CommandName>Remove Tab Group</CommandName>
-                    <ButtonText>Remove</ButtonText>
-                    <MenuText>Remove Tab Group</MenuText>
-                    <CanonicalName>TabGroups.ToolbarRemoveTabGroup</CanonicalName>
-                    <LocCanonicalName>TabGroups.ToolbarRemoveTabGroup</LocCanonicalName>
+                    <CommandName>Remove Tabs</CommandName>
+                    <ButtonText>Remove Tabs</ButtonText>
+                    <MenuText>Remove Tabs</MenuText>
+                    <CanonicalName>TabGroups.ToolbarRemoveTabs</CanonicalName>
+                    <LocCanonicalName>TabGroups.ToolbarRemoveTabs</LocCanonicalName>
                 </Strings>
             </Button>
         </Buttons>
@@ -344,48 +332,48 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-            <Bitmap guid="guidImages" href="Resources\GroupsToolWindowCommand.png" usedList="bmpPicSaveGroup, bmpPicRestoreGroup, bmpPicResetToGroup, bmpPicRemoveGroup, bmpPicStashGroup, bmpPicSearch" />
+            <Bitmap guid="guidImages" href="Resources\GroupsToolWindowCommand.png" usedList="bmpPicSaveTabs, bmpPicRestoreTabs, bmpPicResetTabs, bmpPicRemoveTabs, bmpPicStashTabs, bmpPicSearch" />
         </Bitmaps>
     </Commands>
 
     <CommandPlacements>
-        <CommandPlacement guid="guidPackageCmdSet" id="SaveGroup" priority="0x0100">
-            <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarCmdGroup"/>
+        <CommandPlacement guid="guidPackageCmdSet" id="SaveTabs" priority="0x0100">
+            <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCmdGroup"/>
         </CommandPlacement>
-        <CommandPlacement guid="guidStashCmdSet" id="StashSaveGroup" priority="0x0200">
-            <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarCmdGroup"/>
+        <CommandPlacement guid="guidStashCmdSet" id="StashSaveTabs" priority="0x0200">
+            <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCmdGroup"/>
         </CommandPlacement>
     </CommandPlacements>
 
     <KeyBindings>
-        <!--<KeyBinding guid="guidPackageCmdSet" id="SaveGroup" editor="guidVSStd97" key1="D" mod1="Control" key2="S"></KeyBinding>-->
-        <KeyBinding guid="guidPackageCmdSet" id="SaveGroup" editor="guidVSStd97" key1="D" mod1="Control" key2="S" mod2="Control"></KeyBinding>
-        <!--<KeyBinding guid="guidStashCmdSet" id="StashSaveGroup" editor="guidVSStd97" key1="D" mod1="Control" key2="C"></KeyBinding>-->
-        <KeyBinding guid="guidStashCmdSet" id="StashSaveGroup" editor="guidVSStd97" key1="D" mod1="Control" key2="C" mod2="Control"></KeyBinding>
-        <KeyBinding guid="guidStashCmdSet" id="StashRestoreGroup" editor="guidVSStd97" key1="VK_OEM_3" mod1="Control"></KeyBinding>
-        <!--<KeyBinding guid="guidStashCmdSet" id="StashRestoreGroup" editor="guidVSStd97" key1="D" mod1="Control" key2="V"></KeyBinding>-->
-        <KeyBinding guid="guidStashCmdSet" id="StashRestoreGroup" editor="guidVSStd97" key1="D" mod1="Control" key2="V" mod2="Control"></KeyBinding>
-        <!--<KeyBinding guid="guidGroupsWindowCmdSet" id="GroupsWindow" editor="guidVSStd97" key1="D" mod1="Control" key2="W"></KeyBinding>-->
-        <KeyBinding guid="guidGroupsWindowCmdSet" id="GroupsWindow" editor="guidVSStd97" key1="D" mod1="Control" key2="W" mod2="Control"></KeyBinding>
+        <!--<KeyBinding guid="guidPackageCmdSet" id="SaveTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="S"></KeyBinding>-->
+        <KeyBinding guid="guidPackageCmdSet" id="SaveTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="S" mod2="Control"></KeyBinding>
+        <!--<KeyBinding guid="guidStashCmdSet" id="StashSaveTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="C"></KeyBinding>-->
+        <KeyBinding guid="guidStashCmdSet" id="StashSaveTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="C" mod2="Control"></KeyBinding>
+        <KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="VK_OEM_3" mod1="Control"></KeyBinding>
+        <!--<KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="V"></KeyBinding>-->
+        <KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="V" mod2="Control"></KeyBinding>
+        <!--<KeyBinding guid="guidSavedTabsWindowCmdSet" id="SavedTabsWindow" editor="guidVSStd97" key1="D" mod1="Control" key2="W"></KeyBinding>-->
+        <KeyBinding guid="guidSavedTabsWindowCmdSet" id="SavedTabsWindow" editor="guidVSStd97" key1="D" mod1="Control" key2="W" mod2="Control"></KeyBinding>
 
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup1" editor="guidVSStd97" key1="D" mod1="Control" key2="1"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup1" editor="guidVSStd97" key1="1" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup2" editor="guidVSStd97" key1="D" mod1="Control" key2="2"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup2" editor="guidVSStd97" key1="2" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup3" editor="guidVSStd97" key1="D" mod1="Control" key2="3"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup3" editor="guidVSStd97" key1="3" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup4" editor="guidVSStd97" key1="D" mod1="Control" key2="4"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup4" editor="guidVSStd97" key1="4" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup5" editor="guidVSStd97" key1="D" mod1="Control" key2="5"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup5" editor="guidVSStd97" key1="5" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup6" editor="guidVSStd97" key1="D" mod1="Control" key2="6"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup6" editor="guidVSStd97" key1="6" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup7" editor="guidVSStd97" key1="D" mod1="Control" key2="7"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup7" editor="guidVSStd97" key1="7" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup8" editor="guidVSStd97" key1="D" mod1="Control" key2="8"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup8" editor="guidVSStd97" key1="8" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup9" editor="guidVSStd97" key1="D" mod1="Control" key2="9"></KeyBinding>
-        <KeyBinding guid="guidRestoreGroupListCmdSet" id="RestoreGroup9" editor="guidVSStd97" key1="9" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs1" editor="guidVSStd97" key1="D" mod1="Control" key2="1"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs1" editor="guidVSStd97" key1="1" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs2" editor="guidVSStd97" key1="D" mod1="Control" key2="2"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs2" editor="guidVSStd97" key1="2" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs3" editor="guidVSStd97" key1="D" mod1="Control" key2="3"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs3" editor="guidVSStd97" key1="3" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs4" editor="guidVSStd97" key1="D" mod1="Control" key2="4"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs4" editor="guidVSStd97" key1="4" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs5" editor="guidVSStd97" key1="D" mod1="Control" key2="5"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs5" editor="guidVSStd97" key1="5" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs6" editor="guidVSStd97" key1="D" mod1="Control" key2="6"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs6" editor="guidVSStd97" key1="6" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs7" editor="guidVSStd97" key1="D" mod1="Control" key2="7"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs7" editor="guidVSStd97" key1="7" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs8" editor="guidVSStd97" key1="D" mod1="Control" key2="8"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs8" editor="guidVSStd97" key1="8" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs9" editor="guidVSStd97" key1="D" mod1="Control" key2="9"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs9" editor="guidVSStd97" key1="9" mod1="Control"></KeyBinding>
     </KeyBindings>
 
     <Symbols>
@@ -395,52 +383,51 @@
         <!-- This is the guid used to group the menu commands together -->
         <GuidSymbol name="guidPackageCmdSet" value="{54ea2b58-3ea2-489f-b4eb-3b7e88a663c2}">
             <IDSymbol name="MainCmdGroup" value="0x1020" />
-            <IDSymbol name="SaveGroup" value="0x0100" />
-            <IDSymbol name="RestoreGroupListMenu" value="0x0200" />
-            <!--<IDSymbol name="ClearGroups" value="0x0300" />-->
+            <IDSymbol name="SaveTabs" value="0x0100" />
+            <IDSymbol name="RestoreTabsListMenu" value="0x0200" />
         </GuidSymbol>
 
-        <GuidSymbol name="guidRestoreGroupListCmdSet" value="{288739ea-2a43-496d-84f9-329a51d47bdc}">
-            <IDSymbol name="RestoreGroupListCmdGroup" value="0x1020" />
-            <IDSymbol name="RestoreGroupPlaceholder" value="0x0100" />
-            <IDSymbol name="RestoreGroup1" value="0x0101" />
-            <IDSymbol name="RestoreGroup2" value="0x0102" />
-            <IDSymbol name="RestoreGroup3" value="0x0103" />
-            <IDSymbol name="RestoreGroup4" value="0x0104" />
-            <IDSymbol name="RestoreGroup5" value="0x0105" />
-            <IDSymbol name="RestoreGroup6" value="0x0106" />
-            <IDSymbol name="RestoreGroup7" value="0x0107" />
-            <IDSymbol name="RestoreGroup8" value="0x0108" />
-            <IDSymbol name="RestoreGroup9" value="0x0109" />
+        <GuidSymbol name="guidRestoreTabsListCmdSet" value="{288739ea-2a43-496d-84f9-329a51d47bdc}">
+            <IDSymbol name="RestoreTabsListCmdGroup" value="0x1020" />
+            <IDSymbol name="RestoreTabsPlaceholder" value="0x0100" />
+            <IDSymbol name="RestoreTabs1" value="0x0101" />
+            <IDSymbol name="RestoreTabs2" value="0x0102" />
+            <IDSymbol name="RestoreTabs3" value="0x0103" />
+            <IDSymbol name="RestoreTabs4" value="0x0104" />
+            <IDSymbol name="RestoreTabs5" value="0x0105" />
+            <IDSymbol name="RestoreTabs6" value="0x0106" />
+            <IDSymbol name="RestoreTabs7" value="0x0107" />
+            <IDSymbol name="RestoreTabs8" value="0x0108" />
+            <IDSymbol name="RestoreTabs9" value="0x0109" />
         </GuidSymbol>
 
         <GuidSymbol name="guidStashCmdSet" value="{62576aba-56eb-4691-a902-8e38456f8591}">
             <IDSymbol name="StashCmdGroup" value="0x1020" />
-            <IDSymbol name="StashSaveGroup" value="0x0100" />
-            <IDSymbol name="StashRestoreGroup" value="0x0200" />
+            <IDSymbol name="StashSaveTabs" value="0x0100" />
+            <IDSymbol name="StashRestoreTabs" value="0x0200" />
         </GuidSymbol>
 
-        <GuidSymbol name="guidGroupsWindowCmdSet" value="{64c513dc-778b-4781-bd6b-78c95a113d43}">
-            <IDSymbol name="GroupsWindowCmdGroup" value="0x1020" />
-            <IDSymbol name="GroupsWindow" value="0x0100" />
+        <GuidSymbol name="guidSavedTabsWindowCmdSet" value="{64c513dc-778b-4781-bd6b-78c95a113d43}">
+            <IDSymbol name="SavedTabsWindowCmdGroup" value="0x1020" />
+            <IDSymbol name="SavedTabsWindow" value="0x0100" />
         </GuidSymbol>
 
-        <GuidSymbol name="guidGroupsWindowToolbarCmdSet" value="{85f1f852-b83e-4ffb-b656-4deb79cfb519}">
-            <IDSymbol name="GroupsWindowToolbarCmdGroup" value="0x1020" />
-            <IDSymbol name="GroupsWindowToolbarRestoreCmdGroup" value="0x1040" />
-            <IDSymbol name="GroupsWindowToolbarRemoveCmdGroup" value="0x1080" />
-            <IDSymbol name="GroupsWindowToolbar" value="0x0100" />
-            <IDSymbol name="GroupsWindowToolbarRestoreGroup" value="0x0200" />
-            <IDSymbol name="GroupsWindowToolbarResetToGroup" value="0x0300" />
-            <IDSymbol name="GroupsWindowToolbarRemoveGroup" value="0x0400" />
+        <GuidSymbol name="guidSavedTabsWindowToolbarCmdSet" value="{85f1f852-b83e-4ffb-b656-4deb79cfb519}">
+            <IDSymbol name="SavedTabsWindowToolbarCmdGroup" value="0x1020" />
+            <IDSymbol name="SavedTabsWindowToolbarRestoreCmdGroup" value="0x1040" />
+            <IDSymbol name="SavedTabsWindowToolbarRemoveCmdGroup" value="0x1080" />
+            <IDSymbol name="SavedTabsWindowToolbar" value="0x0100" />
+            <IDSymbol name="SavedTabsWindowToolbarRestoreTabs" value="0x0200" />
+            <IDSymbol name="SavedTabsWindowToolbarResetTabs" value="0x0300" />
+            <IDSymbol name="SavedTabsWindowToolbarRemoveTabs" value="0x0400" />
         </GuidSymbol>
 
         <GuidSymbol name="guidImages" value="{4ec489fa-9fb3-4191-805c-188fa5bf8080}">
-            <IDSymbol name="bmpPicSaveGroup" value="1" />
-            <IDSymbol name="bmpPicRestoreGroup" value="2" />
-            <IDSymbol name="bmpPicResetToGroup" value="3" />
-            <IDSymbol name="bmpPicRemoveGroup" value="4" />
-            <IDSymbol name="bmpPicStashGroup" value="5" />
+            <IDSymbol name="bmpPicSaveTabs" value="1" />
+            <IDSymbol name="bmpPicRestoreTabs" value="2" />
+            <IDSymbol name="bmpPicResetTabs" value="3" />
+            <IDSymbol name="bmpPicRemoveTabs" value="4" />
+            <IDSymbol name="bmpPicStashTabs" value="5" />
             <IDSymbol name="bmpPicSearch" value="6" />
         </GuidSymbol>
     </Symbols>

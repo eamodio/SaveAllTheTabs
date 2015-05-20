@@ -5,47 +5,47 @@ using Microsoft.VisualStudio.Shell;
 
 namespace TabGroups
 {
-    internal class GroupsWindowToolbarCommands
+    internal class SavedTabsWindowToolbarCommands
     {
-        [Guid(TabGroupsPackageGuids.GroupsWindowToolbarCmdSetGuidString)]
-        private enum GroupsWindowToolbarCommandIds
+        [Guid(TabGroupsPackageGuids.SavedTabsWindowToolbarCmdSetGuidString)]
+        private enum SavedTabsWindowToolbarCommandIds
         {
-            GroupsWindowToolbar = 0x0100,
-            GroupsWindowToolbarRestoreGroup = 0x0200,
-            GroupsWindowToolbarResetToGroup = 0x0300,
-            GroupsWindowToolbarRemoveGroup = 0x0400
+            SavedTabsWindowToolbar = 0x0100,
+            SavedTabsWindowToolbarRestoreTabs = 0x0200,
+            SavedTabsWindowToolbarResetTabs = 0x0300,
+            SavedTabsWindowToolbarRemoveTabs = 0x0400
         }
 
         private TabGroupsPackage Package { get; }
 
-        public GroupsWindowToolbarCommands(TabGroupsPackage package)
+        public SavedTabsWindowToolbarCommands(TabGroupsPackage package)
         {
             Package = package;
         }
 
         public CommandID SetupToolbar(OleMenuCommandService commandService)
         {
-            var guid = typeof(GroupsWindowToolbarCommandIds).GUID;
+            var guid = typeof(SavedTabsWindowToolbarCommandIds).GUID;
 
             SetupCommands(commandService);
-            return new CommandID(guid, (int)GroupsWindowToolbarCommandIds.GroupsWindowToolbar);
+            return new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbar);
         }
 
         private void SetupCommands(OleMenuCommandService commandService)
         {
-            var guid = typeof(GroupsWindowToolbarCommandIds).GUID;
+            var guid = typeof(SavedTabsWindowToolbarCommandIds).GUID;
 
-            var commandId = new CommandID(guid, (int)GroupsWindowToolbarCommandIds.GroupsWindowToolbarRestoreGroup);
+            var commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarRestoreTabs);
             var command = new OleMenuCommand(ExecuteRestoreCommand, commandId);
             command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
 
-            commandId = new CommandID(guid, (int)GroupsWindowToolbarCommandIds.GroupsWindowToolbarResetToGroup);
-            command = new OleMenuCommand(ExecuteResetToCommand, commandId);
+            commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarResetTabs);
+            command = new OleMenuCommand(ExecuteResetCommand, commandId);
             command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
 
-            commandId = new CommandID(guid, (int)GroupsWindowToolbarCommandIds.GroupsWindowToolbarRemoveGroup);
+            commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarRemoveTabs);
             command = new OleMenuCommand(ExecuteRemoveCommand, commandId);
             command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
@@ -73,7 +73,7 @@ namespace TabGroups
             Package.DocumentManager?.RestoreGroup(selected);
         }
 
-        private void ExecuteResetToCommand(object sender, EventArgs e)
+        private void ExecuteResetCommand(object sender, EventArgs e)
         {
             var selected = Package.DocumentManager?.GetSelectedGroup();
             if (selected == null)

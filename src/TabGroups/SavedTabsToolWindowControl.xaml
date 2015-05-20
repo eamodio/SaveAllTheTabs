@@ -8,13 +8,13 @@
              xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
              xmlns:vs="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0"
              xmlns:tabGroups="clr-namespace:TabGroups"
-             x:Class="TabGroups.GroupsToolWindowControl"
+             x:Class="TabGroups.SavedTabsToolWindowControl"
              Background="{DynamicResource VsBrush.Window}"
              Foreground="{DynamicResource VsBrush.WindowText}"
              BorderBrush="{DynamicResource VsBrush.ActiveBorderKey}"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
-             x:Name="GroupsToolWindow">
+             x:Name="SavedTabsToolWindow">
 
     <UserControl.Resources>
         <tabGroups:BoolVisibilityConverter x:Key="BoolVisibility" />
@@ -235,9 +235,9 @@
 
             <ListView.View>
                 <GridView AllowsColumnReorder="false">
-                    <GridViewColumn CellTemplate="{StaticResource NameColumnTemplate}" Header="Tab Group" Width="Auto" />
+                    <GridViewColumn CellTemplate="{StaticResource NameColumnTemplate}" Header="Name" Width="Auto" />
                     <GridViewColumn CellTemplate="{StaticResource SlotColumnTemplate}" Header="Fav #" Width="Auto" />
-                    <GridViewColumn CellTemplate="{StaticResource DescriptionColumnTemplate}" Header="Documents" Width="Auto" />
+                    <GridViewColumn CellTemplate="{StaticResource DescriptionColumnTemplate}" Header="Tabs" Width="Auto" />
                 </GridView>
             </ListView.View>
 

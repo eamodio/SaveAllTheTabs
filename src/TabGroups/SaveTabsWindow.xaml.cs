@@ -7,11 +7,11 @@ namespace TabGroups
     /// <summary>
     /// Interaction logic for SaveTabGroupWindow.xaml
     /// </summary>
-    public partial class SaveTabGroupWindow : Window
+    public partial class SaveTabsWindow : Window
     {
-        public string GroupName { get; private set; }
+        public string TabsName { get; private set; }
 
-        public SaveTabGroupWindow(string defaultName = null)
+        public SaveTabsWindow(string defaultName = null)
         {
             InitializeComponent();
 
@@ -24,7 +24,7 @@ namespace TabGroups
             var group = TextBox.Text;
             if (!string.IsNullOrWhiteSpace(group))
             {
-                GroupName = group;
+                TabsName = group;
                 DialogResult = true;
             }
             Close();
