@@ -52,10 +52,6 @@
                 <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbar" />
             </Group>
 
-            <Group guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarStashCmdGroup" priority="0x0100">
-                <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbar" />
-            </Group>
-
             <Group guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarRestoreCmdGroup" priority="0x0200">
                 <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbar" />
             </Group>
@@ -107,6 +103,7 @@
           If you do not want an image next to your command, remove the Icon node /> -->
             <Button guid="guidPackageCmdSet" id="SaveGroup" priority="0x0100" type="Button">
                 <Parent guid="guidPackageCmdSet" id="MainCmdGroup" />
+                <Icon guid="guidImages" id="bmpPicSaveGroup" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
                     <CommandName>Save Tab Group</CommandName>
@@ -278,6 +275,7 @@
 
             <Button guid="guidStashCmdSet" id="StashSaveGroup" priority="0x0100" type="Button">
                 <Parent guid="guidStashCmdSet" id="StashCmdGroup" />
+                <Icon guid="guidImages" id="bmpPicStashGroup" />
                 <Strings>
                     <CommandName>Stash Tabs</CommandName>
                     <ButtonText>Stash Tabs</ButtonText>
@@ -301,6 +299,7 @@
 
             <Button guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarRestoreGroup" priority="0x0200" type="Button">
                 <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarRestoreCmdGroup" />
+                <Icon guid="guidImages" id="bmpPicRestoreGroup" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
                     <CommandName>Restore Tab Group</CommandName>
@@ -313,6 +312,7 @@
 
             <Button guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarResetToGroup" priority="0x0300" type="Button">
                 <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarRestoreCmdGroup" />
+                <Icon guid="guidImages" id="bmpPicResetToGroup" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
                     <CommandName>Reset to Tab Group</CommandName>
@@ -325,7 +325,7 @@
 
             <Button guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarRemoveGroup" priority="0x0400" type="Button">
                 <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarRemoveCmdGroup" />
-                <Icon guid="guidImages" id="bmpPicX" />
+                <Icon guid="guidImages" id="bmpPicRemoveGroup" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
                     <CommandName>Remove Tab Group</CommandName>
@@ -344,7 +344,7 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-            <Bitmap guid="guidImages" href="Resources\GroupsToolWindowCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
+            <Bitmap guid="guidImages" href="Resources\GroupsToolWindowCommand.png" usedList="bmpPicSaveGroup, bmpPicRestoreGroup, bmpPicResetToGroup, bmpPicRemoveGroup, bmpPicStashGroup, bmpPicSearch" />
         </Bitmaps>
     </Commands>
 
@@ -353,7 +353,7 @@
             <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarCmdGroup"/>
         </CommandPlacement>
         <CommandPlacement guid="guidStashCmdSet" id="StashSaveGroup" priority="0x0200">
-            <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarStashCmdGroup"/>
+            <Parent guid="guidGroupsWindowToolbarCmdSet" id="GroupsWindowToolbarCmdGroup"/>
         </CommandPlacement>
     </CommandPlacements>
 
@@ -427,9 +427,8 @@
 
         <GuidSymbol name="guidGroupsWindowToolbarCmdSet" value="{85f1f852-b83e-4ffb-b656-4deb79cfb519}">
             <IDSymbol name="GroupsWindowToolbarCmdGroup" value="0x1020" />
-            <IDSymbol name="GroupsWindowToolbarStashCmdGroup" value="0x1040" />
-            <IDSymbol name="GroupsWindowToolbarRestoreCmdGroup" value="0x1080" />
-            <IDSymbol name="GroupsWindowToolbarRemoveCmdGroup" value="0x1100" />
+            <IDSymbol name="GroupsWindowToolbarRestoreCmdGroup" value="0x1040" />
+            <IDSymbol name="GroupsWindowToolbarRemoveCmdGroup" value="0x1080" />
             <IDSymbol name="GroupsWindowToolbar" value="0x0100" />
             <IDSymbol name="GroupsWindowToolbarRestoreGroup" value="0x0200" />
             <IDSymbol name="GroupsWindowToolbarResetToGroup" value="0x0300" />
@@ -437,12 +436,12 @@
         </GuidSymbol>
 
         <GuidSymbol name="guidImages" value="{4ec489fa-9fb3-4191-805c-188fa5bf8080}">
-            <IDSymbol name="bmpPic1" value="1" />
-            <IDSymbol name="bmpPic2" value="2" />
-            <IDSymbol name="bmpPicSearch" value="3" />
-            <IDSymbol name="bmpPicX" value="4" />
-            <IDSymbol name="bmpPicArrows" value="5" />
-            <IDSymbol name="bmpPicStrikethrough" value="6" />
+            <IDSymbol name="bmpPicSaveGroup" value="1" />
+            <IDSymbol name="bmpPicRestoreGroup" value="2" />
+            <IDSymbol name="bmpPicResetToGroup" value="3" />
+            <IDSymbol name="bmpPicRemoveGroup" value="4" />
+            <IDSymbol name="bmpPicStashGroup" value="5" />
+            <IDSymbol name="bmpPicSearch" value="6" />
         </GuidSymbol>
     </Symbols>
 </CommandTable>
