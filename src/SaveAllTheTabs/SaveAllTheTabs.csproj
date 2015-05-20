@@ -234,7 +234,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\SavedTabsToolWindowCommands.png" />
-    <Content Include="Resources\SaveAllTheTabsPackage.ico" />
+    <Content Include="Resources\SaveAllTheTabsPackage.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Page Include="SavedTabsToolWindowControl.xaml">
