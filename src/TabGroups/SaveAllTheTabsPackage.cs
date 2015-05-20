@@ -8,7 +8,7 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace TabGroups
+namespace SaveAllTheTabs
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.
@@ -31,11 +31,11 @@ namespace TabGroups
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [Guid(TabGroupsPackageGuids.PackageGuidString)]
+    [Guid(PackageGuids.PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
-    [ProvideToolWindow(typeof(SavedTabsToolWindow), Style = VsDockStyle.Tabbed, Window = TabGroupsPackageGuids.SolutionExploreWindowGuidString)]
+    [ProvideToolWindow(typeof(SavedTabsToolWindow), Style = VsDockStyle.Tabbed, Window = PackageGuids.SolutionExploreWindowGuidString)]
     [ProvideService(typeof(PackageProviderService))]
-    public sealed class TabGroupsPackage : Package
+    public sealed class SaveAllTheTabsPackage : Package
     {
         public event EventHandler SolutionChanged;
 
@@ -49,9 +49,9 @@ namespace TabGroups
         private SolutionEvents _solutionEvents;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TabGroupsPackage"/> class.
+        /// Initializes a new instance of the <see cref="SaveAllTheTabsPackage"/> class.
         /// </summary>
-        public TabGroupsPackage()
+        public SaveAllTheTabsPackage()
         {
             // Inside this method you can place any initialization code that does not require
             // any Visual Studio service because at this point the package object is created but
@@ -68,7 +68,7 @@ namespace TabGroups
             _packageProvider = new PackageProviderService(this);
             DocumentManager = new DocumentManager(this);
 
-            TabGroupsCommands.Initialize(this);
+            PackageCommands.Initialize(this);
 
             base.Initialize();
 

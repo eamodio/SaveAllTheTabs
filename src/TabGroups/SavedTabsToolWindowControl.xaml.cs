@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.PlatformUI;
 //using WPF.JoshSmith.ServiceProviders.UI;
 
-namespace TabGroups
+namespace SaveAllTheTabs
 {
     /// <summary>
     /// Interaction logic for GroupsToolWindowControl.
     /// </summary>
     public partial class SavedTabsToolWindowControl : UserControl
     {
-        private TabGroupsPackage Package { get; }
+        private SaveAllTheTabsPackage Package { get; }
         public ObservableCollection<DocumentGroup> Groups { get; private set; }
 
         //private ListViewDragDropManager<DocumentGroup> _listViewDragDropManager;
@@ -26,7 +26,7 @@ namespace TabGroups
         /// <summary>
         /// Initializes a new instance of the <see cref="SavedTabsToolWindowControl"/> class.
         /// </summary>
-        public SavedTabsToolWindowControl(TabGroupsPackage package)
+        public SavedTabsToolWindowControl(SaveAllTheTabsPackage package)
         {
             Package = package;
 
@@ -37,7 +37,7 @@ namespace TabGroups
 
             InitializeComponent();
 
-            //_listViewDragDropManager = new ListViewDragDropManager<DocumentGroup>(TabGroupsList);
+            //_listViewDragDropManager = new ListViewDragDropManager<DocumentGroup>(TabsList);
         }
 
         private void RefreshBindingSources(IDocumentManager documentManager, bool reset = false)
@@ -58,7 +58,7 @@ namespace TabGroups
             }
         }
 
-        private void OnTabGroupsListItemMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void OnTabsListItemMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var group = (sender as ListViewItem)?.Content as DocumentGroup;
             if (group == null || group.IsEditing)
@@ -69,7 +69,7 @@ namespace TabGroups
             Package.DocumentManager.RestoreGroup(group);
         }
 
-        private void OnTabGroupsListItemPreviewKeyDown(object sender, KeyEventArgs e)
+        private void OnTabsListItemPreviewKeyDown(object sender, KeyEventArgs e)
         {
             var group = (sender as ListViewItem)?.Content as DocumentGroup;
             if (group == null || group.IsEditing)
@@ -175,7 +175,7 @@ namespace TabGroups
             }
         }
 
-        private void OnTabGroupsListSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnTabsListSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var list = (sender as ListView);
             if (list == null)

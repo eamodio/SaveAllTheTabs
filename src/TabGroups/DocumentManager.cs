@@ -13,9 +13,9 @@ using Microsoft.VisualStudio.Settings;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell.Settings;
 using Newtonsoft.Json;
-using TabGroups.Interop;
+using SaveAllTheTabs.Interop;
 
-namespace TabGroups
+namespace SaveAllTheTabs
 {
     internal interface IDocumentManager
     {
@@ -61,16 +61,18 @@ namespace TabGroups
         private const int SlotMin = 1;
         private const int SlotMax = 9;
 
-        private const string StorageCollectionPath = "TabGroups";
+        private const string StorageCollectionPath = "SaveAllTheTabs";
+        private const string SavedTabsStoragePropertyFormat = "SavedTabs.{0}";
+        private const string MigrationStorageCollectionPath = "TabGroups";
 
-        private TabGroupsPackage Package { get; }
+        private SaveAllTheTabsPackage Package { get; }
         private IServiceProvider ServiceProvider => Package;
         private IVsUIShellDocumentWindowMgr DocumentWindowMgr { get; }
         private string SolutionName => Package.Environment.Solution?.FullName;
 
         public ObservableCollection<DocumentGroup> Groups { get; private set; }
 
-        public DocumentManager(TabGroupsPackage package)
+        public DocumentManager(SaveAllTheTabsPackage package)
         {
             Package = package;
 
@@ -307,10 +309,24 @@ namespace TabGroups
                 {
                     var settingsMgr = new ShellSettingsManager(ServiceProvider);
                     var store = settingsMgr.GetReadOnlySettingsStore(SettingsScope.UserSettings);
-                    if (store.PropertyExists(StorageCollectionPath, solution))
+
+                    var propertyName = String.Format(SavedTabsStoragePropertyFormat, solution);
+                    if (store.PropertyExists(StorageCollectionPath, propertyName))
                     {
-                        var tabs = store.GetString(StorageCollectionPath, solution);
+                        var tabs = store.GetString(StorageCollectionPath, propertyName);
                         return JsonConvert.DeserializeObject<List<DocumentGroup>>(tabs);
+                    }
+
+                    // Migrate old settings
+                    if (store.CollectionExists(MigrationStorageCollectionPath) &&
+                        store.PropertyExists(MigrationStorageCollectionPath, solution))
+                    {
+                        var tabs = store.GetString(MigrationStorageCollectionPath, solution);
+                        var groups = JsonConvert.DeserializeObject<List<DocumentGroup>>(tabs);
+
+                        SaveGroupsForSolution(groups);
+
+                        return groups;
                     }
                 }
                 catch (Exception) { }
@@ -318,12 +334,17 @@ namespace TabGroups
             return new List<DocumentGroup>();
         }
 
-        private void SaveGroupsForSolution()
+        private void SaveGroupsForSolution(IList<DocumentGroup> groups = null)
         {
             var solution = SolutionName;
             if (string.IsNullOrWhiteSpace(solution))
             {
                 return;
+            }
+
+            if (groups == null)
+            {
+                groups = Groups;
             }
 
             var settingsMgr = new ShellSettingsManager(ServiceProvider);
@@ -334,14 +355,15 @@ namespace TabGroups
                 store.CreateCollection(StorageCollectionPath);
             }
 
-            if (!Groups.Any())
+            var propertyName = String.Format(SavedTabsStoragePropertyFormat, solution);
+            if (!groups.Any())
             {
-                store.DeleteProperty(StorageCollectionPath, solution);
+                store.DeleteProperty(StorageCollectionPath, propertyName);
                 return;
             }
 
-            var tabs = JsonConvert.SerializeObject(Groups);
-            store.SetString(StorageCollectionPath, solution, tabs);
+            var tabs = JsonConvert.SerializeObject(groups);
+            store.SetString(StorageCollectionPath, propertyName, tabs);
         }
     }
 }

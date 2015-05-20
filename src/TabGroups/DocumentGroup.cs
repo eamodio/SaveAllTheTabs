@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 
-namespace TabGroups
+namespace SaveAllTheTabs
 {
     public class DocumentGroup : INotifyPropertyChanged
     {

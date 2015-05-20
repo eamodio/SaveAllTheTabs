@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using EnvDTE;
 using EnvDTE80;
 
-namespace TabGroups
+namespace SaveAllTheTabs
 {
     internal static class Extensions
     {

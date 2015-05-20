@@ -7,8 +7,8 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
              xmlns:vs="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0"
-             xmlns:tabGroups="clr-namespace:TabGroups"
-             x:Class="TabGroups.SavedTabsToolWindowControl"
+             xmlns:package="clr-namespace:SaveAllTheTabs"
+             x:Class="SaveAllTheTabs.SavedTabsToolWindowControl"
              Background="{DynamicResource VsBrush.Window}"
              Foreground="{DynamicResource VsBrush.WindowText}"
              BorderBrush="{DynamicResource VsBrush.ActiveBorderKey}"
@@ -17,7 +17,7 @@
              x:Name="SavedTabsToolWindow">
 
     <UserControl.Resources>
-        <tabGroups:BoolVisibilityConverter x:Key="BoolVisibility" />
+        <package:BoolVisibilityConverter x:Key="BoolVisibility" />
 
         <Style x:Key="VsGridViewColumnHeaderGripper" TargetType="Thumb">
             <Setter Property="Width" Value="18" />
@@ -189,7 +189,7 @@
         </Style>
 
         <Style x:Key="VsListViewItemTextBlockStyle" TargetType="{x:Type TextBlock}">
-            <Setter Property="Visibility" Value="{Binding Path=Content.(tabGroups:DocumentGroup.IsEditing),
+            <Setter Property="Visibility" Value="{Binding Path=Content.(package:DocumentGroup.IsEditing),
                                                           RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}},
                                                           Converter={StaticResource BoolVisibility},
                                                           ConverterParameter=invert}" />
@@ -197,7 +197,7 @@
 
         <Style x:Key="VsListViewItemEditBlockStyle" TargetType="{x:Type FrameworkElement}">
             <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Visibility" Value="{Binding Path=Content.(tabGroups:DocumentGroup.IsEditing),
+            <Setter Property="Visibility" Value="{Binding Path=Content.(package:DocumentGroup.IsEditing),
                                                           RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}},
                                                           Converter={StaticResource BoolVisibility}}" />
         </Style>
@@ -228,7 +228,7 @@
             </DataTemplate>
         </Grid.Resources>
 
-        <ListView x:Name="TabGroupsList" SelectionMode="Single" Grid.Column="0" Grid.Row="0" SelectionChanged="OnTabGroupsListSelectionChanged" Style="{DynamicResource VsListViewStyle}">
+        <ListView x:Name="TabsList" SelectionMode="Single" Grid.Column="0" Grid.Row="0" SelectionChanged="OnTabsListSelectionChanged" Style="{DynamicResource VsListViewStyle}">
             <ListView.ItemsSource>
                 <Binding Source="{StaticResource Groups}"/>
             </ListView.ItemsSource>
@@ -243,8 +243,8 @@
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem" BasedOn="{StaticResource VsListViewItemStyle}">
-                    <EventSetter Event="MouseDoubleClick" Handler="OnTabGroupsListItemMouseDoubleClick" />
-                    <EventSetter Event="PreviewKeyDown" Handler="OnTabGroupsListItemPreviewKeyDown" />
+                    <EventSetter Event="MouseDoubleClick" Handler="OnTabsListItemMouseDoubleClick" />
+                    <EventSetter Event="PreviewKeyDown" Handler="OnTabsListItemPreviewKeyDown" />
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>

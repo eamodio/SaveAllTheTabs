@@ -5,19 +5,19 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace TabGroups
+namespace SaveAllTheTabs
 {
     internal class SavedTabsWindowCommands
     {
-        [Guid(TabGroupsPackageGuids.SavedTabsWindowCmdSetGuidString)]
+        [Guid(PackageGuids.SavedTabsWindowCmdSetGuidString)]
         private enum SavedTabsWindowCommandIds
         {
             SavedTabsWindow = 0x0100
         }
 
-        private TabGroupsPackage Package { get; }
+        private SaveAllTheTabsPackage Package { get; }
 
-        public SavedTabsWindowCommands(TabGroupsPackage package)
+        public SavedTabsWindowCommands(SaveAllTheTabsPackage package)
         {
             Package = package;
         }

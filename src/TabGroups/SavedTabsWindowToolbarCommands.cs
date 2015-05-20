@@ -3,11 +3,11 @@ using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 
-namespace TabGroups
+namespace SaveAllTheTabs
 {
     internal class SavedTabsWindowToolbarCommands
     {
-        [Guid(TabGroupsPackageGuids.SavedTabsWindowToolbarCmdSetGuidString)]
+        [Guid(PackageGuids.SavedTabsWindowToolbarCmdSetGuidString)]
         private enum SavedTabsWindowToolbarCommandIds
         {
             SavedTabsWindowToolbar = 0x0100,
@@ -16,9 +16,9 @@ namespace TabGroups
             SavedTabsWindowToolbarRemoveTabs = 0x0400
         }
 
-        private TabGroupsPackage Package { get; }
+        private SaveAllTheTabsPackage Package { get; }
 
-        public SavedTabsWindowToolbarCommands(TabGroupsPackage package)
+        public SavedTabsWindowToolbarCommands(SaveAllTheTabsPackage package)
         {
             Package = package;
         }

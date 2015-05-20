@@ -4,20 +4,20 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 
-namespace TabGroups
+namespace SaveAllTheTabs
 {
     internal class StashCommands
     {
-        [Guid(TabGroupsPackageGuids.StashCmdSetGuidString)]
+        [Guid(PackageGuids.StashCmdSetGuidString)]
         private enum StashCommandIds
         {
             StashSaveTabs = 0x0100,
             StashRestoreTabs = 0x0200
         }
 
-        private TabGroupsPackage Package { get; }
+        private SaveAllTheTabsPackage Package { get; }
 
-        public StashCommands(TabGroupsPackage package)
+        public StashCommands(SaveAllTheTabsPackage package)
         {
             Package = package;
         }

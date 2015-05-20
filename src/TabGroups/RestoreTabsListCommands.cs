@@ -3,11 +3,11 @@ using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 
-namespace TabGroups
+namespace SaveAllTheTabs
 {
     internal class RestoreTabsListCommands
     {
-        [Guid(TabGroupsPackageGuids.RestoreTabsListCmdSetGuidString)]
+        [Guid(PackageGuids.RestoreTabsListCmdSetGuidString)]
         private enum RestoreTabsListCommandIds
         {
             RestoreTabsListPlaceholder = 0x0100,
@@ -15,9 +15,9 @@ namespace TabGroups
             RestoreTabsListEnd = RestoreTabsListStart + 8,
         }
 
-        private TabGroupsPackage Package { get; }
+        private SaveAllTheTabsPackage Package { get; }
 
-        public RestoreTabsListCommands(TabGroupsPackage package)
+        public RestoreTabsListCommands(SaveAllTheTabsPackage package)
         {
             Package = package;
         }

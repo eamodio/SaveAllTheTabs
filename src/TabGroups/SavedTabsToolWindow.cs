@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
 
-namespace TabGroups
+namespace SaveAllTheTabs
 {
     /// <summary>
     /// This class implements the tool window exposed by this package and hosts a user control.

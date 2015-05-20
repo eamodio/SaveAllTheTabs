@@ -3,43 +3,43 @@ using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 
-namespace TabGroups
+namespace SaveAllTheTabs
 {
     /// <summary>
     /// Command handler
     /// </summary>
-    internal class TabGroupsCommands
+    internal class PackageCommands
     {
-        [Guid(TabGroupsPackageGuids.CmdSetGuidString)]
+        [Guid(PackageGuids.CmdSetGuidString)]
         private enum CommandIds
         {
             SaveTabs = 0x0100,
             RestoreTabsListMenu = 0x0200
         }
 
-        private TabGroupsPackage Package { get; }
+        private SaveAllTheTabsPackage Package { get; }
         private IServiceProvider ServiceProvider => Package;
 
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static TabGroupsCommands Instance { get; private set; }
+        public static PackageCommands Instance { get; private set; }
 
         /// <summary>
         /// Initializes the singleton instance of the command.
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
-        public static void Initialize(TabGroupsPackage package)
+        public static void Initialize(SaveAllTheTabsPackage package)
         {
-            Instance = new TabGroupsCommands(package);
+            Instance = new PackageCommands(package);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TabGroupsCommands"/> class.
+        /// Initializes a new instance of the <see cref="PackageCommands"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
-        private TabGroupsCommands(TabGroupsPackage package)
+        private PackageCommands(SaveAllTheTabsPackage package)
         {
             if (package == null)
             {

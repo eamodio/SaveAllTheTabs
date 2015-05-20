@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.OLE.Interop;
 
-namespace TabGroups.Interop
+namespace SaveAllTheTabs.Interop
 {
     public static class Ole32
     {

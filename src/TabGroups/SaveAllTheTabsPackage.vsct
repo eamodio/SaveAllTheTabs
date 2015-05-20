@@ -72,8 +72,8 @@
                     <CommandName>Restore Tabs</CommandName>
                     <ButtonText>Restore Tabs</ButtonText>
                     <MenuText>Restore Tabs</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabsMenu</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabsMenu</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreTabsMenu</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreTabsMenu</LocCanonicalName>
                 </Strings>
             </Menu>
 
@@ -84,8 +84,8 @@
                     <CommandName>Toolbar</CommandName>
                     <ButtonText>Toolbar</ButtonText>
                     <MenuText>Toolbar</MenuText>
-                    <CanonicalName>TabGroups.SavedTabsWindowToolbar</CanonicalName>
-                    <LocCanonicalName>TabGroups.SavedTabsWindowToolbar</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.SavedTabsWindowToolbar</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.SavedTabsWindowToolbar</LocCanonicalName>
                 </Strings>
             </Menu>
         </Menus>
@@ -109,8 +109,8 @@
                     <CommandName>Save Tabs</CommandName>
                     <ButtonText>Save Tabs...</ButtonText>
                     <MenuText>Save Tabs...</MenuText>
-                    <CanonicalName>TabGroups.SaveTabs</CanonicalName>
-                    <LocCanonicalName>TabGroups.SaveTabs</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.SaveTabs</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.SaveTabs</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -133,8 +133,8 @@
                     <CommandName>Restore Tabs 1</CommandName>
                     <ButtonText>1</ButtonText>
                     <MenuText>1</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabs1</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabs1</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreTabs1</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs1</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -147,8 +147,8 @@
                     <CommandName>Restore Tabs 2</CommandName>
                     <ButtonText>2</ButtonText>
                     <MenuText>2</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabs2</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabs2</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreTabs2</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs2</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -161,8 +161,8 @@
                     <CommandName>Restore Tabs 3</CommandName>
                     <ButtonText>3</ButtonText>
                     <MenuText>3</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabs3</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabs3</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreTabs3</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs3</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -175,8 +175,8 @@
                     <CommandName>Restore Tabs 4</CommandName>
                     <ButtonText>4</ButtonText>
                     <MenuText>4</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabs4</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabs4</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreTabs4</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs4</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -189,8 +189,8 @@
                     <CommandName>Restore Tabs 5</CommandName>
                     <ButtonText>5</ButtonText>
                     <MenuText>5</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabs5</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabs5</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreTabs5</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs5</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -203,8 +203,8 @@
                     <CommandName>Restore Tabs 6</CommandName>
                     <ButtonText>6</ButtonText>
                     <MenuText>6</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabs6</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabs6</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreTabs6</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs6</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -217,8 +217,8 @@
                     <CommandName>Restore Tabs 7</CommandName>
                     <ButtonText>7</ButtonText>
                     <MenuText>7</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabs7</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabs7</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreTabs7</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs7</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -231,8 +231,8 @@
                     <CommandName>Restore Tabs 8</CommandName>
                     <ButtonText>8</ButtonText>
                     <MenuText>8</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabs8</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabs8</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreTabs8</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs8</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -245,8 +245,8 @@
                     <CommandName>Restore Tabs 9</CommandName>
                     <ButtonText>9</ButtonText>
                     <MenuText>9</MenuText>
-                    <CanonicalName>TabGroups.RestoreTabs9</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreTabs9</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreTabs9</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs9</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -257,8 +257,8 @@
                     <CommandName>Stash Tabs</CommandName>
                     <ButtonText>Stash Tabs</ButtonText>
                     <MenuText>Stash Tabs</MenuText>
-                    <CanonicalName>TabGroups.StashTabs</CanonicalName>
-                    <LocCanonicalName>TabGroups.StashTabs</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.StashTabs</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.StashTabs</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -269,8 +269,8 @@
                     <CommandName>Restore Stashed Tabs</CommandName>
                     <ButtonText>Restore Stashed Tabs</ButtonText>
                     <MenuText>Restore Stashed Tabs</MenuText>
-                    <CanonicalName>TabGroups.RestoreStashedTabs</CanonicalName>
-                    <LocCanonicalName>TabGroups.RestoreStashedTabs</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreStashedTabs</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreStashedTabs</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -280,8 +280,8 @@
                     <CommandName>Saved Tabs Window</CommandName>
                     <ButtonText>Saved Tabs Window</ButtonText>
                     <MenuText>Saved Tabs Window</MenuText>
-                    <CanonicalName>TabGroups.SavedTabsWindow</CanonicalName>
-                    <LocCanonicalName>TabGroups.SavedTabsWindow</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.SavedTabsWindow</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.SavedTabsWindow</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -293,8 +293,8 @@
                     <CommandName>Restore Tabs</CommandName>
                     <ButtonText>Restore Tabs</ButtonText>
                     <MenuText>Restore Tabs</MenuText>
-                    <CanonicalName>TabGroups.ToolbarRestoreTabs</CanonicalName>
-                    <LocCanonicalName>TabGroups.ToolbarRestoreTabs</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.ToolbarRestoreTabs</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.ToolbarRestoreTabs</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -306,8 +306,8 @@
                     <CommandName>Reset Tabs</CommandName>
                     <ButtonText>Reset Tabs</ButtonText>
                     <MenuText>Reset Tabs</MenuText>
-                    <CanonicalName>TabGroups.ToolbarResetTabs</CanonicalName>
-                    <LocCanonicalName>TabGroups.ToolbarResetTabs</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.ToolbarResetTabs</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.ToolbarResetTabs</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -319,8 +319,8 @@
                     <CommandName>Remove Tabs</CommandName>
                     <ButtonText>Remove Tabs</ButtonText>
                     <MenuText>Remove Tabs</MenuText>
-                    <CanonicalName>TabGroups.ToolbarRemoveTabs</CanonicalName>
-                    <LocCanonicalName>TabGroups.ToolbarRemoveTabs</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.ToolbarRemoveTabs</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.ToolbarRemoveTabs</LocCanonicalName>
                 </Strings>
             </Button>
         </Buttons>
@@ -332,7 +332,7 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-            <Bitmap guid="guidImages" href="Resources\GroupsToolWindowCommand.png" usedList="bmpPicSaveTabs, bmpPicRestoreTabs, bmpPicResetTabs, bmpPicRemoveTabs, bmpPicStashTabs, bmpPicSearch" />
+            <Bitmap guid="guidImages" href="Resources\SavedTabsToolWindowCommands.png" usedList="bmpPicSaveTabs, bmpPicRestoreTabs, bmpPicResetTabs, bmpPicRemoveTabs, bmpPicStashTabs, bmpPicSearch" />
         </Bitmaps>
     </Commands>
 

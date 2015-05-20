@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace TabGroups
+namespace SaveAllTheTabs
 {
     /// <summary>
     /// Interaction logic for SaveTabGroupWindow.xaml

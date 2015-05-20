@@ -1,4 +1,4 @@
-﻿<Window x:Class="TabGroups.SaveTabsWindow"
+﻿<Window x:Class="SaveAllTheTabs.SaveTabsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Save Tabs" Height="140" Width="330" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" WindowStyle="ToolWindow">
