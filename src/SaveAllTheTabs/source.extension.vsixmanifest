@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="SaveAllTheTabs.a0217e5b-1dfa-4fa1-98aa-7550d6a32076" Version="0.9.5.2" Language="en-US" Publisher="Eric Amodio" />
+        <Identity Id="SaveAllTheTabs.a0217e5b-1dfa-4fa1-98aa-7550d6a32076" Version="0.9.6" Language="en-US" Publisher="Eric Amodio" />
         <DisplayName>Save All the Tabs</DisplayName>
         <Description xml:space="preserve">Quickly save and reload sets of document tabs.</Description>
         <MoreInfo>https://github.com/eamodio/SaveAllTheTabs</MoreInfo>
         <License>License.txt</License>
         <Icon>Resources\SaveAllTheTabsPackage.ico</Icon>
         <PreviewImage>Resources\SaveAllTheTabsPackage.ico</PreviewImage>
+        <Tags>tabs,tab management,documents,document management</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[12.0,14.0]" />

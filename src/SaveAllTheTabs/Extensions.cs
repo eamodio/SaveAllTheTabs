@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using EnvDTE;
@@ -29,6 +30,11 @@ namespace SaveAllTheTabs
             return environment.ActiveDocument;
         }
 
+        public static IEnumerable<string> GetDocumentFiles(this DTE2 environment)
+        {
+            return from d in environment.GetDocuments() select GetExactPathName(d.FullName);
+        }
+
         public static IEnumerable<Document> GetDocuments(this DTE2 environment)
         {
             return from w in environment.GetDocumentWindows() where w.Document != null select w.Document;
@@ -39,12 +45,45 @@ namespace SaveAllTheTabs
             return environment.Windows.Cast<Window>().Where(x => x.Linkable == false);
         }
 
+        public static IEnumerable<Breakpoint> GetBreakpoints(this DTE2 environment)
+        {
+            return environment.Debugger.Breakpoints.Cast<Breakpoint>();
+        }
+
+        public static IEnumerable<Breakpoint> GetMatchingBreakpoints(this DTE2 environment, HashSet<string> files)
+        {
+            return environment.Debugger.Breakpoints.Cast<Breakpoint>().Where(bp => files.Contains(bp.File));
+        }
+
         public static void CloseAll(this IEnumerable<Window> windows)
         {
             foreach (var w in windows.Where(w => w.Document?.Saved == true))
             {
                 w.Close();
             }
+        }
+
+        private static string GetExactPathName(string pathName)
+        {
+            if (String.IsNullOrEmpty(pathName) ||
+                (!File.Exists(pathName) && !Directory.Exists(pathName)))
+            {
+                return pathName;
+            }
+
+            var di = new DirectoryInfo(pathName);
+            return di.Parent != null
+                       ? Path.Combine(GetExactPathNameCore(di.Parent),
+                                      di.Parent.EnumerateFileSystemInfos(di.Name).First().Name)
+                       : di.Name;
+        }
+
+        private static string GetExactPathNameCore(DirectoryInfo di)
+        {
+            return di.Parent != null
+                       ? Path.Combine(GetExactPathNameCore(di.Parent),
+                                      di.Parent.EnumerateFileSystemInfos(di.Name).First().Name)
+                       : di.Name;
         }
     }
 }

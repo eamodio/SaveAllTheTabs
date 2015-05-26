@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows.Input;
 using Microsoft.VisualStudio.Shell;
 
 namespace SaveAllTheTabs
@@ -42,6 +45,15 @@ namespace SaveAllTheTabs
                 command = new OleMenuCommand(ExecuteRestoreTabsCommand, commandId);
                 command.BeforeQueryStatus += RestoreTabsCommandOnBeforeQueryStatus;
                 commandService.AddCommand(command);
+
+                var dteCommand = Package.Environment.Commands.Item(commandId.Guid, commandId.ID);
+                var bindings = ((object[])dteCommand.Bindings).ToList();
+
+                var index = (i - RestoreTabsListCommandIds.RestoreTabsListStart) + 1;
+                //bindings.Add(String.Format("Global::Ctrl+D, {0}", index));
+                bindings.Add(String.Format("Global::Ctrl+Shift+{0}", index));
+                //bindings.Add(String.Format("Global::Ctrl+{0}", index));
+                dteCommand.Bindings = bindings.ToArray();
             }
         }
 
@@ -57,7 +69,8 @@ namespace SaveAllTheTabs
             }
 
             var index = GetGroupIndex(command);
-            Package.DocumentManager?.RestoreGroup(index);
+            var reset = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
+            Package.DocumentManager?.RestoreGroup(index, reset);
         }
 
         private void RestoreTabsCommandOnBeforeQueryStatus(object sender, EventArgs eventArgs)

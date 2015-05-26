@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using EnvDTE;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Settings;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -32,8 +33,8 @@ namespace SaveAllTheTabs
 
         void SaveGroup(string name, int? slot = null);
 
-        void RestoreGroup(int slot);
-        void RestoreGroup(DocumentGroup group);
+        void RestoreGroup(int slot, bool reset = false);
+        void RestoreGroup(DocumentGroup group, bool reset = false);
 
         void MoveGroup(DocumentGroup group, int delta);
 
@@ -129,7 +130,8 @@ namespace SaveAllTheTabs
 
             var group = Groups.FindByName(name);
 
-            var documents = String.Join(", ", (from d in Package.Environment.GetDocuments() select d.Name));
+            var files = Package.Environment.GetDocumentFiles();//.ToList();
+            //var bps = Package.Environment.GetMatchingBreakpoints(new HashSet<string>(files), StringComparer.InvariantCultureIgnoreCase));
 
             using (var stream = new VsOleStream())
             {
@@ -145,6 +147,8 @@ namespace SaveAllTheTabs
                     return;
                 }
                 stream.Seek(0, SeekOrigin.Begin);
+
+                var documents = String.Join(", ", files.Select(Path.GetFileName));
 
                 if (group == null)
                 {
@@ -192,16 +196,21 @@ namespace SaveAllTheTabs
             group.Slot = slot;
         }
 
-        public void RestoreGroup(int slot)
+        public void RestoreGroup(int slot, bool reset = false)
         {
-            RestoreGroup(Groups.FindBySlot(slot));
+            RestoreGroup(Groups.FindBySlot(slot), reset);
         }
 
-        public void RestoreGroup(DocumentGroup group)
+        public void RestoreGroup(DocumentGroup group, bool reset = false)
         {
             if (group == null)
             {
                 return;
+            }
+
+            if (reset)
+            {
+                Package.Environment.GetDocumentWindows().CloseAll();
             }
 
             using (var stream = new VsOleStream())
