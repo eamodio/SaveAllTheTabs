@@ -253,6 +253,7 @@
             <Button guid="guidStashCmdSet" id="StashSaveTabs" priority="0x0100" type="Button">
                 <Parent guid="guidStashCmdSet" id="StashCmdGroup" />
                 <Icon guid="guidImages" id="bmpPicStashTabs" />
+                <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
                     <CommandName>Stash Tabs</CommandName>
                     <ButtonText>Stash Tabs</ButtonText>
@@ -360,33 +361,51 @@
 
     <KeyBindings>
         <!--<KeyBinding guid="guidPackageCmdSet" id="SaveTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="S"></KeyBinding>-->
-        <KeyBinding guid="guidPackageCmdSet" id="SaveTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="S" mod2="Control"></KeyBinding>
         <!--<KeyBinding guid="guidStashCmdSet" id="StashSaveTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="C"></KeyBinding>-->
-        <KeyBinding guid="guidStashCmdSet" id="StashSaveTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="C" mod2="Control"></KeyBinding>
-        <KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="VK_OEM_3" mod1="Control"></KeyBinding>
         <!--<KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="V"></KeyBinding>-->
-        <KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="V" mod2="Control"></KeyBinding>
         <!--<KeyBinding guid="guidSavedTabsWindowCmdSet" id="SavedTabsWindow" editor="guidVSStd97" key1="D" mod1="Control" key2="W"></KeyBinding>-->
+
+        <KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="VK_OEM_3"></KeyBinding>
+        <KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="VK_OEM_3" mod2="Shift"></KeyBinding>
+
+        <KeyBinding guid="guidPackageCmdSet" id="SaveTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="S" mod2="Control"></KeyBinding>
+        <KeyBinding guid="guidStashCmdSet" id="StashSaveTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="C" mod2="Control"></KeyBinding>
+        <KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="V" mod2="Control"></KeyBinding>
         <KeyBinding guid="guidSavedTabsWindowCmdSet" id="SavedTabsWindow" editor="guidVSStd97" key1="D" mod1="Control" key2="W" mod2="Control"></KeyBinding>
 
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs1" editor="guidVSStd97" key1="D" mod1="Control" key2="1" mod2="Shift"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs2" editor="guidVSStd97" key1="D" mod1="Control" key2="2" mod2="Shift"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs3" editor="guidVSStd97" key1="D" mod1="Control" key2="3" mod2="Shift"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs4" editor="guidVSStd97" key1="D" mod1="Control" key2="4" mod2="Shift"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs5" editor="guidVSStd97" key1="D" mod1="Control" key2="5" mod2="Shift"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs6" editor="guidVSStd97" key1="D" mod1="Control" key2="6" mod2="Shift"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs7" editor="guidVSStd97" key1="D" mod1="Control" key2="7" mod2="Shift"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs8" editor="guidVSStd97" key1="D" mod1="Control" key2="8" mod2="Shift"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs9" editor="guidVSStd97" key1="D" mod1="Control" key2="9" mod2="Shift"></KeyBinding>
+
         <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs1" editor="guidVSStd97" key1="D" mod1="Control" key2="1"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs1" editor="guidVSStd97" key1="1" mod1="Control"></KeyBinding>
         <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs2" editor="guidVSStd97" key1="D" mod1="Control" key2="2"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs2" editor="guidVSStd97" key1="2" mod1="Control"></KeyBinding>
         <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs3" editor="guidVSStd97" key1="D" mod1="Control" key2="3"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs3" editor="guidVSStd97" key1="3" mod1="Control"></KeyBinding>
         <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs4" editor="guidVSStd97" key1="D" mod1="Control" key2="4"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs4" editor="guidVSStd97" key1="4" mod1="Control"></KeyBinding>
         <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs5" editor="guidVSStd97" key1="D" mod1="Control" key2="5"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs5" editor="guidVSStd97" key1="5" mod1="Control"></KeyBinding>
         <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs6" editor="guidVSStd97" key1="D" mod1="Control" key2="6"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs6" editor="guidVSStd97" key1="6" mod1="Control"></KeyBinding>
         <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs7" editor="guidVSStd97" key1="D" mod1="Control" key2="7"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs7" editor="guidVSStd97" key1="7" mod1="Control"></KeyBinding>
         <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs8" editor="guidVSStd97" key1="D" mod1="Control" key2="8"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs8" editor="guidVSStd97" key1="8" mod1="Control"></KeyBinding>
         <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs9" editor="guidVSStd97" key1="D" mod1="Control" key2="9"></KeyBinding>
+
+        <!--
+        <KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="VK_OEM_3" mod1="Control"></KeyBinding>
+
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs1" editor="guidVSStd97" key1="1" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs2" editor="guidVSStd97" key1="2" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs3" editor="guidVSStd97" key1="3" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs4" editor="guidVSStd97" key1="4" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs5" editor="guidVSStd97" key1="5" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs6" editor="guidVSStd97" key1="6" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs7" editor="guidVSStd97" key1="7" mod1="Control"></KeyBinding>
+        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs8" editor="guidVSStd97" key1="8" mod1="Control"></KeyBinding>
         <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs9" editor="guidVSStd97" key1="9" mod1="Control"></KeyBinding>
+        -->
     </KeyBindings>
 
     <Symbols>

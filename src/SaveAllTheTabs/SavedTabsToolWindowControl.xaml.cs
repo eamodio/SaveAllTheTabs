@@ -9,6 +9,8 @@ using System.Windows.Input;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.PlatformUI;
+using SaveAllTheTabs.Polyfills;
+
 //using WPF.JoshSmith.ServiceProviders.UI;
 
 namespace SaveAllTheTabs

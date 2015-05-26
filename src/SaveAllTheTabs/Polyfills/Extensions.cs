@@ -5,8 +5,9 @@ using System.Linq;
 using System.Windows.Controls;
 using EnvDTE;
 using EnvDTE80;
+using Microsoft.VisualStudio.Shell;
 
-namespace SaveAllTheTabs
+namespace SaveAllTheTabs.Polyfills
 {
     internal static class Extensions
     {
@@ -61,6 +62,32 @@ namespace SaveAllTheTabs
             {
                 w.Close();
             }
+        }
+
+        public static Command GetCommand(this DTE2 environment, OleMenuCommand command)
+        {
+            return environment.Commands.Item(command.CommandID.Guid, command.CommandID.ID);
+        }
+
+        public static object[] GetKeyBindings(this DTE2 environment, OleMenuCommand command)
+        {
+            return environment.GetCommand(command)?.Bindings as object[];
+        }
+
+        public static void SetKeyBindings(this DTE2 environment, OleMenuCommand command, params object[] bindings)
+        {
+            var dteCommand = environment.GetCommand(command);
+            if (dteCommand == null)
+            {
+                return;
+            }
+
+            dteCommand.Bindings = bindings;
+        }
+
+        public static void SetKeyBindings(this DTE2 environment, OleMenuCommand command, IEnumerable<object> bindings)
+        {
+            environment.SetKeyBindings(command, bindings.ToArray());
         }
 
         private static string GetExactPathName(string pathName)

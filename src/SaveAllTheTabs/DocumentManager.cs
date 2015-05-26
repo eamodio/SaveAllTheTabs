@@ -14,7 +14,7 @@ using Microsoft.VisualStudio.Settings;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell.Settings;
 using Newtonsoft.Json;
-using SaveAllTheTabs.Interop;
+using SaveAllTheTabs.Polyfills;
 
 namespace SaveAllTheTabs
 {
@@ -46,7 +46,7 @@ namespace SaveAllTheTabs
 
         void SaveStashGroup();
 
-        void RestoreStashGroup();
+        void RestoreStashGroup(bool reset = false);
 
         bool HasStashGroup { get; }
 
@@ -280,9 +280,9 @@ namespace SaveAllTheTabs
             SaveGroup(StashGroupName);
         }
 
-        public void RestoreStashGroup()
+        public void RestoreStashGroup(bool reset = false)
         {
-            RestoreGroup(Groups.FindByName(StashGroupName));
+            RestoreGroup(Groups.FindByName(StashGroupName), reset);
         }
 
         public bool HasStashGroup => Groups.FindByName(StashGroupName) != null;

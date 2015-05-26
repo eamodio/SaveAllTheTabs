@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 
-namespace SaveAllTheTabs
+namespace SaveAllTheTabs.Polyfills
 {
     public sealed class TrulyObservableCollection<T> : ObservableCollection<T>
         where T : INotifyPropertyChanged

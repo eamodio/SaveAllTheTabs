@@ -7,6 +7,8 @@ using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using SaveAllTheTabs.Commands;
+using SaveAllTheTabs.Polyfills;
 
 namespace SaveAllTheTabs
 {

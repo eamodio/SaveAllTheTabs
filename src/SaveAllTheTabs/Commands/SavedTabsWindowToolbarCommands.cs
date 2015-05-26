@@ -3,7 +3,7 @@ using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 
-namespace SaveAllTheTabs
+namespace SaveAllTheTabs.Commands
 {
     internal class SavedTabsWindowToolbarCommands
     {

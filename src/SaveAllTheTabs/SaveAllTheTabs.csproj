@@ -51,27 +51,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="RestoreTabsListCommands.cs" />
+    <Compile Include="Commands\RestoreTabsListCommands.cs" />
     <Compile Include="DocumentGroup.cs" />
     <Compile Include="DocumentManager.cs" />
-    <Compile Include="Extensions.cs" />
+    <Compile Include="Polyfills\Extensions.cs" />
     <Compile Include="SavedTabsToolWindow.cs" />
     <Compile Include="SavedTabsToolWindowControl.xaml.cs">
       <DependentUpon>SavedTabsToolWindowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SavedTabsWindowCommands.cs" />
-    <Compile Include="SavedTabsWindowToolbarCommands.cs" />
-    <Compile Include="Interop.cs" />
-    <Compile Include="PackageProviderService.cs" />
+    <Compile Include="Commands\SavedTabsWindowCommands.cs" />
+    <Compile Include="Commands\SavedTabsWindowToolbarCommands.cs" />
+    <Compile Include="Polyfills\Interop.cs" />
+    <Compile Include="Polyfills\PackageProviderService.cs" />
     <Compile Include="SaveTabsWindow.xaml.cs">
       <DependentUpon>SaveTabsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StashCommands.cs" />
-    <Compile Include="PackageCommands.cs" />
+    <Compile Include="Commands\StashCommands.cs" />
+    <Compile Include="Commands\PackageCommands.cs" />
     <Compile Include="SaveAllTheTabsPackage.cs" />
     <Compile Include="PackageGuids.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TrulyObservableCollection.cs" />
+    <Compile Include="Polyfills\TrulyObservableCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="License.txt">
@@ -84,8 +84,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <Reference Include="envdte, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\packages\VSSDK.DTE.7.0.4\lib\net20\envdte.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EnvDTE100, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -96,87 +98,63 @@
     <Reference Include="EnvDTE90, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
-    <Reference Include="ListViewDragDropManager, Version=1.0.5604.23828, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ListViewDragDropManager.1.0.5604.23828\lib\net45\ListViewDragDropManager.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualStudio.CommandBars, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Imaging, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Imaging.14.0.22823-RC\lib\net45\Microsoft.VisualStudio.Imaging.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.VisualStudio.GraphModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\VSSDK.GraphModel.11.0.4\lib\net45\Microsoft.VisualStudio.GraphModel.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\Microsoft.VisualStudio.OLE.Interop.7.10.6070-pre\lib\Microsoft.VisualStudio.OLE.Interop.dll</HintPath>
+      <HintPath>..\packages\VSSDK.OLE.Interop.7.0.4\lib\net20\Microsoft.VisualStudio.OLE.Interop.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.14.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.14.0.14.0.22823-RC\lib\Microsoft.VisualStudio.Shell.14.0.dll</HintPath>
+    <Reference Include="Microsoft.VisualStudio.Shell.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\VSSDK.Shell.12.12.0.4\lib\net45\Microsoft.VisualStudio.Shell.12.0.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="microsoft.visualstudio.shell.immutable.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Immutable.10.0.10.0.30319-pre\lib\net40\microsoft.visualstudio.shell.immutable.10.0.dll</HintPath>
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\VSSDK.Shell.Immutable.10.10.0.4\lib\net40\Microsoft.VisualStudio.Shell.Immutable.10.0.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="microsoft.visualstudio.shell.immutable.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Immutable.11.0.11.0.50727-pre\lib\net45\microsoft.visualstudio.shell.immutable.11.0.dll</HintPath>
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\VSSDK.Shell.Immutable.11.11.0.4\lib\net45\Microsoft.VisualStudio.Shell.Immutable.11.0.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="microsoft.visualstudio.shell.immutable.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Immutable.12.0.12.0.21003-pre\lib\net45\microsoft.visualstudio.shell.immutable.12.0.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.14.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Immutable.14.0.14.0.22823-RC\lib\net45\Microsoft.VisualStudio.Shell.Immutable.14.0.dll</HintPath>
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\VSSDK.Shell.Immutable.12.12.0.4\lib\net45\Microsoft.VisualStudio.Shell.Immutable.12.0.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.7.10.6071-pre\lib\Microsoft.VisualStudio.Shell.Interop.dll</HintPath>
+      <HintPath>..\packages\VSSDK.Shell.Interop.7.0.4\lib\net20\Microsoft.VisualStudio.Shell.Interop.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.10.0.10.0.30319-pre\lib\Microsoft.VisualStudio.Shell.Interop.10.0.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\packages\VSSDK.Shell.Interop.10.10.0.4\lib\net20\Microsoft.VisualStudio.Shell.Interop.10.0.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.11.0.11.0.61030-pre\lib\Microsoft.VisualStudio.Shell.Interop.11.0.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Interop.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.12.0.12.0.30110-pre\lib\Microsoft.VisualStudio.Shell.Interop.12.0.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\packages\VSSDK.Shell.Interop.11.11.0.4\lib\net20\Microsoft.VisualStudio.Shell.Interop.11.0.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.8.0.8.0.50727-pre\lib\Microsoft.VisualStudio.Shell.Interop.8.0.dll</HintPath>
+      <HintPath>..\packages\VSSDK.Shell.Interop.8.8.0.4\lib\net20\Microsoft.VisualStudio.Shell.Interop.8.0.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.9.0.9.0.30729-pre\lib\Microsoft.VisualStudio.Shell.Interop.9.0.dll</HintPath>
+      <HintPath>..\packages\VSSDK.Shell.Interop.9.9.0.4\lib\net20\Microsoft.VisualStudio.Shell.Interop.9.0.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TextManager.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop.7.10.6070-pre\lib\Microsoft.VisualStudio.TextManager.Interop.dll</HintPath>
+      <HintPath>..\packages\VSSDK.TextManager.Interop.7.0.4\lib\net20\Microsoft.VisualStudio.TextManager.Interop.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TextManager.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop.8.0.8.0.50727-pre\lib\Microsoft.VisualStudio.TextManager.Interop.8.0.dll</HintPath>
+      <HintPath>..\packages\VSSDK.TextManager.Interop.8.8.0.4\lib\net20\Microsoft.VisualStudio.TextManager.Interop.8.0.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.Threading, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Threading.14.0.50417-pre\lib\net45\Microsoft.VisualStudio.Threading.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Utilities, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Utilities.14.0.22823-RC\lib\net45\Microsoft.VisualStudio.Utilities.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.Validation, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.Validation.14.0.50417-pre\lib\net45\Microsoft.VisualStudio.Validation.dll</HintPath>
+    <Reference Include="Microsoft.VisualStudio.Threading, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\VSSDK.Threading.12.0.4\lib\net45\Microsoft.VisualStudio.Threading.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -188,6 +166,8 @@
     <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\packages\VSSDK.DTE.7.0.4\lib\net20\stdole.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -214,9 +194,12 @@
       <HintPath>..\packages\Rx-Xaml.2.2.5\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>

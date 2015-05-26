@@ -4,8 +4,9 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using SaveAllTheTabs.Polyfills;
 
-namespace SaveAllTheTabs
+namespace SaveAllTheTabs.Commands
 {
     internal class SavedTabsWindowCommands
     {
@@ -29,6 +30,7 @@ namespace SaveAllTheTabs
             var commandId = new CommandID(guid, (int)SavedTabsWindowCommandIds.SavedTabsWindow);
             var command = new OleMenuCommand(ExecuteSavedTabsWindowCommand, commandId);
             commandService.AddCommand(command);
+            Package.Environment.SetKeyBindings(command, "Global::Ctrl+D,Ctrl+W");
         }
 
         private void ExecuteSavedTabsWindowCommand(object sender, EventArgs e)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.OLE.Interop;
 
-namespace SaveAllTheTabs.Interop
+namespace SaveAllTheTabs.Polyfills
 {
     public static class Ole32
     {

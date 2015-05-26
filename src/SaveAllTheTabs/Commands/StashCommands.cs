@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows.Input;
 using Microsoft.VisualStudio.Shell;
+using SaveAllTheTabs.Polyfills;
 
-namespace SaveAllTheTabs
+namespace SaveAllTheTabs.Commands
 {
     internal class StashCommands
     {
@@ -30,11 +33,13 @@ namespace SaveAllTheTabs
             var command = new OleMenuCommand(ExecuteStashSaveTabsCommand, commandId);
             command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
+            Package.Environment.SetKeyBindings(command, "Global::Ctrl+D,Ctrl+C");
 
             commandId = new CommandID(guid, (int)StashCommandIds.StashRestoreTabs);
             command = new OleMenuCommand(ExecuteStashRestoreTabsCommand, commandId);
             command.BeforeQueryStatus += StashRestoreTabsCommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
+            Package.Environment.SetKeyBindings(command, "Global::Ctrl+D,Ctrl+V", "Global::Ctrl+D,Ctrl+Shift+V", "Global::Ctrl+D,`", "Global::Ctrl+D,Shift+`");
         }
 
         private void CommandOnBeforeQueryStatus(object sender, EventArgs eventArgs)
@@ -61,7 +66,8 @@ namespace SaveAllTheTabs
 
         private void ExecuteStashRestoreTabsCommand(object sender, EventArgs e)
         {
-            Package.DocumentManager?.RestoreStashGroup();
+            var reset = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
+            Package.DocumentManager?.RestoreStashGroup(reset);
         }
 
         private void ExecuteStashSaveTabsCommand(object sender, EventArgs e)

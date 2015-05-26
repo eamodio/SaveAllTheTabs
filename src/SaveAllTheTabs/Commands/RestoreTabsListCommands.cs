@@ -5,8 +5,9 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
 using Microsoft.VisualStudio.Shell;
+using SaveAllTheTabs.Polyfills;
 
-namespace SaveAllTheTabs
+namespace SaveAllTheTabs.Commands
 {
     internal class RestoreTabsListCommands
     {
@@ -46,19 +47,12 @@ namespace SaveAllTheTabs
                 command.BeforeQueryStatus += RestoreTabsCommandOnBeforeQueryStatus;
                 commandService.AddCommand(command);
 
-                var dteCommand = Package.Environment.Commands.Item(commandId.Guid, commandId.ID);
-                var bindings = ((object[])dteCommand.Bindings).ToList();
-
-                var index = (i - RestoreTabsListCommandIds.RestoreTabsListStart) + 1;
-                //bindings.Add(String.Format("Global::Ctrl+D, {0}", index));
-                bindings.Add(String.Format("Global::Ctrl+Shift+{0}", index));
-                //bindings.Add(String.Format("Global::Ctrl+{0}", index));
-                dteCommand.Bindings = bindings.ToArray();
+                var index = GetGroupIndex(command);
+                Package.Environment.SetKeyBindings(command, $"Global::Ctrl+D,{index}", $"Global::Ctrl+D,Shift+{index}" /*, $"Global::Ctrl+Shift+{index}", $"Global::Ctrl+{index}"*/);
             }
         }
 
-        private static int GetGroupIndex(OleMenuCommand command) =>
-            (command.CommandID.ID - (int)RestoreTabsListCommandIds.RestoreTabsListStart) + 1;
+        private static int GetGroupIndex(OleMenuCommand command) => (command.CommandID.ID - (int)RestoreTabsListCommandIds.RestoreTabsListStart) + 1;
 
         private void ExecuteRestoreTabsCommand(object sender, EventArgs e)
         {

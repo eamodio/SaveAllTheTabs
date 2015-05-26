@@ -3,6 +3,8 @@ using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
+using SaveAllTheTabs.Commands;
+using SaveAllTheTabs.Polyfills;
 
 namespace SaveAllTheTabs
 {
