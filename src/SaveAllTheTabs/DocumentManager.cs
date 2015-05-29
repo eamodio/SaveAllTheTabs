@@ -8,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using EnvDTE;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Settings;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -33,8 +32,13 @@ namespace SaveAllTheTabs
 
         void SaveGroup(string name, int? slot = null);
 
-        void RestoreGroup(int slot, bool reset = false);
-        void RestoreGroup(DocumentGroup group, bool reset = false);
+        void RestoreGroup(int slot);
+        void RestoreGroup(DocumentGroup group);
+
+        void OpenGroup(int slot);
+        void OpenGroup(DocumentGroup group);
+
+        void CloseGroup(DocumentGroup group);
 
         void MoveGroup(DocumentGroup group, int delta);
 
@@ -45,8 +49,8 @@ namespace SaveAllTheTabs
         void ClearGroups();
 
         void SaveStashGroup();
-
-        void RestoreStashGroup(bool reset = false);
+        void RestoreStashGroup();
+        void OpenStashGroup();
 
         bool HasStashGroup { get; }
 
@@ -64,7 +68,6 @@ namespace SaveAllTheTabs
 
         private const string StorageCollectionPath = "SaveAllTheTabs";
         private const string SavedTabsStoragePropertyFormat = "SavedTabs.{0}";
-        private const string MigrationStorageCollectionPath = "TabGroups";
 
         private SaveAllTheTabsPackage Package { get; }
         private IServiceProvider ServiceProvider => Package;
@@ -130,8 +133,8 @@ namespace SaveAllTheTabs
 
             var group = Groups.FindByName(name);
 
-            var files = Package.Environment.GetDocumentFiles();//.ToList();
-            //var bps = Package.Environment.GetMatchingBreakpoints(new HashSet<string>(files), StringComparer.InvariantCultureIgnoreCase));
+            var files = new HashSet<string>(Package.Environment.GetDocumentFiles().OrderBy(Path.GetFileName), StringComparer.InvariantCultureIgnoreCase);
+            //var bps = Package.Environment.GetMatchingBreakpoints(files, StringComparer.InvariantCultureIgnoreCase));
 
             using (var stream = new VsOleStream())
             {
@@ -156,6 +159,7 @@ namespace SaveAllTheTabs
                     {
                         Name = name,
                         Description = documents,
+                        Files = files,
                         Positions = stream.ToArray()
                     };
 
@@ -172,6 +176,7 @@ namespace SaveAllTheTabs
                 else
                 {
                     group.Description = documents;
+                    group.Files = files;
                     group.Positions = stream.ToArray();
 
                     TrySetSlot(group, slot);
@@ -196,21 +201,38 @@ namespace SaveAllTheTabs
             group.Slot = slot;
         }
 
-        public void RestoreGroup(int slot, bool reset = false)
+        public void RestoreGroup(int slot)
         {
-            RestoreGroup(Groups.FindBySlot(slot), reset);
+            RestoreGroup(Groups.FindBySlot(slot));
         }
 
-        public void RestoreGroup(DocumentGroup group, bool reset = false)
+        public void RestoreGroup(DocumentGroup group)
         {
             if (group == null)
             {
                 return;
             }
 
-            if (reset)
+            if (!group.IsStash)
             {
-                Package.Environment.GetDocumentWindows().CloseAll();
+                SaveStashGroup();
+            }
+
+            Package.Environment.GetDocumentWindows().CloseAll();
+
+            OpenGroup(group);
+        }
+
+        public void OpenGroup(int slot)
+        {
+            OpenGroup(Groups.FindBySlot(slot));
+        }
+
+        public void OpenGroup(DocumentGroup group)
+        {
+            if (group == null)
+            {
+                return;
             }
 
             using (var stream = new VsOleStream())
@@ -224,6 +246,21 @@ namespace SaveAllTheTabs
                     Debug.Assert(false, "ReopenDocumentWindows", String.Empty, hr);
                 }
             }
+        }
+
+        public void CloseGroup(DocumentGroup group)
+        {
+            if (group?.Files == null)
+            {
+                return;
+            }
+
+            var windows = from w in Package.Environment.GetDocumentWindows()
+                          where w.Linkable == false && w.Document != null &&
+                                @group.Files.Contains(w.Document.FullName)
+                          select w;
+            windows.ToList()
+                   .CloseAll();
         }
 
         public void MoveGroup(DocumentGroup group, int delta)
@@ -280,9 +317,14 @@ namespace SaveAllTheTabs
             SaveGroup(StashGroupName);
         }
 
-        public void RestoreStashGroup(bool reset = false)
+        public void OpenStashGroup()
         {
-            RestoreGroup(Groups.FindByName(StashGroupName), reset);
+            OpenGroup(Groups.FindByName(StashGroupName));
+        }
+
+        public void RestoreStashGroup()
+        {
+            RestoreGroup(Groups.FindByName(StashGroupName));
         }
 
         public bool HasStashGroup => Groups.FindByName(StashGroupName) != null;
@@ -325,20 +367,11 @@ namespace SaveAllTheTabs
                         var tabs = store.GetString(StorageCollectionPath, propertyName);
                         return JsonConvert.DeserializeObject<List<DocumentGroup>>(tabs);
                     }
-
-                    // Migrate old settings
-                    if (store.CollectionExists(MigrationStorageCollectionPath) &&
-                        store.PropertyExists(MigrationStorageCollectionPath, solution))
-                    {
-                        var tabs = store.GetString(MigrationStorageCollectionPath, solution);
-                        var groups = JsonConvert.DeserializeObject<List<DocumentGroup>>(tabs);
-
-                        SaveGroupsForSolution(groups);
-
-                        return groups;
-                    }
                 }
-                catch (Exception) { }
+                catch (Exception ex)
+                {
+                    Debug.Assert(false, "LoadGroupsForSolution", ex.ToString());
+                }
             }
             return new List<DocumentGroup>();
         }

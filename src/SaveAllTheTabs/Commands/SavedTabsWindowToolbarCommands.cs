@@ -14,7 +14,8 @@ namespace SaveAllTheTabs.Commands
             SavedTabsWindowToolbarUpdateTabs = 0x0200,
             SavedTabsWindowToolbarRemoveTabs = 0x0300,
             SavedTabsWindowToolbarRestoreTabs = 0x0400,
-            SavedTabsWindowToolbarResetTabs = 0x0500
+            SavedTabsWindowToolbarOpenTabs = 0x0500,
+            SavedTabsWindowToolbarCloseTabs = 0x0600
         }
 
         private SaveAllTheTabsPackage Package { get; }
@@ -51,8 +52,13 @@ namespace SaveAllTheTabs.Commands
             command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
 
-            commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarResetTabs);
-            command = new OleMenuCommand(ExecuteResetCommand, commandId);
+            commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarOpenTabs);
+            command = new OleMenuCommand(ExecuteOpenCommand, commandId);
+            command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
+            commandService.AddCommand(command);
+
+            commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarCloseTabs);
+            command = new OleMenuCommand(ExecuteCloseCommand, commandId);
             command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
         }
@@ -101,7 +107,7 @@ namespace SaveAllTheTabs.Commands
             Package.DocumentManager?.RestoreGroup(selected);
         }
 
-        private void ExecuteResetCommand(object sender, EventArgs e)
+        private void ExecuteOpenCommand(object sender, EventArgs e)
         {
             var selected = Package.DocumentManager?.GetSelectedGroup();
             if (selected == null)
@@ -109,7 +115,18 @@ namespace SaveAllTheTabs.Commands
                 return;
             }
 
-            Package.DocumentManager?.RestoreGroup(selected, true);
+            Package.DocumentManager?.OpenGroup(selected);
+        }
+
+        private void ExecuteCloseCommand(object sender, EventArgs e)
+        {
+            var selected = Package.DocumentManager?.GetSelectedGroup();
+            if (selected == null)
+            {
+                return;
+            }
+
+            Package.DocumentManager?.CloseGroup(selected);
         }
     }
 }

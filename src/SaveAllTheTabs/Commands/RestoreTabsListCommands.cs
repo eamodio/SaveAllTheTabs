@@ -48,7 +48,7 @@ namespace SaveAllTheTabs.Commands
                 commandService.AddCommand(command);
 
                 var index = GetGroupIndex(command);
-                Package.Environment.SetKeyBindings(command, $"Global::Ctrl+D,{index}", $"Global::Ctrl+D,Shift+{index}" /*, $"Global::Ctrl+Shift+{index}", $"Global::Ctrl+{index}"*/);
+                Package.Environment.SetKeyBindings(command, $"Global::Ctrl+D,{index}", $"Text Editor::Ctrl+D,{index}");
             }
         }
 
@@ -63,8 +63,7 @@ namespace SaveAllTheTabs.Commands
             }
 
             var index = GetGroupIndex(command);
-            var reset = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
-            Package.DocumentManager?.RestoreGroup(index, reset);
+            Package.DocumentManager?.RestoreGroup(index);
         }
 
         private void RestoreTabsCommandOnBeforeQueryStatus(object sender, EventArgs eventArgs)

@@ -64,7 +64,7 @@ namespace SaveAllTheTabs.Commands
             var command = new OleMenuCommand(ExecuteSaveTabsCommand, commandId);
             command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
-            Package.Environment.SetKeyBindings(command, "Global::Ctrl+D,Ctrl+S");
+            Package.Environment.SetKeyBindings(command, "Global::Ctrl+D,Ctrl+S", "Text Editor::Ctrl+D,Ctrl+S");
 
             commandId = new CommandID(guid, (int)CommandIds.RestoreTabsListMenu);
             command = new OleMenuCommand(null, commandId);

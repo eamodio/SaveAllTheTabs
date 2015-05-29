@@ -52,11 +52,15 @@
                 <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbar" />
             </Group>
 
-            <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarUpdateCmdGroup" priority="0x0200">
+            <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRemoveCmdGroup" priority="0x0200">
                 <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbar" />
             </Group>
 
             <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRestoreCmdGroup" priority="0x0300">
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbar" />
+            </Group>
+
+            <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCloseCmdGroup" priority="0x0400">
                 <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbar" />
             </Group>
 
@@ -287,7 +291,7 @@
             </Button>
 
             <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarUpdateTabs" priority="0x0200" type="Button">
-                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarUpdateCmdGroup" />
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCmdGroup" />
                 <Icon guid="guidImages" id="bmpPicUpdateTabs" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
@@ -299,7 +303,20 @@
                 </Strings>
             </Button>
 
-            <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRestoreTabs" priority="0x0200" type="Button">
+            <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRemoveTabs" priority="0x0300" type="Button">
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRemoveCmdGroup" />
+                <Icon guid="guidImages" id="bmpPicRemoveTabs" />
+                <CommandFlag>DefaultDisabled</CommandFlag>
+                <Strings>
+                    <CommandName>Remove Selected Tabs</CommandName>
+                    <ButtonText>Remove Selected Tabs</ButtonText>
+                    <MenuText>Remove Selected Tabs</MenuText>
+                    <CanonicalName>SaveAllTheTabs.ToolbarRemoveSelectedTabs</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.ToolbarRemoveSelectedTabs</LocCanonicalName>
+                </Strings>
+            </Button>
+
+            <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRestoreTabs" priority="0x0100" type="Button">
                 <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRestoreCmdGroup" />
                 <Icon guid="guidImages" id="bmpPicRestoreTabs" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
@@ -312,29 +329,29 @@
                 </Strings>
             </Button>
 
-            <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarResetTabs" priority="0x0300" type="Button">
+            <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarOpenTabs" priority="0x0200" type="Button">
                 <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRestoreCmdGroup" />
-                <Icon guid="guidImages" id="bmpPicResetTabs" />
+                <Icon guid="guidImages" id="bmpPicOpenTabs" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
-                    <CommandName>Reset Selected Tabs</CommandName>
-                    <ButtonText>Reset Selected Tabs</ButtonText>
-                    <MenuText>Reset Selected Tabs</MenuText>
-                    <CanonicalName>SaveAllTheTabs.ToolbarResetSelectedTabs</CanonicalName>
-                    <LocCanonicalName>SaveAllTheTabs.ToolbarResetSelectedTabs</LocCanonicalName>
+                    <CommandName>Open Selected Tabs</CommandName>
+                    <ButtonText>Open Selected Tabs</ButtonText>
+                    <MenuText>Open Selected Tabs</MenuText>
+                    <CanonicalName>SaveAllTheTabs.ToolbarOpenSelectedTabs</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.ToolbarOpenSelectedTabs</LocCanonicalName>
                 </Strings>
             </Button>
 
-            <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRemoveTabs" priority="0x0300" type="Button">
-                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarUpdateCmdGroup" />
-                <Icon guid="guidImages" id="bmpPicRemoveTabs" />
+            <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCloseTabs" priority="0x0100" type="Button">
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCloseCmdGroup" />
+                <Icon guid="guidImages" id="bmpPicCloseTabs" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
-                    <CommandName>Remove Selected Tabs</CommandName>
-                    <ButtonText>Remove Selected Tabs</ButtonText>
-                    <MenuText>Remove Selected Tabs</MenuText>
-                    <CanonicalName>SaveAllTheTabs.ToolbarRemoveSelectedTabs</CanonicalName>
-                    <LocCanonicalName>SaveAllTheTabs.ToolbarRemoveSelectedTabs</LocCanonicalName>
+                    <CommandName>Close Selected Tabs</CommandName>
+                    <ButtonText>Close Selected Tabs</ButtonText>
+                    <MenuText>Close Selected Tabs</MenuText>
+                    <CanonicalName>SaveAllTheTabs.ToolbarCloseSelectedTabs</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.ToolbarCloseSelectedTabs</LocCanonicalName>
                 </Strings>
             </Button>
         </Buttons>
@@ -346,7 +363,7 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-            <Bitmap guid="guidImages" href="Resources\SavedTabsToolWindowCommands.png" usedList="bmpPicSaveTabs, bmpPicRestoreTabs, bmpPicResetTabs, bmpPicRemoveTabs, bmpPicStashTabs, bmpPicUpdateTabs" />
+            <Bitmap guid="guidImages" href="Resources\SavedTabsToolWindowCommands.png" usedList="bmpPicSaveTabs, bmpPicOpen, bmpPicRestore, bmpPicRemove, bmpPicStashTabs, bmpPicUpdateTabs, bmpPicCloseTabs, bmpPicOpenTabs, bmpPicRestoreTabs, bmpPicRemoveTabs" />
         </Bitmaps>
     </Commands>
 
@@ -354,34 +371,20 @@
         <CommandPlacement guid="guidPackageCmdSet" id="SaveTabs" priority="0x0100">
             <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCmdGroup"/>
         </CommandPlacement>
+        <!--
         <CommandPlacement guid="guidStashCmdSet" id="StashSaveTabs" priority="0x0300">
             <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCmdGroup"/>
         </CommandPlacement>
+        -->
     </CommandPlacements>
 
     <KeyBindings>
-        <!--<KeyBinding guid="guidPackageCmdSet" id="SaveTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="S"></KeyBinding>-->
-        <!--<KeyBinding guid="guidStashCmdSet" id="StashSaveTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="C"></KeyBinding>-->
-        <!--<KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="V"></KeyBinding>-->
-        <!--<KeyBinding guid="guidSavedTabsWindowCmdSet" id="SavedTabsWindow" editor="guidVSStd97" key1="D" mod1="Control" key2="W"></KeyBinding>-->
-
         <KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="VK_OEM_3"></KeyBinding>
-        <KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="VK_OEM_3" mod2="Shift"></KeyBinding>
 
         <KeyBinding guid="guidPackageCmdSet" id="SaveTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="S" mod2="Control"></KeyBinding>
         <KeyBinding guid="guidStashCmdSet" id="StashSaveTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="C" mod2="Control"></KeyBinding>
         <KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="V" mod2="Control"></KeyBinding>
         <KeyBinding guid="guidSavedTabsWindowCmdSet" id="SavedTabsWindow" editor="guidVSStd97" key1="D" mod1="Control" key2="W" mod2="Control"></KeyBinding>
-
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs1" editor="guidVSStd97" key1="D" mod1="Control" key2="1" mod2="Shift"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs2" editor="guidVSStd97" key1="D" mod1="Control" key2="2" mod2="Shift"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs3" editor="guidVSStd97" key1="D" mod1="Control" key2="3" mod2="Shift"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs4" editor="guidVSStd97" key1="D" mod1="Control" key2="4" mod2="Shift"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs5" editor="guidVSStd97" key1="D" mod1="Control" key2="5" mod2="Shift"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs6" editor="guidVSStd97" key1="D" mod1="Control" key2="6" mod2="Shift"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs7" editor="guidVSStd97" key1="D" mod1="Control" key2="7" mod2="Shift"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs8" editor="guidVSStd97" key1="D" mod1="Control" key2="8" mod2="Shift"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs9" editor="guidVSStd97" key1="D" mod1="Control" key2="9" mod2="Shift"></KeyBinding>
 
         <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs1" editor="guidVSStd97" key1="D" mod1="Control" key2="1"></KeyBinding>
         <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs2" editor="guidVSStd97" key1="D" mod1="Control" key2="2"></KeyBinding>
@@ -392,20 +395,6 @@
         <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs7" editor="guidVSStd97" key1="D" mod1="Control" key2="7"></KeyBinding>
         <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs8" editor="guidVSStd97" key1="D" mod1="Control" key2="8"></KeyBinding>
         <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs9" editor="guidVSStd97" key1="D" mod1="Control" key2="9"></KeyBinding>
-
-        <!--
-        <KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="VK_OEM_3" mod1="Control"></KeyBinding>
-
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs1" editor="guidVSStd97" key1="1" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs2" editor="guidVSStd97" key1="2" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs3" editor="guidVSStd97" key1="3" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs4" editor="guidVSStd97" key1="4" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs5" editor="guidVSStd97" key1="5" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs6" editor="guidVSStd97" key1="6" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs7" editor="guidVSStd97" key1="7" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs8" editor="guidVSStd97" key1="8" mod1="Control"></KeyBinding>
-        <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs9" editor="guidVSStd97" key1="9" mod1="Control"></KeyBinding>
-        -->
     </KeyBindings>
 
     <Symbols>
@@ -446,22 +435,28 @@
 
         <GuidSymbol name="guidSavedTabsWindowToolbarCmdSet" value="{85f1f852-b83e-4ffb-b656-4deb79cfb519}">
             <IDSymbol name="SavedTabsWindowToolbarCmdGroup" value="0x1020" />
-            <IDSymbol name="SavedTabsWindowToolbarUpdateCmdGroup" value="0x1040" />
+            <IDSymbol name="SavedTabsWindowToolbarRemoveCmdGroup" value="0x1040" />
             <IDSymbol name="SavedTabsWindowToolbarRestoreCmdGroup" value="0x1080" />
+            <IDSymbol name="SavedTabsWindowToolbarCloseCmdGroup" value="0x1100" />
             <IDSymbol name="SavedTabsWindowToolbar" value="0x0100" />
             <IDSymbol name="SavedTabsWindowToolbarUpdateTabs" value="0x0200" />
             <IDSymbol name="SavedTabsWindowToolbarRemoveTabs" value="0x0300" />
             <IDSymbol name="SavedTabsWindowToolbarRestoreTabs" value="0x0400" />
-            <IDSymbol name="SavedTabsWindowToolbarResetTabs" value="0x0500" />
+            <IDSymbol name="SavedTabsWindowToolbarOpenTabs" value="0x0500" />
+            <IDSymbol name="SavedTabsWindowToolbarCloseTabs" value="0x0600" />
         </GuidSymbol>
 
         <GuidSymbol name="guidImages" value="{4ec489fa-9fb3-4191-805c-188fa5bf8080}">
             <IDSymbol name="bmpPicSaveTabs" value="1" />
-            <IDSymbol name="bmpPicRestoreTabs" value="2" />
-            <IDSymbol name="bmpPicResetTabs" value="3" />
-            <IDSymbol name="bmpPicRemoveTabs" value="4" />
+            <IDSymbol name="bmpPicOpen" value="2" />
+            <IDSymbol name="bmpPicRestore" value="3" />
+            <IDSymbol name="bmpPicRemove" value="4" />
             <IDSymbol name="bmpPicStashTabs" value="5" />
             <IDSymbol name="bmpPicUpdateTabs" value="6" />
+            <IDSymbol name="bmpPicCloseTabs" value="7" />
+            <IDSymbol name="bmpPicOpenTabs" value="8" />
+            <IDSymbol name="bmpPicRestoreTabs" value="9" />
+            <IDSymbol name="bmpPicRemoveTabs" value="10" />
         </GuidSymbol>
     </Symbols>
 </CommandTable>

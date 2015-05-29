@@ -30,7 +30,7 @@ namespace SaveAllTheTabs.Commands
             var commandId = new CommandID(guid, (int)SavedTabsWindowCommandIds.SavedTabsWindow);
             var command = new OleMenuCommand(ExecuteSavedTabsWindowCommand, commandId);
             commandService.AddCommand(command);
-            Package.Environment.SetKeyBindings(command, "Global::Ctrl+D,Ctrl+W");
+            Package.Environment.SetKeyBindings(command, "Global::Ctrl+D,Ctrl+W", "Text Editor::Ctrl+D,Ctrl+W");
         }
 
         private void ExecuteSavedTabsWindowCommand(object sender, EventArgs e)

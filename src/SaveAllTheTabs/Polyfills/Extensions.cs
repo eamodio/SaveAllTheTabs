@@ -43,7 +43,7 @@ namespace SaveAllTheTabs.Polyfills
 
         public static IEnumerable<Window> GetDocumentWindows(this DTE2 environment)
         {
-            return environment.Windows.Cast<Window>().Where(x => x.Linkable == false);
+            return environment.Windows.Cast<Window>().Where(w => w.Linkable == false);
         }
 
         public static IEnumerable<Breakpoint> GetBreakpoints(this DTE2 environment)

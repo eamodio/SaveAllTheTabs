@@ -18,6 +18,7 @@
 
     <UserControl.Resources>
         <package:BoolVisibilityConverter x:Key="BoolVisibility" />
+        <package:WrapTooltipConverter x:Key="WrapTooltip" />
 
         <Style x:Key="VsGridViewColumnHeaderGripper" TargetType="Thumb">
             <Setter Property="Width" Value="18" />
@@ -224,7 +225,7 @@
                 <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Slot}"/>
             </DataTemplate>
             <DataTemplate x:Key="DescriptionColumnTemplate">
-                <TextBlock Text="{Binding Path=Description}"/>
+                <TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap"/>
             </DataTemplate>
         </Grid.Resources>
 
@@ -243,6 +244,7 @@
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem" BasedOn="{StaticResource VsListViewItemStyle}">
+                    <Setter Property="ToolTip" Value="{Binding Path=Description, Converter={StaticResource WrapTooltip}}"/>
                     <EventSetter Event="MouseDoubleClick" Handler="OnTabsListItemMouseDoubleClick" />
                     <EventSetter Event="PreviewKeyDown" Handler="OnTabsListItemPreviewKeyDown" />
                 </Style>

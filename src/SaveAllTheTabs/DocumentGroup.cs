@@ -53,6 +53,8 @@ namespace SaveAllTheTabs
         }
         private string _description;
 
+        public HashSet<string> Files { get; set; }
+
         [JsonIgnore]
         public bool HasSlot => Slot != null;
 

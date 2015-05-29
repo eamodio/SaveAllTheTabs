@@ -33,13 +33,15 @@ namespace SaveAllTheTabs.Commands
             var command = new OleMenuCommand(ExecuteStashSaveTabsCommand, commandId);
             command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
-            Package.Environment.SetKeyBindings(command, "Global::Ctrl+D,Ctrl+C");
+            Package.Environment.SetKeyBindings(command, "Global::Ctrl+D,Ctrl+C", "Text Editor::Ctrl+D,Ctrl+C");
 
             commandId = new CommandID(guid, (int)StashCommandIds.StashRestoreTabs);
             command = new OleMenuCommand(ExecuteStashRestoreTabsCommand, commandId);
             command.BeforeQueryStatus += StashRestoreTabsCommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
-            Package.Environment.SetKeyBindings(command, "Global::Ctrl+D,Ctrl+V", "Global::Ctrl+D,Ctrl+Shift+V", "Global::Ctrl+D,`", "Global::Ctrl+D,Shift+`");
+            Package.Environment.SetKeyBindings(command, "Global::Ctrl+D,Ctrl+V", "Text Editor::Ctrl+D,Ctrl+V",
+                                               "Global::Ctrl+D,Ctrl+Z", "Text Editor::Ctrl+D,Ctrl+Z",
+                                               "Global::Ctrl+D,`", "Text Editor::Ctrl+D,`");
         }
 
         private void CommandOnBeforeQueryStatus(object sender, EventArgs eventArgs)
@@ -66,8 +68,7 @@ namespace SaveAllTheTabs.Commands
 
         private void ExecuteStashRestoreTabsCommand(object sender, EventArgs e)
         {
-            var reset = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
-            Package.DocumentManager?.RestoreStashGroup(reset);
+            Package.DocumentManager?.RestoreStashGroup();
         }
 
         private void ExecuteStashSaveTabsCommand(object sender, EventArgs e)
