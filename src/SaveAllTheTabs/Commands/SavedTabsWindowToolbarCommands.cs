@@ -12,7 +12,7 @@ namespace SaveAllTheTabs.Commands
         {
             SavedTabsWindowToolbar = 0x0100,
             SavedTabsWindowToolbarUpdateTabs = 0x0200,
-            SavedTabsWindowToolbarRemoveTabs = 0x0300,
+            SavedTabsWindowToolbarDeleteTabs = 0x0300,
             SavedTabsWindowToolbarRestoreTabs = 0x0400,
             SavedTabsWindowToolbarOpenTabs = 0x0500,
             SavedTabsWindowToolbarCloseTabs = 0x0600
@@ -42,8 +42,8 @@ namespace SaveAllTheTabs.Commands
             command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
 
-            commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarRemoveTabs);
-            command = new OleMenuCommand(ExecuteRemoveCommand, commandId);
+            commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarDeleteTabs);
+            command = new OleMenuCommand(ExecuteDeleteCommand, commandId);
             command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
 
@@ -85,7 +85,7 @@ namespace SaveAllTheTabs.Commands
             Package.DocumentManager.SaveGroup(selected.Name, selected.Slot);
         }
 
-        private void ExecuteRemoveCommand(object sender, EventArgs e)
+        private void ExecuteDeleteCommand(object sender, EventArgs e)
         {
             var selected = Package.DocumentManager?.GetSelectedGroup();
             if (selected == null)

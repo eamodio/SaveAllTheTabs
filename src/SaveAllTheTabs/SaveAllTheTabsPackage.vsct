@@ -52,19 +52,15 @@
                 <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbar" />
             </Group>
 
-            <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRemoveCmdGroup" priority="0x0200">
+            <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarTabsActionCmdGroup" priority="0x0200">
                 <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbar" />
             </Group>
 
-            <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRestoreCmdGroup" priority="0x0300">
+            <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarDeleteCmdGroup" priority="0x0400">
                 <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbar" />
             </Group>
 
-            <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCloseCmdGroup" priority="0x0400">
-                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbar" />
-            </Group>
-
-            <Group guid="guidStashCmdSet" id="StashCmdGroup" priority="0x0700">
+        <Group guid="guidStashCmdSet" id="StashCmdGroup" priority="0x0700">
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_WINDOW" />
             </Group>
         </Groups>
@@ -107,11 +103,11 @@
           If you do not want an image next to your command, remove the Icon node /> -->
             <Button guid="guidPackageCmdSet" id="SaveTabs" priority="0x0100" type="Button">
                 <Parent guid="guidPackageCmdSet" id="MainCmdGroup" />
-                <Icon guid="guidImages" id="bmpPicSaveTabs" />
+                <Icon guid="guidImages" id="bmpPicTabAdd" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
                     <CommandName>Save Tabs</CommandName>
-                    <ButtonText>Save Tabs...</ButtonText>
+                    <ButtonText>Save Tabs to new group...</ButtonText>
                     <MenuText>Save Tabs...</MenuText>
                     <CanonicalName>SaveAllTheTabs.SaveTabs</CanonicalName>
                     <LocCanonicalName>SaveAllTheTabs.SaveTabs</LocCanonicalName>
@@ -256,7 +252,7 @@
 
             <Button guid="guidStashCmdSet" id="StashSaveTabs" priority="0x0100" type="Button">
                 <Parent guid="guidStashCmdSet" id="StashCmdGroup" />
-                <Icon guid="guidImages" id="bmpPicStashTabs" />
+                <Icon guid="guidImages" id="bmpPicTabHash" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
                     <CommandName>Stash Tabs</CommandName>
@@ -292,66 +288,69 @@
 
             <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarUpdateTabs" priority="0x0200" type="Button">
                 <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCmdGroup" />
-                <Icon guid="guidImages" id="bmpPicUpdateTabs" />
+                <Icon guid="guidImages" id="bmpPicTabSave" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
-                    <CommandName>Update Selected Tabs</CommandName>
-                    <ButtonText>Update Selected Tabs</ButtonText>
-                    <MenuText>Update Selected Tabs</MenuText>
-                    <CanonicalName>SaveAllTheTabs.ToolbarUpdateSelectedTabs</CanonicalName>
-                    <LocCanonicalName>SaveAllTheTabs.ToolbarUpdateSelectedTabs</LocCanonicalName>
-                </Strings>
-            </Button>
-
-            <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRemoveTabs" priority="0x0300" type="Button">
-                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRemoveCmdGroup" />
-                <Icon guid="guidImages" id="bmpPicRemoveTabs" />
-                <CommandFlag>DefaultDisabled</CommandFlag>
-                <Strings>
-                    <CommandName>Remove Selected Tabs</CommandName>
-                    <ButtonText>Remove Selected Tabs</ButtonText>
-                    <MenuText>Remove Selected Tabs</MenuText>
-                    <CanonicalName>SaveAllTheTabs.ToolbarRemoveSelectedTabs</CanonicalName>
-                    <LocCanonicalName>SaveAllTheTabs.ToolbarRemoveSelectedTabs</LocCanonicalName>
+                    <CommandName>Save Tabs to selected group</CommandName>
+                    <ButtonText>Save Tabs to selected group</ButtonText>
+                    <MenuText>Save Tabs to group</MenuText>
+                    <CanonicalName>SaveAllTheTabs.ToolbarSaveTabsToSelected</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.ToolbarSaveTabsToSelected</LocCanonicalName>
                 </Strings>
             </Button>
 
             <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRestoreTabs" priority="0x0100" type="Button">
-                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRestoreCmdGroup" />
-                <Icon guid="guidImages" id="bmpPicRestoreTabs" />
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarTabsActionCmdGroup" />
+                <Icon guid="guidImages" id="bmpPicTabSync" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
+                <CommandFlag>IconAndText</CommandFlag>
                 <Strings>
-                    <CommandName>Restore Selected Tabs</CommandName>
-                    <ButtonText>Restore Selected Tabs</ButtonText>
-                    <MenuText>Restore Selected Tabs</MenuText>
+                    <CommandName>Restore Tabs</CommandName>
+                    <ButtonText>Restore Tabs</ButtonText>
+                    <MenuText>Restore Tabs</MenuText>
                     <CanonicalName>SaveAllTheTabs.ToolbarRestoreSelectedTabs</CanonicalName>
                     <LocCanonicalName>SaveAllTheTabs.ToolbarRestoreSelectedTabs</LocCanonicalName>
                 </Strings>
             </Button>
 
             <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarOpenTabs" priority="0x0200" type="Button">
-                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRestoreCmdGroup" />
-                <Icon guid="guidImages" id="bmpPicOpenTabs" />
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarTabsActionCmdGroup" />
+                <Icon guid="guidImages" id="bmpPicTabOpenArrow" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
+                <CommandFlag>IconAndText</CommandFlag>
                 <Strings>
-                    <CommandName>Open Selected Tabs</CommandName>
-                    <ButtonText>Open Selected Tabs</ButtonText>
-                    <MenuText>Open Selected Tabs</MenuText>
+                    <CommandName>Open Tabs</CommandName>
+                    <ButtonText>Open Tabs</ButtonText>
+                    <MenuText>Open Tabs</MenuText>
                     <CanonicalName>SaveAllTheTabs.ToolbarOpenSelectedTabs</CanonicalName>
                     <LocCanonicalName>SaveAllTheTabs.ToolbarOpenSelectedTabs</LocCanonicalName>
                 </Strings>
             </Button>
 
-            <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCloseTabs" priority="0x0100" type="Button">
-                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCloseCmdGroup" />
-                <Icon guid="guidImages" id="bmpPicCloseTabs" />
+            <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCloseTabs" priority="0x0300" type="Button">
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarTabsActionCmdGroup" />
+                <Icon guid="guidImages" id="bmpPicTabClose" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
+                <CommandFlag>IconAndText</CommandFlag>
                 <Strings>
-                    <CommandName>Close Selected Tabs</CommandName>
-                    <ButtonText>Close Selected Tabs</ButtonText>
-                    <MenuText>Close Selected Tabs</MenuText>
+                    <CommandName>Close Tabs</CommandName>
+                    <ButtonText>Close Tabs</ButtonText>
+                    <MenuText>Close Tabs</MenuText>
                     <CanonicalName>SaveAllTheTabs.ToolbarCloseSelectedTabs</CanonicalName>
                     <LocCanonicalName>SaveAllTheTabs.ToolbarCloseSelectedTabs</LocCanonicalName>
+                </Strings>
+            </Button>
+
+            <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarDeleteTabs" priority="0x0100" type="Button">
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarDeleteCmdGroup" />
+                <Icon guid="guidImages" id="bmpPicDelete" />
+                <CommandFlag>DefaultDisabled</CommandFlag>
+                <Strings>
+                    <CommandName>Delete group</CommandName>
+                    <ButtonText>Delete</ButtonText>
+                    <MenuText>Delete</MenuText>
+                    <CanonicalName>SaveAllTheTabs.ToolbarDeleteSelected</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.ToolbarDeleteSelected</LocCanonicalName>
                 </Strings>
             </Button>
         </Buttons>
@@ -363,7 +362,10 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-            <Bitmap guid="guidImages" href="Resources\SavedTabsToolWindowCommands.png" usedList="bmpPicSaveTabs, bmpPicOpen, bmpPicRestore, bmpPicRemove, bmpPicStashTabs, bmpPicUpdateTabs, bmpPicCloseTabs, bmpPicOpenTabs, bmpPicRestoreTabs, bmpPicRemoveTabs" />
+            <Bitmap guid="guidImages" href="Resources\SavedTabsToolWindowCommands.png" usedList="bmpPicTabSave, bmpPicOpenArrow, bmpPicRefresh, bmpPicDelete,
+                                                                                                 bmpPicTabHash, bmpPicTabDownArrow, bmpPicTabClose, bmpPicTabOpenArrow,
+                                                                                                 bmpPicTabSync, bmpPicTabUpArrow, bmpPicSave, bmpPicTabAdd, bmpPicTabRefresh,
+                                                                                                 bmpPicTabCloseBW, bmpPicTabOpenArrowBW, bmpPicTabSyncBW" />
         </Bitmaps>
     </Commands>
 
@@ -435,28 +437,33 @@
 
         <GuidSymbol name="guidSavedTabsWindowToolbarCmdSet" value="{85f1f852-b83e-4ffb-b656-4deb79cfb519}">
             <IDSymbol name="SavedTabsWindowToolbarCmdGroup" value="0x1020" />
-            <IDSymbol name="SavedTabsWindowToolbarRemoveCmdGroup" value="0x1040" />
-            <IDSymbol name="SavedTabsWindowToolbarRestoreCmdGroup" value="0x1080" />
-            <IDSymbol name="SavedTabsWindowToolbarCloseCmdGroup" value="0x1100" />
+            <IDSymbol name="SavedTabsWindowToolbarTabsActionCmdGroup" value="0x1040" />
+            <IDSymbol name="SavedTabsWindowToolbarDeleteCmdGroup" value="0x1080" />
             <IDSymbol name="SavedTabsWindowToolbar" value="0x0100" />
             <IDSymbol name="SavedTabsWindowToolbarUpdateTabs" value="0x0200" />
-            <IDSymbol name="SavedTabsWindowToolbarRemoveTabs" value="0x0300" />
+            <IDSymbol name="SavedTabsWindowToolbarDeleteTabs" value="0x0300" />
             <IDSymbol name="SavedTabsWindowToolbarRestoreTabs" value="0x0400" />
             <IDSymbol name="SavedTabsWindowToolbarOpenTabs" value="0x0500" />
             <IDSymbol name="SavedTabsWindowToolbarCloseTabs" value="0x0600" />
         </GuidSymbol>
 
         <GuidSymbol name="guidImages" value="{4ec489fa-9fb3-4191-805c-188fa5bf8080}">
-            <IDSymbol name="bmpPicSaveTabs" value="1" />
-            <IDSymbol name="bmpPicOpen" value="2" />
-            <IDSymbol name="bmpPicRestore" value="3" />
-            <IDSymbol name="bmpPicRemove" value="4" />
-            <IDSymbol name="bmpPicStashTabs" value="5" />
-            <IDSymbol name="bmpPicUpdateTabs" value="6" />
-            <IDSymbol name="bmpPicCloseTabs" value="7" />
-            <IDSymbol name="bmpPicOpenTabs" value="8" />
-            <IDSymbol name="bmpPicRestoreTabs" value="9" />
-            <IDSymbol name="bmpPicRemoveTabs" value="10" />
+            <IDSymbol name="bmpPicTabSave" value="1" />
+            <IDSymbol name="bmpPicOpenArrow" value="2" />
+            <IDSymbol name="bmpPicRefresh" value="3" />
+            <IDSymbol name="bmpPicDelete" value="4" />
+            <IDSymbol name="bmpPicTabHash" value="5" />
+            <IDSymbol name="bmpPicTabDownArrow" value="6" />
+            <IDSymbol name="bmpPicTabClose" value="7" />
+            <IDSymbol name="bmpPicTabOpenArrow" value="8" />
+            <IDSymbol name="bmpPicTabSync" value="9" />
+            <IDSymbol name="bmpPicTabUpArrow" value="10" />
+            <IDSymbol name="bmpPicSave" value="11" />
+            <IDSymbol name="bmpPicTabAdd" value="12" />
+            <IDSymbol name="bmpPicTabRefresh" value="13" />
+            <IDSymbol name="bmpPicTabCloseBW" value="14" />
+            <IDSymbol name="bmpPicTabOpenArrowBW" value="15" />
+            <IDSymbol name="bmpPicTabSyncBW" value="16" />
         </GuidSymbol>
     </Symbols>
 </CommandTable>
