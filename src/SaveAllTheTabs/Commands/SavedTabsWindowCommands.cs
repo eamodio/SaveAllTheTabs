@@ -70,7 +70,7 @@ namespace SaveAllTheTabs.Commands
 
             commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarCloseTabs);
             command = new OleMenuCommand(ExecuteCloseCommand, commandId);
-            command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
+            command.BeforeQueryStatus += CloseCommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
 
             commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarDeleteTabs);
@@ -89,6 +89,17 @@ namespace SaveAllTheTabs.Commands
 
             var group = Package.DocumentManager?.GetSelectedGroup();
             command.Enabled = group != null && !group.IsUndo && Package.Environment.GetDocumentWindows().Any();
+        }
+
+        private void CloseCommandOnBeforeQueryStatus(object sender, EventArgs eventArgs)
+        {
+            var command = sender as OleMenuCommand;
+            if (command == null)
+            {
+                return;
+            }
+
+            command.Enabled = Package.DocumentManager?.GetSelectedGroup() != null && Package.Environment.GetDocumentWindows().Any();
         }
 
         private void CommandOnBeforeQueryStatus(object sender, EventArgs e)
