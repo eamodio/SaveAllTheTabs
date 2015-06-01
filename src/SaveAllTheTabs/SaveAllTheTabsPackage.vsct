@@ -40,28 +40,44 @@
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_WINDOW" />
             </Group>
 
-            <Group guid="guidRestoreTabsListCmdSet" id="RestoreTabsListCmdGroup" priority="0x0100">
-                <Parent guid="guidPackageCmdSet" id="RestoreTabsListMenu" />
+            <Group guid="guidStashCmdSet" id="StashCmdGroup" priority="0x0700">
+                <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_WINDOW" />
             </Group>
 
             <Group guid="guidSavedTabsWindowCmdSet" id="SavedTabsWindowCmdGroup" priority="0x0800">
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_WINDOW" />
             </Group>
 
+            <Group guid="guidRestoreTabsListCmdSet" id="RestoreTabsListCmdGroup" priority="0x0100">
+                <Parent guid="guidPackageCmdSet" id="RestoreTabsListMenu" />
+            </Group>
+
             <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCmdGroup" priority="0x0000">
                 <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbar" />
             </Group>
 
-            <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarTabsActionCmdGroup" priority="0x0200">
+            <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCmdGroup1" priority="0x0200">
                 <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbar" />
             </Group>
 
-            <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarDeleteCmdGroup" priority="0x0400">
+            <Group guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCmdGroup2" priority="0x0400">
                 <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbar" />
             </Group>
 
-        <Group guid="guidStashCmdSet" id="StashCmdGroup" priority="0x0700">
-                <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_WINDOW" />
+            <Group guid="guidSavedTabsWindowContextMenuCmdSet" id="SavedTabsWindowContextMenuCmdGroup" priority="0x0100">
+                <Parent guid="guidSavedTabsWindowContextMenuCmdSet" id="SavedTabsWindowContextMenu"/>
+            </Group>
+
+            <Group guid="guidSavedTabsWindowContextMenuCmdSet" id="SavedTabsWindowContextMenuCmdGroup1" priority="0x0200">
+                <Parent guid="guidSavedTabsWindowContextMenuCmdSet" id="SavedTabsWindowContextMenu"/>
+            </Group>
+
+            <Group guid="guidSavedTabsWindowContextMenuCmdSet" id="SavedTabsWindowContextMenuCmdGroup2" priority="0x0300">
+                <Parent guid="guidSavedTabsWindowContextMenuCmdSet" id="SavedTabsWindowContextMenu"/>
+            </Group>
+
+            <Group guid="guidSavedTabsWindowContextMenuCmdSet" id="SavedTabsWindowContextMenuCmdGroup3" priority="0x0400">
+                <Parent guid="guidSavedTabsWindowContextMenuCmdSet" id="SavedTabsWindowContextMenu" />
             </Group>
         </Groups>
 
@@ -86,6 +102,13 @@
                     <MenuText>Toolbar</MenuText>
                     <CanonicalName>SaveAllTheTabs.SavedTabsWindowToolbar</CanonicalName>
                     <LocCanonicalName>SaveAllTheTabs.SavedTabsWindowToolbar</LocCanonicalName>
+                </Strings>
+            </Menu>
+
+            <Menu guid="guidSavedTabsWindowContextMenuCmdSet" id="SavedTabsWindowContextMenu" type="Context">
+                <Strings>
+                    <CommandName>Tab Group Context Menu</CommandName>
+                    <ButtonText>Tab Group Context Menu</ButtonText>
                 </Strings>
             </Menu>
         </Menus>
@@ -133,8 +156,8 @@
                     <CommandName>Restore Tabs 1</CommandName>
                     <ButtonText>1</ButtonText>
                     <MenuText>1</MenuText>
-                    <CanonicalName>SaveAllTheTabs.RestoreTabs1</CanonicalName>
-                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs1</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreFavoriteTabs1</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreFavoriteTabs1</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -147,8 +170,8 @@
                     <CommandName>Restore Tabs 2</CommandName>
                     <ButtonText>2</ButtonText>
                     <MenuText>2</MenuText>
-                    <CanonicalName>SaveAllTheTabs.RestoreTabs2</CanonicalName>
-                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs2</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreFavoriteTabs2</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreFavoriteTabs2</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -161,8 +184,8 @@
                     <CommandName>Restore Tabs 3</CommandName>
                     <ButtonText>3</ButtonText>
                     <MenuText>3</MenuText>
-                    <CanonicalName>SaveAllTheTabs.RestoreTabs3</CanonicalName>
-                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs3</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreFavoriteTabs3</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreFavoriteTabs3</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -175,8 +198,8 @@
                     <CommandName>Restore Tabs 4</CommandName>
                     <ButtonText>4</ButtonText>
                     <MenuText>4</MenuText>
-                    <CanonicalName>SaveAllTheTabs.RestoreTabs4</CanonicalName>
-                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs4</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreFavoriteTabs4</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreFavoriteTabs4</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -189,8 +212,8 @@
                     <CommandName>Restore Tabs 5</CommandName>
                     <ButtonText>5</ButtonText>
                     <MenuText>5</MenuText>
-                    <CanonicalName>SaveAllTheTabs.RestoreTabs5</CanonicalName>
-                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs5</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreFavoriteTabs5</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreFavoriteTabs5</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -203,8 +226,8 @@
                     <CommandName>Restore Tabs 6</CommandName>
                     <ButtonText>6</ButtonText>
                     <MenuText>6</MenuText>
-                    <CanonicalName>SaveAllTheTabs.RestoreTabs6</CanonicalName>
-                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs6</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreFavoriteTabs6</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreFavoriteTabs6</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -217,8 +240,8 @@
                     <CommandName>Restore Tabs 7</CommandName>
                     <ButtonText>7</ButtonText>
                     <MenuText>7</MenuText>
-                    <CanonicalName>SaveAllTheTabs.RestoreTabs7</CanonicalName>
-                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs7</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreFavoriteTabs7</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreFavoriteTabs7</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -231,8 +254,8 @@
                     <CommandName>Restore Tabs 8</CommandName>
                     <ButtonText>8</ButtonText>
                     <MenuText>8</MenuText>
-                    <CanonicalName>SaveAllTheTabs.RestoreTabs8</CanonicalName>
-                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs8</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreFavoriteTabs8</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreFavoriteTabs8</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -245,8 +268,8 @@
                     <CommandName>Restore Tabs 9</CommandName>
                     <ButtonText>9</ButtonText>
                     <MenuText>9</MenuText>
-                    <CanonicalName>SaveAllTheTabs.RestoreTabs9</CanonicalName>
-                    <LocCanonicalName>SaveAllTheTabs.RestoreTabs9</LocCanonicalName>
+                    <CanonicalName>SaveAllTheTabs.RestoreFavoriteTabs9</CanonicalName>
+                    <LocCanonicalName>SaveAllTheTabs.RestoreFavoriteTabs9</LocCanonicalName>
                 </Strings>
             </Button>
 
@@ -286,7 +309,7 @@
                 </Strings>
             </Button>
 
-            <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarUpdateTabs" priority="0x0200" type="Button">
+            <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarSaveToTabs" priority="0x0200" type="Button">
                 <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCmdGroup" />
                 <Icon guid="guidImages" id="bmpPicTabSave" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
@@ -300,7 +323,7 @@
             </Button>
 
             <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRestoreTabs" priority="0x0100" type="Button">
-                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarTabsActionCmdGroup" />
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCmdGroup1" />
                 <Icon guid="guidImages" id="bmpPicTabSync" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <CommandFlag>IconAndText</CommandFlag>
@@ -314,7 +337,7 @@
             </Button>
 
             <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarOpenTabs" priority="0x0200" type="Button">
-                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarTabsActionCmdGroup" />
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCmdGroup1" />
                 <Icon guid="guidImages" id="bmpPicTabOpenArrow" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <CommandFlag>IconAndText</CommandFlag>
@@ -328,7 +351,7 @@
             </Button>
 
             <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCloseTabs" priority="0x0300" type="Button">
-                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarTabsActionCmdGroup" />
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCmdGroup1" />
                 <Icon guid="guidImages" id="bmpPicTabClose" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <CommandFlag>IconAndText</CommandFlag>
@@ -342,7 +365,7 @@
             </Button>
 
             <Button guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarDeleteTabs" priority="0x0100" type="Button">
-                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarDeleteCmdGroup" />
+                <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCmdGroup2" />
                 <Icon guid="guidImages" id="bmpPicDelete" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
@@ -378,6 +401,22 @@
             <Parent guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCmdGroup"/>
         </CommandPlacement>
         -->
+
+        <CommandPlacement guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarRestoreTabs" priority="0x0100">
+            <Parent guid="guidSavedTabsWindowContextMenuCmdSet" id="SavedTabsWindowContextMenuCmdGroup"/>
+        </CommandPlacement>
+        <CommandPlacement guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarOpenTabs" priority="0x0200">
+            <Parent guid="guidSavedTabsWindowContextMenuCmdSet" id="SavedTabsWindowContextMenuCmdGroup1"/>
+        </CommandPlacement>
+        <CommandPlacement guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarCloseTabs" priority="0x0300">
+            <Parent guid="guidSavedTabsWindowContextMenuCmdSet" id="SavedTabsWindowContextMenuCmdGroup1"/>
+        </CommandPlacement>
+        <CommandPlacement guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarSaveToTabs" priority="0x0100">
+            <Parent guid="guidSavedTabsWindowContextMenuCmdSet" id="SavedTabsWindowContextMenuCmdGroup2"/>
+        </CommandPlacement>
+        <CommandPlacement guid="guidSavedTabsWindowToolbarCmdSet" id="SavedTabsWindowToolbarDeleteTabs" priority="0x0500">
+            <Parent guid="guidSavedTabsWindowContextMenuCmdSet" id="SavedTabsWindowContextMenuCmdGroup3"/>
+        </CommandPlacement>
     </CommandPlacements>
 
     <KeyBindings>
@@ -437,14 +476,22 @@
 
         <GuidSymbol name="guidSavedTabsWindowToolbarCmdSet" value="{85f1f852-b83e-4ffb-b656-4deb79cfb519}">
             <IDSymbol name="SavedTabsWindowToolbarCmdGroup" value="0x1020" />
-            <IDSymbol name="SavedTabsWindowToolbarTabsActionCmdGroup" value="0x1040" />
-            <IDSymbol name="SavedTabsWindowToolbarDeleteCmdGroup" value="0x1080" />
+            <IDSymbol name="SavedTabsWindowToolbarCmdGroup1" value="0x1040" />
+            <IDSymbol name="SavedTabsWindowToolbarCmdGroup2" value="0x1080" />
             <IDSymbol name="SavedTabsWindowToolbar" value="0x0100" />
-            <IDSymbol name="SavedTabsWindowToolbarUpdateTabs" value="0x0200" />
+            <IDSymbol name="SavedTabsWindowToolbarSaveToTabs" value="0x0200" />
             <IDSymbol name="SavedTabsWindowToolbarDeleteTabs" value="0x0300" />
             <IDSymbol name="SavedTabsWindowToolbarRestoreTabs" value="0x0400" />
             <IDSymbol name="SavedTabsWindowToolbarOpenTabs" value="0x0500" />
             <IDSymbol name="SavedTabsWindowToolbarCloseTabs" value="0x0600" />
+        </GuidSymbol>
+
+        <GuidSymbol name="guidSavedTabsWindowContextMenuCmdSet" value="{8734827a-84f9-4bf6-aaa2-f6b076f26395}">
+            <IDSymbol name="SavedTabsWindowContextMenuCmdGroup" value="0x1020" />
+            <IDSymbol name="SavedTabsWindowContextMenuCmdGroup1" value="0x1040" />
+            <IDSymbol name="SavedTabsWindowContextMenuCmdGroup2" value="0x1080" />
+            <IDSymbol name="SavedTabsWindowContextMenuCmdGroup3" value="0x1100" />
+            <IDSymbol name="SavedTabsWindowContextMenu" value="0x0100" />
         </GuidSymbol>
 
         <GuidSymbol name="guidImages" value="{4ec489fa-9fb3-4191-805c-188fa5bf8080}">

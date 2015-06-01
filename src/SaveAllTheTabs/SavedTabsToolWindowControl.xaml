@@ -246,6 +246,7 @@
                 <Style TargetType="ListViewItem" BasedOn="{StaticResource VsListViewItemStyle}">
                     <Setter Property="ToolTip" Value="{Binding Path=Description, Converter={StaticResource WrapTooltip}}"/>
                     <EventSetter Event="MouseDoubleClick" Handler="OnTabsListItemMouseDoubleClick" />
+                    <EventSetter Event="MouseRightButtonUp" Handler="OnTabsListItemMouseRightButtonUp" />
                     <EventSetter Event="PreviewKeyDown" Handler="OnTabsListItemPreviewKeyDown" />
                 </Style>
             </ListView.ItemContainerStyle>

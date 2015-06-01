@@ -1,51 +1,146 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
-using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using SaveAllTheTabs.Polyfills;
 
 namespace SaveAllTheTabs.Commands
 {
-    internal class SavedTabsWindowCommands
+    public class SavedTabsWindowCommands
     {
-        [Guid(PackageGuids.SavedTabsWindowCmdSetGuidString)]
-        private enum SavedTabsWindowCommandIds
+        [Guid(PackageGuids.SavedTabsWindowToolbarCmdSetGuidString)]
+        private enum SavedTabsWindowToolbarCommandIds
         {
-            SavedTabsWindow = 0x0100
+            SavedTabsWindowToolbar = 0x0100,
+            SavedTabsWindowToolbarSaveToTabs = 0x0200,
+            SavedTabsWindowToolbarDeleteTabs = 0x0300,
+            SavedTabsWindowToolbarRestoreTabs = 0x0400,
+            SavedTabsWindowToolbarOpenTabs = 0x0500,
+            SavedTabsWindowToolbarCloseTabs = 0x0600
+        }
+
+        [Guid(PackageGuids.SavedTabsWindowContextMenuCmdSetGuidString)]
+        private enum SavedTabsWindowContextMenuCommandIds
+        {
+            SavedTabsWindowContextMenu = 0x0100
         }
 
         private SaveAllTheTabsPackage Package { get; }
+        private OleMenuCommandService CommandService { get; }
 
         public SavedTabsWindowCommands(SaveAllTheTabsPackage package)
         {
             Package = package;
+            CommandService = ((IServiceProvider)package)?.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
         }
 
-        public void SetupCommands(OleMenuCommandService commandService)
+        public CommandID SetupToolbar()
         {
-            var guid = typeof(SavedTabsWindowCommandIds).GUID;
+            var guid = typeof(SavedTabsWindowToolbarCommandIds).GUID;
 
-            var commandId = new CommandID(guid, (int)SavedTabsWindowCommandIds.SavedTabsWindow);
-            var command = new OleMenuCommand(ExecuteSavedTabsWindowCommand, commandId);
+            SetupCommands(CommandService);
+            return new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbar);
+        }
+
+        public void ShowContextMenu(int x, int y)
+        {
+            var commandId = new CommandID(typeof(SavedTabsWindowContextMenuCommandIds).GUID, (int)SavedTabsWindowContextMenuCommandIds.SavedTabsWindowContextMenu);
+            CommandService?.ShowContextMenu(commandId, x, y);
+        }
+
+        private void SetupCommands(OleMenuCommandService commandService)
+        {
+            var guid = typeof(SavedTabsWindowToolbarCommandIds).GUID;
+
+            var commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarSaveToTabs);
+            var command = new OleMenuCommand(ExecuteSaveToCommand, commandId);
+            command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
-            Package.Environment.SetKeyBindings(command, "Global::Ctrl+D,Ctrl+W", "Text Editor::Ctrl+D,Ctrl+W");
+
+            commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarRestoreTabs);
+            command = new OleMenuCommand(ExecuteRestoreCommand, commandId);
+            command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
+            commandService.AddCommand(command);
+
+            commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarOpenTabs);
+            command = new OleMenuCommand(ExecuteOpenCommand, commandId);
+            command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
+            commandService.AddCommand(command);
+
+            commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarCloseTabs);
+            command = new OleMenuCommand(ExecuteCloseCommand, commandId);
+            command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
+            commandService.AddCommand(command);
+
+            commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarDeleteTabs);
+            command = new OleMenuCommand(ExecuteDeleteCommand, commandId);
+            command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
+            commandService.AddCommand(command);
         }
 
-        private void ExecuteSavedTabsWindowCommand(object sender, EventArgs e)
+        private void CommandOnBeforeQueryStatus(object sender, EventArgs e)
         {
-            // Get the instance number 0 of this tool window. This window is single instance so this instance
-            // is actually the only one.
-            // The last flag is set to true so that if the tool window does not exists it will be created.
-            var window = Package.FindToolWindow(typeof(SavedTabsToolWindow), 0, true);
-            if (window?.Frame == null)
+            var command = sender as OleMenuCommand;
+            if (command == null)
             {
-                throw new NotSupportedException("Cannot create tool window");
+                return;
             }
 
-            var windowFrame = (IVsWindowFrame)window.Frame;
-            ErrorHandler.ThrowOnFailure(windowFrame.Show());
+            command.Enabled = Package.DocumentManager?.GetSelectedGroup() != null;
+        }
+
+        private void ExecuteSaveToCommand(object sender, EventArgs e)
+        {
+            var selected = Package.DocumentManager?.GetSelectedGroup();
+            if (selected == null)
+            {
+                return;
+            }
+
+            Package.DocumentManager.SaveGroup(selected.Name, selected.Slot);
+        }
+
+        private void ExecuteDeleteCommand(object sender, EventArgs e)
+        {
+            var selected = Package.DocumentManager?.GetSelectedGroup();
+            if (selected == null)
+            {
+                return;
+            }
+
+            Package.DocumentManager?.RemoveGroup(selected);
+        }
+
+        private void ExecuteRestoreCommand(object sender, EventArgs e)
+        {
+            var selected = Package.DocumentManager?.GetSelectedGroup();
+            if (selected == null)
+            {
+                return;
+            }
+
+            Package.DocumentManager?.RestoreGroup(selected);
+        }
+
+        private void ExecuteOpenCommand(object sender, EventArgs e)
+        {
+            var selected = Package.DocumentManager?.GetSelectedGroup();
+            if (selected == null)
+            {
+                return;
+            }
+
+            Package.DocumentManager?.OpenGroup(selected);
+        }
+
+        private void ExecuteCloseCommand(object sender, EventArgs e)
+        {
+            var selected = Package.DocumentManager?.GetSelectedGroup();
+            if (selected == null)
+            {
+                return;
+            }
+
+            Package.DocumentManager?.CloseGroup(selected);
         }
     }
 }

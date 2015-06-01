@@ -40,16 +40,13 @@ namespace SaveAllTheTabs
             var packageProvider = ServiceProvider.GlobalProvider.GetService(typeof(PackageProviderService)) as PackageProviderService;
             var package = packageProvider?.Package;
 
-            var commandService = ((IServiceProvider)package)?.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (commandService != null)
-            {
-                ToolBar = new SavedTabsWindowToolbarCommands(package).SetupToolbar(commandService);
-            }
+            var commands = new SavedTabsWindowCommands(package);
+            ToolBar = commands.SetupToolbar();
 
             // This is the user control hosted by the tool window; Note that, even if this class implements IDisposable,
             // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on
             // the object returned by the Content property.
-            Content = new SavedTabsToolWindowControl(package);
+            Content = new SavedTabsToolWindowControl(package, commands);
         }
 
         protected override bool PreProcessMessage(ref Message m)

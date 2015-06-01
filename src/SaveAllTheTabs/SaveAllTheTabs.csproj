@@ -60,13 +60,11 @@
       <DependentUpon>SavedTabsToolWindowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Commands\SavedTabsWindowCommands.cs" />
-    <Compile Include="Commands\SavedTabsWindowToolbarCommands.cs" />
     <Compile Include="Polyfills\Interop.cs" />
     <Compile Include="Polyfills\PackageProviderService.cs" />
     <Compile Include="SaveTabsWindow.xaml.cs">
       <DependentUpon>SaveTabsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Commands\StashCommands.cs" />
     <Compile Include="Commands\PackageCommands.cs" />
     <Compile Include="SaveAllTheTabsPackage.cs" />
     <Compile Include="PackageGuids.cs" />

@@ -10,7 +10,10 @@ using System.Windows.Input;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.PlatformUI;
+using Microsoft.VisualStudio.Shell;
+using SaveAllTheTabs.Commands;
 using SaveAllTheTabs.Polyfills;
+using Task = System.Threading.Tasks.Task;
 
 //using WPF.JoshSmith.ServiceProviders.UI;
 
@@ -22,6 +25,8 @@ namespace SaveAllTheTabs
     public partial class SavedTabsToolWindowControl : UserControl
     {
         private SaveAllTheTabsPackage Package { get; }
+        private SavedTabsWindowCommands Commands { get; }
+
         public ObservableCollection<DocumentGroup> Groups { get; private set; }
 
         //private ListViewDragDropManager<DocumentGroup> _listViewDragDropManager;
@@ -29,9 +34,10 @@ namespace SaveAllTheTabs
         /// <summary>
         /// Initializes a new instance of the <see cref="SavedTabsToolWindowControl"/> class.
         /// </summary>
-        public SavedTabsToolWindowControl(SaveAllTheTabsPackage package)
+        public SavedTabsToolWindowControl(SaveAllTheTabsPackage package, SavedTabsWindowCommands commands)
         {
             Package = package;
+            Commands = commands;
 
             Loaded += (sender, args) => RefreshBindingSources(Package.DocumentManager);
             Package.DocumentManager.GroupsReset += (sender, args) => RefreshBindingSources(sender as DocumentManager, true);
@@ -285,6 +291,12 @@ namespace SaveAllTheTabs
                                       .Subscribe(re => endEditingFn(edit, false)));
 
             group.StartEditing();
+        }
+
+        private void OnTabsListItemMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var p = PointToScreen(e.GetPosition(this));
+            Commands.ShowContextMenu((int)p.X, (int)p.Y);
         }
     }
 

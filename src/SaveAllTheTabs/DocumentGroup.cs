@@ -6,6 +6,18 @@ using Newtonsoft.Json;
 
 namespace SaveAllTheTabs
 {
+    // Only exists for case-insensitive deserialization
+    public class DocumentFilesHashSet : HashSet<string>
+    {
+        public DocumentFilesHashSet()
+            : base(StringComparer.OrdinalIgnoreCase)
+        { }
+
+        public DocumentFilesHashSet(IEnumerable<string> collection)
+            : base(collection, StringComparer.OrdinalIgnoreCase)
+        { }
+    }
+
     public class DocumentGroup : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -53,7 +65,7 @@ namespace SaveAllTheTabs
         }
         private string _description;
 
-        public HashSet<string> Files { get; set; }
+        public DocumentFilesHashSet Files { get; set; }
 
         [JsonIgnore]
         public bool HasSlot => Slot != null;

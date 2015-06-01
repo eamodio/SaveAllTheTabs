@@ -133,8 +133,8 @@ namespace SaveAllTheTabs
 
             var group = Groups.FindByName(name);
 
-            var files = new HashSet<string>(Package.Environment.GetDocumentFiles().OrderBy(Path.GetFileName), StringComparer.InvariantCultureIgnoreCase);
-            //var bps = Package.Environment.GetMatchingBreakpoints(files, StringComparer.InvariantCultureIgnoreCase));
+            var files = new DocumentFilesHashSet(Package.Environment.GetDocumentFiles().OrderBy(Path.GetFileName));
+            //var bps = Package.Environment.GetMatchingBreakpoints(files, StringComparer.OrdinalIgnoreCase));
 
             using (var stream = new VsOleStream())
             {
@@ -213,12 +213,13 @@ namespace SaveAllTheTabs
                 return;
             }
 
-            if (!group.IsStash)
+            var windows = Package.Environment.GetDocumentWindows().ToList();
+            if (!group.IsStash && windows.Any())
             {
                 SaveStashGroup();
             }
 
-            Package.Environment.GetDocumentWindows().CloseAll();
+            windows.CloseAll();
 
             OpenGroup(group);
         }
@@ -256,8 +257,7 @@ namespace SaveAllTheTabs
             }
 
             var windows = from w in Package.Environment.GetDocumentWindows()
-                          where w.Linkable == false && w.Document != null &&
-                                @group.Files.Contains(w.Document.FullName)
+                          where w.Document != null && @group.Files.Contains(w.Document.FullName)
                           select w;
             windows.ToList()
                    .CloseAll();
