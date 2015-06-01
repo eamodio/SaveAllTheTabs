@@ -102,7 +102,7 @@ namespace SaveAllTheTabs
             UpdateCommandsUI(this);
         }
 
-        public static void UpdateCommandsUI(IServiceProvider sp)
+        public static void UpdateCommandsUI(IServiceProvider sp, bool immediate = false)
         {
             var shell = (IVsUIShell)sp.GetService(typeof(IVsUIShell));
             if (shell == null)
@@ -110,7 +110,7 @@ namespace SaveAllTheTabs
                 return;
             }
 
-            var hr = shell.UpdateCommandUI(0);
+            var hr = shell.UpdateCommandUI(immediate ? 1 : 0);
             ErrorHandler.ThrowOnFailure(hr);
         }
     }

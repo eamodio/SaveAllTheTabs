@@ -71,7 +71,11 @@ namespace SaveAllTheTabs
         public bool HasSlot => Slot != null;
 
         [JsonIgnore]
-        public bool IsStash => Name.Equals(DocumentManager.StashGroupName, StringComparison.InvariantCultureIgnoreCase);
+        public bool IsStash => DocumentManager.IsStashGroup(Name);
+        [JsonIgnore]
+        public bool IsUndo => DocumentManager.IsUndoGroup(Name);
+        [JsonIgnore]
+        public bool IsBuiltIn => DocumentManager.IsBuiltInGroup(Name);
 
         [JsonIgnore]
         public bool IsSelected { get; set; }

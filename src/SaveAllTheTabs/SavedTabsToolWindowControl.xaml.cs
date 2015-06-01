@@ -115,7 +115,7 @@ namespace SaveAllTheTabs
 
                     e.Handled = true;
 
-                    if (group.IsStash)
+                    if (group.IsBuiltIn)
                     {
                         break;
                     }
@@ -147,7 +147,7 @@ namespace SaveAllTheTabs
 
                     e.Handled = true;
 
-                    if (group.IsStash)
+                    if (group.IsBuiltIn)
                     {
                         break;
                     }
@@ -208,8 +208,10 @@ namespace SaveAllTheTabs
                 return;
             }
 
+            var commandsUpdated = false;
             if (e.RemovedItems.Count == 0)
             {
+                commandsUpdated = true;
                 Package.UpdateCommandsUI();
             }
 
@@ -221,7 +223,12 @@ namespace SaveAllTheTabs
 
             group.IsSelected = true;
 
-            if (group.IsEditing || group.IsStash)
+            if (!commandsUpdated)
+            {
+                Package.UpdateCommandsUI();
+            }
+
+            if (group.IsEditing || group.IsBuiltIn)
             {
                 return;
             }

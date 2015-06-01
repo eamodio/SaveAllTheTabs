@@ -46,8 +46,6 @@ namespace SaveAllTheTabs
 
         void RemoveGroup(DocumentGroup group);
 
-        void ClearGroups();
-
         void SaveStashGroup();
         void RestoreStashGroup();
         void OpenStashGroup();
@@ -61,7 +59,8 @@ namespace SaveAllTheTabs
     {
         public event EventHandler GroupsReset;
 
-        public const string StashGroupName = "<stash>";
+        private const string UndoGroupName = "<undo>";
+        private const string StashGroupName = "<stash>";
 
         private const int SlotMin = 1;
         private const int SlotMax = 9;
@@ -125,8 +124,13 @@ namespace SaveAllTheTabs
                 return;
             }
 
-            var isStash = name.Equals(StashGroupName, StringComparison.InvariantCultureIgnoreCase);
-            if (isStash)
+            if (!Package.Environment.GetDocumentWindows().Any())
+            {
+                return;
+            }
+
+            var isBuiltIn = IsBuiltInGroup(name);
+            if (isBuiltIn)
             {
                 slot = null;
             }
@@ -164,7 +168,7 @@ namespace SaveAllTheTabs
                     };
 
                     TrySetSlot(group, slot);
-                    if (isStash)
+                    if (isBuiltIn)
                     {
                         Groups.Insert(0, group);
                     }
@@ -175,6 +179,8 @@ namespace SaveAllTheTabs
                 }
                 else
                 {
+                    SaveUndoGroup(group);
+
                     group.Description = documents;
                     group.Files = files;
                     group.Positions = stream.ToArray();
@@ -214,9 +220,9 @@ namespace SaveAllTheTabs
             }
 
             var windows = Package.Environment.GetDocumentWindows().ToList();
-            if (!group.IsStash && windows.Any())
+            if (!IsUndoGroup(group.Name) && windows.Any())
             {
-                SaveStashGroup();
+                SaveUndoGroup();
             }
 
             windows.CloseAll();
@@ -304,12 +310,37 @@ namespace SaveAllTheTabs
                 return;
             }
 
+            SaveUndoGroup(group);
             Groups.Remove(group);
         }
 
-        public void ClearGroups()
+        private void SaveUndoGroup()
         {
-            Groups.Clear();
+            SaveGroup(UndoGroupName);
+        }
+
+        private void SaveUndoGroup(DocumentGroup group)
+        {
+            var undo = Groups.FindByName(UndoGroupName);
+
+            if (undo == null)
+            {
+                undo = new DocumentGroup
+                {
+                    Name = UndoGroupName,
+                    Description = group.Description,
+                    Files = group.Files,
+                    Positions = group.Positions
+                };
+
+                Groups.Insert(0, undo);
+            }
+            else
+            {
+                undo.Description = group.Description;
+                undo.Files = group.Files;
+                undo.Positions = group.Positions;
+            }
         }
 
         public void SaveStashGroup()
@@ -406,6 +437,21 @@ namespace SaveAllTheTabs
 
             var tabs = JsonConvert.SerializeObject(groups);
             store.SetString(StorageCollectionPath, propertyName, tabs);
+        }
+
+        public static bool IsStashGroup(string name)
+        {
+            return (name?.Equals(StashGroupName, StringComparison.InvariantCultureIgnoreCase)).GetValueOrDefault();
+        }
+
+        public static bool IsUndoGroup(string name)
+        {
+            return (name?.Equals(UndoGroupName, StringComparison.InvariantCultureIgnoreCase)).GetValueOrDefault();
+        }
+
+        public static bool IsBuiltInGroup(string name)
+        {
+            return IsUndoGroup(name) || IsStashGroup(name);
         }
     }
 }

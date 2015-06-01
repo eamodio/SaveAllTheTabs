@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
@@ -106,8 +107,8 @@ namespace SaveAllTheTabs.Commands
             command = new OleMenuCommand(ExecuteStashRestoreTabsCommand, commandId);
             command.BeforeQueryStatus += StashRestoreTabsCommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
-            Package.Environment.SetKeyBindings(command, "Global::Ctrl+D,Ctrl+V", "Text Editor::Ctrl+D,Ctrl+V",
-                                               "Global::Ctrl+D,Ctrl+Z", "Text Editor::Ctrl+D,Ctrl+Z",
+            Package.Environment.SetKeyBindings(command,
+                                               "Global::Ctrl+D,Ctrl+V", "Text Editor::Ctrl+D,Ctrl+V",
                                                "Global::Ctrl+D,`", "Text Editor::Ctrl+D,`");
         }
 
@@ -119,7 +120,7 @@ namespace SaveAllTheTabs.Commands
                 return;
             }
 
-            command.Enabled = Package.DocumentManager != null;
+            command.Enabled = Package.DocumentManager != null && Package.Environment.GetDocumentWindows().Any();
         }
 
         private void ExecuteSaveTabsCommand(object sender, EventArgs e)

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
+using SaveAllTheTabs.Polyfills;
 
 namespace SaveAllTheTabs.Commands
 {
@@ -53,7 +55,7 @@ namespace SaveAllTheTabs.Commands
 
             var commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarSaveToTabs);
             var command = new OleMenuCommand(ExecuteSaveToCommand, commandId);
-            command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
+            command.BeforeQueryStatus += SaveToCommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
 
             commandId = new CommandID(guid, (int)SavedTabsWindowToolbarCommandIds.SavedTabsWindowToolbarRestoreTabs);
@@ -75,6 +77,18 @@ namespace SaveAllTheTabs.Commands
             command = new OleMenuCommand(ExecuteDeleteCommand, commandId);
             command.BeforeQueryStatus += CommandOnBeforeQueryStatus;
             commandService.AddCommand(command);
+        }
+
+        private void SaveToCommandOnBeforeQueryStatus(object sender, EventArgs eventArgs)
+        {
+            var command = sender as OleMenuCommand;
+            if (command == null)
+            {
+                return;
+            }
+
+            var group = Package.DocumentManager?.GetSelectedGroup();
+            command.Enabled = group != null && !group.IsUndo && Package.Environment.GetDocumentWindows().Any();
         }
 
         private void CommandOnBeforeQueryStatus(object sender, EventArgs e)
