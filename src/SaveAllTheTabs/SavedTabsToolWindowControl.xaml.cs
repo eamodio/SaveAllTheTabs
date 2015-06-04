@@ -10,12 +10,9 @@ using System.Windows.Input;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.PlatformUI;
-using Microsoft.VisualStudio.Shell;
 using SaveAllTheTabs.Commands;
 using SaveAllTheTabs.Polyfills;
 using Task = System.Threading.Tasks.Task;
-
-//using WPF.JoshSmith.ServiceProviders.UI;
 
 namespace SaveAllTheTabs
 {
@@ -240,23 +237,31 @@ namespace SaveAllTheTabs
                 return;
             }
 
-            item.Tag = (Observable.FromEventPattern<RoutedEventArgs>(item, "PreviewMouseLeftButtonDown")
-                                  .Where(re => ((re.Sender as ListViewItem)?.Content as DocumentGroup)?.IsEditing == false)
-                                  .Buffer(TimeSpan.FromMilliseconds(600))
-                                  .Where(re => re.Count == 1)
-                                  .ObserveOnDispatcher()
-                                  .Subscribe(re =>
-                                             {
-                                                 StartEditing(list, item, group,
-                                                              (edit, cancel) =>
-                                                              {
-                                                                  var previous = group.EndEditing();
-                                                                  if (cancel)
-                                                                  {
-                                                                      edit.Text = previous;
-                                                                  }
-                                                              });
-                                             }));
+            var mouseDowns = Observable.FromEventPattern<RoutedEventArgs>(item, "PreviewMouseLeftButtonDown");
+            var mouseUps = Observable.FromEventPattern<RoutedEventArgs>(item, "PreviewMouseLeftButtonUp");
+
+            var query = from md in mouseDowns.Take(1)
+                        where (md.EventArgs as MouseButtonEventArgs)?.ClickCount == 1 &&
+                              ((md.Sender as ListViewItem)?.Content as DocumentGroup)?.IsEditing == false
+                        from mu in mouseUps.Take(1)
+                        from bmd in mouseDowns.Buffer(TimeSpan.FromMilliseconds(600)).Take(1)
+                        where bmd.Count == 0
+                        select mu;
+
+            item.Tag = query.ObserveOnDispatcher()
+                            .Repeat()
+                            .Subscribe(re =>
+                                       {
+                                           StartEditing(list, item, group,
+                                                        (edit, cancel) =>
+                                                        {
+                                                            var previous = group.EndEditing();
+                                                            if (cancel)
+                                                            {
+                                                                edit.Text = previous;
+                                                            }
+                                                        });
+                                       });
         }
 
         private static void StartEditing(ListView list, ListViewItem item, DocumentGroup group, Action<TextBox, bool> endEditingFn)

@@ -420,11 +420,12 @@
     </CommandPlacements>
 
     <KeyBindings>
-        <KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="VK_OEM_3"></KeyBinding>
-
         <KeyBinding guid="guidPackageCmdSet" id="SaveTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="S" mod2="Control"></KeyBinding>
+
         <KeyBinding guid="guidStashCmdSet" id="StashSaveTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="C" mod2="Control"></KeyBinding>
         <KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="V" mod2="Control"></KeyBinding>
+        <KeyBinding guid="guidStashCmdSet" id="StashRestoreTabs" editor="guidVSStd97" key1="D" mod1="Control" key2="VK_OEM_3"></KeyBinding>
+
         <KeyBinding guid="guidSavedTabsWindowCmdSet" id="SavedTabsWindow" editor="guidVSStd97" key1="D" mod1="Control" key2="W" mod2="Control"></KeyBinding>
 
         <KeyBinding guid="guidRestoreTabsListCmdSet" id="RestoreTabs1" editor="guidVSStd97" key1="D" mod1="Control" key2="1"></KeyBinding>

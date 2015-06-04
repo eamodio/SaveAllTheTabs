@@ -107,6 +107,7 @@
         </Style>
 
         <Style x:Key="VsListViewItemStyle" TargetType="ListViewItem">
+            <Setter Property="AllowDrop" Value="true"/>
             <Setter Property="SnapsToDevicePixels" Value="true" />
             <Setter Property="OverridesDefaultStyle" Value="true" />
             <Setter Property="Padding" Value="5 0 5 0"/>
@@ -153,6 +154,7 @@
                 <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource VsListViewItemStyle}" />
             </Style.Resources>
 
+            <Setter Property="AllowDrop" Value="true"/>
             <Setter Property="Background" Value="{DynamicResource {x:Static vs:EnvironmentColors.ToolWindowBackgroundBrushKey}}"/>
             <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vs:EnvironmentColors.ToolWindowBorderBrushKey}}"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -229,7 +231,7 @@
             </DataTemplate>
         </Grid.Resources>
 
-        <ListView x:Name="TabsList" SelectionMode="Single" Grid.Column="0" Grid.Row="0" SelectionChanged="OnTabsListSelectionChanged" Style="{DynamicResource VsListViewStyle}">
+        <ListView x:Name="TabsList" SelectionMode="Single" AllowDrop="True" Grid.Column="0" Grid.Row="0" SelectionChanged="OnTabsListSelectionChanged" Style="{DynamicResource VsListViewStyle}">
             <ListView.ItemsSource>
                 <Binding Source="{StaticResource Groups}"/>
             </ListView.ItemsSource>

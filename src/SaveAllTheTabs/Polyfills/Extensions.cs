@@ -56,11 +56,11 @@ namespace SaveAllTheTabs.Polyfills
             return environment.Debugger.Breakpoints.Cast<Breakpoint>().Where(bp => files.Contains(bp.File));
         }
 
-        public static void CloseAll(this IEnumerable<Window> windows)
+        public static void CloseAll(this IEnumerable<Window> windows, vsSaveChanges saveChanges = vsSaveChanges.vsSaveChangesPrompt)
         {
-            foreach (var w in windows.Where(w => w.Document?.Saved == true))
+            foreach (var w in windows)
             {
-                w.Close();
+                w.Close(saveChanges);
             }
         }
 

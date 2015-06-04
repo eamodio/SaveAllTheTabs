@@ -219,13 +219,13 @@ namespace SaveAllTheTabs
                 return;
             }
 
-            var windows = Package.Environment.GetDocumentWindows().ToList();
+            var windows = Package.Environment.GetDocumentWindows();
             if (!IsUndoGroup(group.Name) && windows.Any())
             {
                 SaveUndoGroup();
             }
 
-            windows.CloseAll();
+            Package.Environment.Documents.CloseAll();
 
             OpenGroup(group);
         }
@@ -265,8 +265,7 @@ namespace SaveAllTheTabs
             var windows = from w in Package.Environment.GetDocumentWindows()
                           where w.Document != null && @group.Files.Contains(w.Document.FullName)
                           select w;
-            windows.ToList()
-                   .CloseAll();
+            windows.CloseAll();
         }
 
         public void MoveGroup(DocumentGroup group, int delta)
