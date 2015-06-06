@@ -262,10 +262,10 @@ namespace SaveAllTheTabs
                 return;
             }
 
-            var windows = from w in Package.Environment.GetDocumentWindows()
-                          where w.Document != null && @group.Files.Contains(w.Document.FullName)
-                          select w;
-            windows.CloseAll();
+            var documents = from d in Package.Environment.GetDocuments()
+                            where @group.Files.Contains(d.FullName)
+                            select d;
+            documents.CloseAll();
         }
 
         public void MoveGroup(DocumentGroup group, int delta)

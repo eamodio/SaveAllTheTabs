@@ -43,7 +43,19 @@ namespace SaveAllTheTabs.Polyfills
 
         public static IEnumerable<Window> GetDocumentWindows(this DTE2 environment)
         {
-            return environment.Windows.Cast<Window>().Where(w => w.Linkable == false);
+            return environment.Windows
+                              .Cast<Window>()
+                              .Where(w =>
+                                     {
+                                         try
+                                         {
+                                             return !w.Linkable;
+                                         }
+                                         catch (ObjectDisposedException)
+                                         {
+                                             return false;
+                                         }
+                                     });
         }
 
         public static IEnumerable<Breakpoint> GetBreakpoints(this DTE2 environment)
@@ -61,6 +73,14 @@ namespace SaveAllTheTabs.Polyfills
             foreach (var w in windows)
             {
                 w.Close(saveChanges);
+            }
+        }
+
+        public static void CloseAll(this IEnumerable<Document> documents, vsSaveChanges saveChanges = vsSaveChanges.vsSaveChangesPrompt)
+        {
+            foreach (var d in documents)
+            {
+                d.Close(saveChanges);
             }
         }
 
