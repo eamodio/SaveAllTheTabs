@@ -130,7 +130,7 @@
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
                     <CommandName>Save Tabs</CommandName>
-                    <ButtonText>Save Tabs to new group...</ButtonText>
+                    <ButtonText>New Tab Set...</ButtonText>
                     <MenuText>Save Tabs...</MenuText>
                     <CanonicalName>SaveAllTheTabs.SaveTabs</CanonicalName>
                     <LocCanonicalName>SaveAllTheTabs.SaveTabs</LocCanonicalName>
@@ -314,9 +314,9 @@
                 <Icon guid="guidImages" id="bmpPicTabSave" />
                 <CommandFlag>DefaultDisabled</CommandFlag>
                 <Strings>
-                    <CommandName>Save Tabs to selected group</CommandName>
-                    <ButtonText>Save Tabs to selected group</ButtonText>
-                    <MenuText>Save Tabs to group</MenuText>
+                    <CommandName>Save Tabs to Selected Set</CommandName>
+                    <ButtonText>Save Tabs to Selected Set</ButtonText>
+                    <MenuText>Save Tabs to Set</MenuText>
                     <CanonicalName>SaveAllTheTabs.ToolbarSaveTabsToSelected</CanonicalName>
                     <LocCanonicalName>SaveAllTheTabs.ToolbarSaveTabsToSelected</LocCanonicalName>
                 </Strings>
