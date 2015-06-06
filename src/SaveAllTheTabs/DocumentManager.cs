@@ -44,7 +44,7 @@ namespace SaveAllTheTabs
 
         void SetGroupSlot(DocumentGroup group, int slot);
 
-        void RemoveGroup(DocumentGroup group);
+        void RemoveGroup(DocumentGroup group, bool confirm = true);
 
         void SaveStashGroup();
         void RestoreStashGroup();
@@ -302,11 +302,20 @@ namespace SaveAllTheTabs
             }
         }
 
-        public void RemoveGroup(DocumentGroup group)
+        public void RemoveGroup(DocumentGroup group, bool confirm = true)
         {
             if (group == null)
             {
                 return;
+            }
+
+            if (confirm)
+            {
+                var window = new ConfirmDeleteTabsWindow(group.Name);
+                if (window.ShowDialog() == false)
+                {
+                    return;
+                }
             }
 
             SaveUndoGroup(group);

@@ -1,0 +1,10 @@
+﻿<Window x:Class="SaveAllTheTabs.ConfirmDeleteTabsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Delete Saved Tabs" Height="120" Width="330" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" WindowStyle="ToolWindow">
+    <Grid>
+        <TextBlock x:Name="ConfirmMessageTextBlock" Margin="16,13,16,0" Height="26" VerticalAlignment="Top">Are you sure you want to delete saved tabs '{0}'?</TextBlock>
+        <Button Content="Yes" Margin="0,0,98,18" VerticalAlignment="Bottom" Width="75" Height="23" Click="OnConfirm" HorizontalAlignment="Right" IsDefault="True"/>
+        <Button Content="No" Margin="0,0,16,18" VerticalAlignment="Bottom" Height="23" Click="OnCancel" HorizontalAlignment="Right" Width="75" IsCancel="True"/>
+    </Grid>
+</Window>

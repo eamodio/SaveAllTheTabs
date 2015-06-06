@@ -62,6 +62,9 @@
     <Compile Include="Commands\SavedTabsWindowCommands.cs" />
     <Compile Include="Polyfills\Interop.cs" />
     <Compile Include="Polyfills\PackageProviderService.cs" />
+    <Compile Include="ConfirmDeleteTabsWindow.xaml.cs">
+      <DependentUpon>ConfirmDeleteTabsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SaveTabsWindow.xaml.cs">
       <DependentUpon>SaveTabsWindow.xaml</DependentUpon>
     </Compile>
@@ -224,6 +227,10 @@
     <Page Include="SavedTabsToolWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConfirmDeleteTabsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SaveTabsWindow.xaml">
       <SubType>Designer</SubType>
