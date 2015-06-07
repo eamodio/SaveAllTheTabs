@@ -270,14 +270,20 @@ namespace SaveAllTheTabs
 
         public void MoveGroup(DocumentGroup group, int delta)
         {
-            if (group == null)
+            if (group == null || group.IsBuiltIn)
             {
                 return;
             }
 
             var index = Groups.IndexOf(group);
             var newIndex = index + delta;
-            if (newIndex == 0 || newIndex >= Groups.Count)
+            if (newIndex < 0 || newIndex >= Groups.Count)
+            {
+                return;
+            }
+
+            var resident = Groups[newIndex];
+            if (resident?.IsBuiltIn == true)
             {
                 return;
             }
