@@ -40,8 +40,8 @@ Open the Saved Tabs window to quickly and easily manage your sets of saved docum
 
 #### Shortcut Keys
 
-- `enter` - closes all the opened documents and opens the set of saved document tabs
+- `Enter` - closes all the opened documents and opens the set of saved document tabs
 - `1` through `9` - assigns a favorite number to the selected tab set
 - `Ctrl+UpArrow` - moves the selected tab set up
 - `Ctrl+DownArrow` - moves the selected tab set down
-- `del` - deletes the selected tab set
+- `Delete` - deletes the selected tab set
