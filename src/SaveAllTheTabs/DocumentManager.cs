@@ -184,6 +184,7 @@ namespace SaveAllTheTabs
                     group.Description = documents;
                     group.Files = files;
                     group.Positions = stream.ToArray();
+                    Groups[Groups.IndexOf(group)] = group;
 
                     TrySetSlot(group, slot);
                 }
