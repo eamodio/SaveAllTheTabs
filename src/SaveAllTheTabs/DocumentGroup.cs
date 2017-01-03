@@ -22,7 +22,12 @@ namespace SaveAllTheTabs
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public byte[] Positions { get; set; }
+        public byte[] Positions
+        {
+            get { return _positions; }
+            set { SetField(ref _positions, value); }
+        }
+        private byte[] _positions;
 
         [JsonIgnore]
         public bool IsEditing
@@ -55,17 +60,16 @@ namespace SaveAllTheTabs
         public string Description
         {
             get { return _description; }
-            set
-            {
-                if (SetField(ref _description, value))
-                {
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Description)));
-                }
-            }
+            set { SetField(ref _description, value); }
         }
         private string _description;
 
-        public DocumentFilesHashSet Files { get; set; }
+        public DocumentFilesHashSet Files
+        {
+            get { return _files; }
+            set { SetField(ref _files, value); }
+        }
+        private DocumentFilesHashSet _files;
 
         [JsonIgnore]
         public bool HasSlot => Slot != null;
