@@ -96,11 +96,14 @@ namespace SaveAllTheTabs
 
             _changeSubscription = new CompositeDisposable
                                   {
-                                      Observable.FromEventPattern<NotifyCollectionChangedEventArgs>(Groups, "CollectionChanged")
+                                      Observable.FromEventPattern<NotifyCollectionChangedEventArgs>(Groups, nameof(TrulyObservableCollection<DocumentGroup>.CollectionChanged))
                                                 .Subscribe(re => SaveGroupsForSolution()),
 
-                                      Observable.FromEventPattern<PropertyChangedEventArgs>(Groups, "CollectionItemChanged")
-                                                .Where(re => re.EventArgs.PropertyName == "Name" || re.EventArgs.PropertyName == "Slot")
+                                      Observable.FromEventPattern<PropertyChangedEventArgs>(Groups, nameof(TrulyObservableCollection<DocumentGroup>.CollectionItemChanged))
+                                                .Where(re => re.EventArgs.PropertyName == nameof(DocumentGroup.Name) ||
+                                                             re.EventArgs.PropertyName == nameof(DocumentGroup.Files) ||
+                                                             re.EventArgs.PropertyName == nameof(DocumentGroup.Positions) ||
+                                                             re.EventArgs.PropertyName == nameof(DocumentGroup.Slot))
                                                 .Throttle(TimeSpan.FromSeconds(1))
                                                 .ObserveOnDispatcher()
                                                 .Subscribe(re => SaveGroupsForSolution())
@@ -415,7 +418,7 @@ namespace SaveAllTheTabs
                 }
                 catch (Exception ex)
                 {
-                    Debug.Assert(false, "LoadGroupsForSolution", ex.ToString());
+                    Debug.Assert(false, nameof(LoadGroupsForSolution), ex.ToString());
                 }
             }
             return new List<DocumentGroup>();
