@@ -26,6 +26,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -45,7 +46,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SaveAllTheTabs</RootNamespace>
     <AssemblyName>SaveAllTheTabs</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
     <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
@@ -187,20 +188,20 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="EnvDTE">
+      <Version>8.0.2</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK.VsixSuppression">
       <Version>14.1.37</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Shell.15.0">
+      <Version>16.5.29911.84</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
     </PackageReference>
     <PackageReference Include="Rx-XAML">
       <Version>2.2.5</Version>
-    </PackageReference>
-    <PackageReference Include="VSSDK.GraphModel">
-      <Version>12.0.4</Version>
-    </PackageReference>
-    <PackageReference Include="VSSDK.Shell.12">
-      <Version>12.0.4</Version>
     </PackageReference>
     <PackageReference Include="VSSDK.Shell.Interop.11">
       <Version>11.0.4</Version>
