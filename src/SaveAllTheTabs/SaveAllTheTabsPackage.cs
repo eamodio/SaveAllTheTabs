@@ -41,10 +41,26 @@ namespace SaveAllTheTabs
     {
         public event EventHandler SolutionChanged;
 
-        internal static DTE2 Dte => _dte ?? (_dte = ServiceProvider.GlobalProvider.GetService(typeof(DTE)) as DTE2);
+        internal static DTE2 Dte
+        {
+            get
+            {
+                ThreadHelper.ThrowIfNotOnUIThread();
+                return _dte ?? (_dte = ServiceProvider.GlobalProvider.GetService(typeof(DTE)) as DTE2);
+            }
+        }
+
         private static DTE2 _dte;
 
-        public DTE2 Environment => Dte;
+        public DTE2 Environment
+        {
+            get
+            {
+                ThreadHelper.ThrowIfNotOnUIThread();
+                return Dte;
+            }
+        }
+
         internal IDocumentManager DocumentManager { get; private set; }
 
         private PackageProviderService _packageProvider;
@@ -88,22 +104,26 @@ namespace SaveAllTheTabs
         private void OnSolutionOpened()
         {
             SolutionChanged?.Invoke(this, EventArgs.Empty);
+            ThreadHelper.ThrowIfNotOnUIThread();
             UpdateCommandsUI(this);
         }
 
         private void OnSolutionClosed()
         {
             SolutionChanged?.Invoke(this, EventArgs.Empty);
+            ThreadHelper.ThrowIfNotOnUIThread();
             UpdateCommandsUI(this);
         }
 
         public void UpdateCommandsUI()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             UpdateCommandsUI(this);
         }
 
         public static void UpdateCommandsUI(IServiceProvider sp, bool immediate = false)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var shell = (IVsUIShell)sp.GetService(typeof(IVsUIShell));
             if (shell == null)
             {

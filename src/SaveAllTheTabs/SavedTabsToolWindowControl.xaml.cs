@@ -13,6 +13,7 @@ using Microsoft.VisualStudio.PlatformUI;
 using SaveAllTheTabs.Commands;
 using SaveAllTheTabs.Polyfills;
 using Task = System.Threading.Tasks.Task;
+using Microsoft.VisualStudio.Shell;
 
 namespace SaveAllTheTabs
 {
@@ -128,11 +129,11 @@ namespace SaveAllTheTabs
 
                     // Reset focus to current group, otherwise selection get reset to the first item
                     var delay = Task.Run(async () => await Task.Delay(TimeSpan.FromMilliseconds(1)));
-                    delay.ContinueWith(t =>
-                                       {
-                                           list.SelectedItem = group;
-                                           list.GetListViewItem(group)?.Focus();
-                                       }, TaskScheduler.FromCurrentSynchronizationContext());
+                    _ = delay.ContinueWith(t =>
+                                            {
+                                                list.SelectedItem = group;
+                                                list.GetListViewItem(group)?.Focus();
+                                            }, TaskScheduler.FromCurrentSynchronizationContext());
                     break;
                 }
                 case Key.Down:
@@ -160,11 +161,11 @@ namespace SaveAllTheTabs
 
                     // Reset focus to current group, otherwise selection get reset to the first item
                     var delay = Task.Run(async () => await Task.Delay(TimeSpan.FromMilliseconds(1)));
-                    delay.ContinueWith(t =>
-                                       {
-                                           list.SelectedItem = group;
-                                           list.GetListViewItem(group)?.Focus();
-                                       }, TaskScheduler.FromCurrentSynchronizationContext());
+                    _ = delay.ContinueWith(t =>
+                                            {
+                                                list.SelectedItem = group;
+                                                list.GetListViewItem(group)?.Focus();
+                                            }, TaskScheduler.FromCurrentSynchronizationContext());
                     break;
                 }
                 default:
@@ -183,6 +184,7 @@ namespace SaveAllTheTabs
 
         private void OnTabsListSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var list = (sender as ListView);
             if (list == null)
             {

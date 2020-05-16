@@ -58,6 +58,7 @@ namespace SaveAllTheTabs.Commands
         /// <param name="package">Owner package, not null.</param>
         private PackageCommands(SaveAllTheTabsPackage package)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (package == null)
             {
                 throw new ArgumentNullException(nameof(package));
@@ -74,6 +75,7 @@ namespace SaveAllTheTabs.Commands
 
         private void SetupCommands(OleMenuCommandService commandService)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var guid = typeof(CommandIds).GUID;
 
             var commandId = new CommandID(guid, (int)CommandIds.SaveTabs);
@@ -114,6 +116,7 @@ namespace SaveAllTheTabs.Commands
 
         private void CommandOnBeforeQueryStatus(object sender, EventArgs eventArgs)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var command = sender as OleMenuCommand;
             if (command == null)
             {
@@ -138,6 +141,7 @@ namespace SaveAllTheTabs.Commands
 
         private void ExecuteSavedTabsWindowCommand(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // Get the instance number 0 of this tool window. This window is single instance so this instance
             // is actually the only one.
             // The last flag is set to true so that if the tool window does not exists it will be created.

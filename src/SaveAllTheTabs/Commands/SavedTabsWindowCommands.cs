@@ -81,6 +81,7 @@ namespace SaveAllTheTabs.Commands
 
         private void SaveToCommandOnBeforeQueryStatus(object sender, EventArgs eventArgs)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var command = sender as OleMenuCommand;
             if (command == null)
             {
@@ -93,6 +94,7 @@ namespace SaveAllTheTabs.Commands
 
         private void CloseCommandOnBeforeQueryStatus(object sender, EventArgs eventArgs)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var command = sender as OleMenuCommand;
             if (command == null)
             {

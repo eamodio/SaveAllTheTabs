@@ -27,6 +27,7 @@ namespace SaveAllTheTabs
         /// </summary>
         public SavedTabsToolWindow() : base(null)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Caption = "Saved Tabs";
 
             // Set the image that will appear on the tab of the window frame

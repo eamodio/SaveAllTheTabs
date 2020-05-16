@@ -8,8 +8,10 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using Microsoft;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Settings;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell.Settings;
 using Newtonsoft.Json;
@@ -71,24 +73,34 @@ namespace SaveAllTheTabs
         private SaveAllTheTabsPackage Package { get; }
         private IServiceProvider ServiceProvider => Package;
         private IVsUIShellDocumentWindowMgr DocumentWindowMgr { get; }
-        private string SolutionName => Package.Environment.Solution?.FullName;
+        private string SolutionName
+        {
+            get
+            {
+                ThreadHelper.ThrowIfNotOnUIThread();
+                return Package.Environment.Solution?.FullName;
+            }
+        }
 
         public ObservableCollection<DocumentGroup> Groups { get; private set; }
 
         public DocumentManager(SaveAllTheTabsPackage package)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Package = package;
 
             package.SolutionChanged += (sender, args) => LoadGroups();
             LoadGroups();
 
             DocumentWindowMgr = ServiceProvider.GetService(typeof(IVsUIShellDocumentWindowMgr)) as IVsUIShellDocumentWindowMgr;
+            Assumes.Present(DocumentWindowMgr);
         }
 
         private IDisposable _changeSubscription;
 
         private void LoadGroups()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             _changeSubscription?.Dispose();
 
             // Load presets for the current solution
@@ -121,6 +133,7 @@ namespace SaveAllTheTabs
 
         public void SaveGroup(string name, int? slot = null)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (DocumentWindowMgr == null)
             {
                 Debug.Assert(false, "IVsUIShellDocumentWindowMgr", String.Empty, 0);
@@ -212,11 +225,13 @@ namespace SaveAllTheTabs
 
         public void RestoreGroup(int slot)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             RestoreGroup(Groups.FindBySlot(slot));
         }
 
         public void RestoreGroup(DocumentGroup group)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (group == null)
             {
                 return;
@@ -235,6 +250,7 @@ namespace SaveAllTheTabs
 
         public void OpenGroup(int slot)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             OpenGroup(Groups.FindBySlot(slot));
         }
 
@@ -247,6 +263,7 @@ namespace SaveAllTheTabs
 
             using (var stream = new VsOleStream())
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
                 stream.Write(group.Positions, 0, group.Positions.Length);
                 stream.Seek(0, SeekOrigin.Begin);
 
@@ -265,6 +282,7 @@ namespace SaveAllTheTabs
                 return;
             }
 
+            ThreadHelper.ThrowIfNotOnUIThread();
             var documents = from d in Package.Environment.GetDocuments()
                             where @group.Files.Contains(d.FullName)
                             select d;
@@ -333,6 +351,7 @@ namespace SaveAllTheTabs
 
         private void SaveUndoGroup()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             SaveGroup(UndoGroupName);
         }
 
@@ -362,16 +381,19 @@ namespace SaveAllTheTabs
 
         public void SaveStashGroup()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             SaveGroup(StashGroupName);
         }
 
         public void OpenStashGroup()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             OpenGroup(Groups.FindByName(StashGroupName));
         }
 
         public void RestoreStashGroup()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             RestoreGroup(Groups.FindByName(StashGroupName));
         }
 
@@ -401,6 +423,7 @@ namespace SaveAllTheTabs
 
         private List<DocumentGroup> LoadGroupsForSolution()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var solution = SolutionName;
             if (!string.IsNullOrWhiteSpace(solution))
             {
@@ -426,6 +449,7 @@ namespace SaveAllTheTabs
 
         private void SaveGroupsForSolution(IList<DocumentGroup> groups = null)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var solution = SolutionName;
             if (string.IsNullOrWhiteSpace(solution))
             {

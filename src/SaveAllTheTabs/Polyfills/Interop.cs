@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.OLE.Interop;
+using Microsoft.VisualStudio.Shell;
 
 namespace SaveAllTheTabs.Polyfills
 {
@@ -75,11 +76,13 @@ namespace SaveAllTheTabs.Polyfills
 
         void ISequentialStream.Read(byte[] pv, uint cb, out uint pcbRead)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             ((IStream)this).Read(pv, cb, out pcbRead);
         }
 
         void ISequentialStream.Write(byte[] pv, uint cb, out uint pcbWritten)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             ((IStream)this).Write(pv, cb, out pcbWritten);
         }
     }
