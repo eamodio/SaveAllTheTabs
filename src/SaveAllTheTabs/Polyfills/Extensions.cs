@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Controls;
@@ -114,7 +115,13 @@ namespace SaveAllTheTabs.Polyfills
                 return;
             }
 
-            dteCommand.Bindings = bindings;
+            try
+            {
+                dteCommand.Bindings = bindings;
+            } catch (System.Runtime.InteropServices.COMException ex)
+            {
+                Debug.Assert(false, nameof(SetKeyBindings), ex.ToString());
+            }
         }
 
         public static void SetKeyBindings(this DTE2 environment, OleMenuCommand command, IEnumerable<object> bindings)

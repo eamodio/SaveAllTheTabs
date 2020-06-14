@@ -243,7 +243,8 @@ namespace SaveAllTheTabs
                 SaveUndoGroup();
             }
 
-            Package.Environment.Documents.CloseAll();
+            if (windows.Any())
+                windows.CloseAll();
 
             OpenGroup(group);
         }
