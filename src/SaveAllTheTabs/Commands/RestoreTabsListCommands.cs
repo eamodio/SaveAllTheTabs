@@ -25,6 +25,7 @@ namespace SaveAllTheTabs.Commands
 
         public void SetupCommands(OleMenuCommandService commandService)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (Package.DocumentManager == null)
             {
                 return;

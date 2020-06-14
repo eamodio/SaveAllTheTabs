@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Controls;
@@ -33,11 +34,13 @@ namespace SaveAllTheTabs.Polyfills
 
         public static IEnumerable<string> GetDocumentFiles(this DTE2 environment)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             return from d in environment.GetDocuments() select GetExactPathName(d.FullName);
         }
 
         public static IEnumerable<Document> GetDocuments(this DTE2 environment)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             return from w in environment.GetDocumentWindows() where w.Document != null select w.Document;
         }
 
@@ -49,6 +52,7 @@ namespace SaveAllTheTabs.Polyfills
                                      {
                                          try
                                          {
+                                             ThreadHelper.ThrowIfNotOnUIThread();
                                              return !w.Linkable;
                                          }
                                          catch (ObjectDisposedException)
@@ -60,16 +64,22 @@ namespace SaveAllTheTabs.Polyfills
 
         public static IEnumerable<Breakpoint> GetBreakpoints(this DTE2 environment)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             return environment.Debugger.Breakpoints.Cast<Breakpoint>();
         }
 
         public static IEnumerable<Breakpoint> GetMatchingBreakpoints(this DTE2 environment, HashSet<string> files)
         {
-            return environment.Debugger.Breakpoints.Cast<Breakpoint>().Where(bp => files.Contains(bp.File));
+            ThreadHelper.ThrowIfNotOnUIThread();
+            return environment.Debugger.Breakpoints.Cast<Breakpoint>().Where(bp => {
+                ThreadHelper.ThrowIfNotOnUIThread();
+                return files.Contains(bp.File);
+            });
         }
 
         public static void CloseAll(this IEnumerable<Window> windows, vsSaveChanges saveChanges = vsSaveChanges.vsSaveChangesPrompt)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             foreach (var w in windows)
             {
                 w.Close(saveChanges);
@@ -78,6 +88,7 @@ namespace SaveAllTheTabs.Polyfills
 
         public static void CloseAll(this IEnumerable<Document> documents, vsSaveChanges saveChanges = vsSaveChanges.vsSaveChangesPrompt)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             foreach (var d in documents)
             {
                 d.Close(saveChanges);
@@ -86,6 +97,7 @@ namespace SaveAllTheTabs.Polyfills
 
         public static Command GetCommand(this DTE2 environment, OleMenuCommand command)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             return environment.Commands.Item(command.CommandID.Guid, command.CommandID.ID);
         }
 
@@ -96,13 +108,20 @@ namespace SaveAllTheTabs.Polyfills
 
         public static void SetKeyBindings(this DTE2 environment, OleMenuCommand command, params object[] bindings)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var dteCommand = environment.GetCommand(command);
             if (dteCommand == null)
             {
                 return;
             }
 
-            dteCommand.Bindings = bindings;
+            try
+            {
+                dteCommand.Bindings = bindings;
+            } catch (System.Runtime.InteropServices.COMException ex)
+            {
+                Debug.Assert(false, nameof(SetKeyBindings), ex.ToString());
+            }
         }
 
         public static void SetKeyBindings(this DTE2 environment, OleMenuCommand command, IEnumerable<object> bindings)
