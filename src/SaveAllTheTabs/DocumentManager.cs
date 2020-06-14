@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -8,6 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Text;
+using System.Windows.Forms;
 using Microsoft;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Settings;
@@ -69,6 +72,7 @@ namespace SaveAllTheTabs
 
         private const string StorageCollectionPath = "SaveAllTheTabs";
         private const string SavedTabsStoragePropertyFormat = "SavedTabs.{0}";
+        private const string ProjectGroupsKeyPlaceholder = StorageCollectionPath + "\\{0}\\groups";
 
         private SaveAllTheTabsPackage Package { get; }
         private IServiceProvider ServiceProvider => Package;
@@ -426,27 +430,43 @@ namespace SaveAllTheTabs
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             var solution = SolutionName;
-            if (!string.IsNullOrWhiteSpace(solution))
-            {
-                try
-                {
-                    var settingsMgr = new ShellSettingsManager(ServiceProvider);
-                    var store = settingsMgr.GetReadOnlySettingsStore(SettingsScope.UserSettings);
+            List<DocumentGroup> groups = new List<DocumentGroup>();
+            if (string.IsNullOrWhiteSpace(solution)) {
+                return groups;
+            }
 
+            try {
+                var settingsMgr = new ShellSettingsManager(ServiceProvider);
+                var store = settingsMgr.GetReadOnlySettingsStore(SettingsScope.UserSettings);
+
+                string projectKeyHash = GetHashString(solution);
+                string projectGroupsKey = string.Format(ProjectGroupsKeyPlaceholder, projectKeyHash);
+
+                if (!store.CollectionExists(projectGroupsKey))
+                {
+                    // try load tabs from older versions
                     var propertyName = String.Format(SavedTabsStoragePropertyFormat, solution);
                     if (store.PropertyExists(StorageCollectionPath, propertyName))
                     {
                         var tabs = store.GetString(StorageCollectionPath, propertyName);
-                        return JsonConvert.DeserializeObject<List<DocumentGroup>>(tabs);
+                        groups = JsonConvert.DeserializeObject<List<DocumentGroup>>(tabs);
                     }
+
+                    return groups;
                 }
-                catch (Exception ex)
+
+                var groupProperties = store.GetPropertyNamesAndValues(projectGroupsKey);
+                foreach (var groupProperty in groupProperties)
                 {
-                    Debug.Assert(false, nameof(LoadGroupsForSolution), ex.ToString());
+                    DocumentGroup group = JsonConvert.DeserializeObject<DocumentGroup>(groupProperty.Value.ToString());
+                    groups.Add(group);
                 }
+            } catch (Exception ex) {
+                Debug.Assert(false, nameof(LoadGroupsForSolution), ex.ToString());
             }
-            return new List<DocumentGroup>();
-        }
+
+            return groups;
+            }
 
         private void SaveGroupsForSolution(IList<DocumentGroup> groups = null)
         {
@@ -465,20 +485,36 @@ namespace SaveAllTheTabs
             var settingsMgr = new ShellSettingsManager(ServiceProvider);
             var store = settingsMgr.GetWritableSettingsStore(SettingsScope.UserSettings);
 
-            if (!store.CollectionExists(StorageCollectionPath))
-            {
-                store.CreateCollection(StorageCollectionPath);
-            }
+            string projectKeyHash = GetHashString(solution);
+            string projectGroupsKey = string.Format(ProjectGroupsKeyPlaceholder, projectKeyHash);
 
-            var propertyName = String.Format(SavedTabsStoragePropertyFormat, solution);
-            if (!groups.Any())
+            if (store.CollectionExists(projectGroupsKey))
             {
-                store.DeleteProperty(StorageCollectionPath, propertyName);
-                return;
+                store.DeleteProperty(StorageCollectionPath, projectGroupsKey);
             }
+            store.CreateCollection(projectGroupsKey);
 
-            var tabs = JsonConvert.SerializeObject(groups);
-            store.SetString(StorageCollectionPath, propertyName, tabs);
+            foreach (DocumentGroup group in groups)
+            {
+                var serializedGroup = JsonConvert.SerializeObject(group);
+                store.SetString(projectGroupsKey, group.Name, serializedGroup);
+            }
+        }
+
+        private static string GetHashString(string source)
+        {
+            using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+            {
+                byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(source);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+                // Convert the byte array to hexadecimal string
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    sb.Append(hashBytes [i].ToString("X2"));
+                }
+                return sb.ToString();
+            }
         }
 
         public static bool IsStashGroup(string name)
